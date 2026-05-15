@@ -1,0 +1,574 @@
+{
+  "name": "nasa-open-apis",
+  "origin": "voxgig-sdk",
+  "def": "nasa-open-apis_0.1.0.json",
+  "main": {
+    "kit": {
+      "info": {
+        "contact": {
+          "name": "NASA API Support",
+          "url": "https://api.nasa.gov"
+        },
+        "description": "The NASA Open APIs provide developers with easy access to a wide range of NASA data, including imagery and scientific information. These APIs are designed to enhance the usability of NASA's dataset for developers, educators, and researchers.",
+        "servers": [
+          {
+            "description": "NASA Open APIs Production Server",
+            "url": "https://api.nasa.gov"
+          }
+        ],
+        "termsOfService": "https://api.nasa.gov",
+        "title": "NASA Open APIs",
+        "version": "1.0.0"
+      },
+      "config": {
+        "auth": {
+          "prefix": "Bearer"
+        },
+        "headers": {
+          "content-type": "application/json"
+        }
+      },
+      "entity": {
+        "mars_photo": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "camera",
+              "req": true,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "earth_date",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "id",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "img_src",
+              "req": true,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "rover",
+              "req": true,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "sol",
+              "req": true,
+              "type": "`$INTEGER`",
+              "active": true
+            }
+          ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
+          "name": "mars_photo",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "kind": "param",
+                        "name": "rover_id",
+                        "orig": "rover",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ],
+                    "query": [
+                      {
+                        "example": "DEMO_KEY",
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "query",
+                        "name": "camera",
+                        "orig": "camera",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "query",
+                        "name": "earth_date",
+                        "orig": "earth_date",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "example": 1,
+                        "kind": "query",
+                        "name": "page",
+                        "orig": "page",
+                        "reqd": false,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      },
+                      {
+                        "kind": "query",
+                        "name": "sol",
+                        "orig": "sol",
+                        "reqd": false,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/mars-photos/api/v1/rovers/{rover}/photos",
+                  "parts": [
+                    "mars-photos",
+                    "api",
+                    "v1",
+                    "rovers",
+                    "{rover_id}",
+                    "photos"
+                  ],
+                  "rename": {
+                    "param": {
+                      "rover": "rover_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "camera",
+                      "earth_date",
+                      "page",
+                      "rover_id",
+                      "sol"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "rover"
+              ]
+            ]
+          },
+          "active": true
+        },
+        "planetary": {
+          "alias": {
+            "field": {}
+          },
+          "name": "planetary",
+          "op": {
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "query": [
+                      {
+                        "example": "DEMO_KEY",
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "query",
+                        "name": "count",
+                        "orig": "count",
+                        "reqd": false,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      },
+                      {
+                        "kind": "query",
+                        "name": "date",
+                        "orig": "date",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "query",
+                        "name": "end_date",
+                        "orig": "end_date",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "query",
+                        "name": "start_date",
+                        "orig": "start_date",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "example": false,
+                        "kind": "query",
+                        "name": "thumb",
+                        "orig": "thumb",
+                        "reqd": false,
+                        "type": "`$BOOLEAN`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/planetary/apod",
+                  "parts": [
+                    "planetary",
+                    "apod"
+                  ],
+                  "select": {
+                    "$action": "apod",
+                    "exist": [
+                      "api_key",
+                      "count",
+                      "date",
+                      "end_date",
+                      "start_date",
+                      "thumb"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "active": true,
+          "fields": [],
+          "relations": {
+            "ancestors": []
+          }
+        }
+      },
+      "feature": {
+        "test": {
+          "name": "test",
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1",
+          "active": true,
+          "config": {
+            "options": {
+              "active": false
+            }
+          },
+          "hook": {
+            "PostConstruct": {
+              "active": true,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": true,
+              "await": false
+            },
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true
+            },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            }
+          },
+          "target": {
+            "ts": {
+              "deps": {}
+            },
+            "go": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            }
+          }
+        }
+      },
+      "flow": {
+        "BasicMarsPhotoFlow": {
+          "entity": "mars_photo",
+          "kind": "basic",
+          "name": "BasicMarsPhotoFlow",
+          "step": [
+            {
+              "match": {
+                "rover_id": "rover01"
+              },
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "mars_photo_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "input": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicMarsPhotoFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicPlanetaryFlow": {
+          "entity": "planetary",
+          "kind": "basic",
+          "name": "BasicPlanetaryFlow",
+          "step": [
+            {
+              "input": {
+                "ref": "planetary_ref01",
+                "srcdatavar": "planetary_ref01_data",
+                "suffix": "_dt0"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-planetary_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicPlanetaryFlow",
+          "active": true,
+          "param": {}
+        }
+      },
+      "target": {
+        "ts": {
+          "title": "TypeScript",
+          "ext": "ts",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "nasa-open-apis"
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "deps": {
+            "dotenv": {
+              "active": true,
+              "version": "^17.4.2",
+              "kind": "dev"
+            },
+            "typescript": {
+              "active": true,
+              "version": "^5.9.3",
+              "kind": "dev"
+            },
+            "@types/node": {
+              "active": true,
+              "version": "^25.6.0",
+              "kind": "dev"
+            }
+          },
+          "name": "ts",
+          "active": true
+        },
+        "go": {
+          "title": "Golang",
+          "ext": "go",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "nasa-open-apis"
+          },
+          "srcfeature": false,
+          "deps": {
+            "github.com/voxgig/struct": {
+              "active": true,
+              "version": "v0.0.0",
+              "replace": "./utility/struct",
+              "kind": "prod"
+            }
+          },
+          "name": "go",
+          "active": true
+        },
+        "lua": {
+          "title": "Lua",
+          "ext": "lua",
+          "comment": {
+            "line": "--"
+          },
+          "module": {
+            "name": "nasa-open-apis"
+          },
+          "srcfeature": false,
+          "deps": {
+            "dkjson": {
+              "active": true,
+              "version": "2.5",
+              "kind": "prod"
+            }
+          },
+          "name": "lua",
+          "active": true
+        },
+        "php": {
+          "title": "PHP",
+          "ext": "php",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "nasa-open-apis"
+          },
+          "srcfeature": false,
+          "deps": {},
+          "name": "php",
+          "active": true
+        },
+        "py": {
+          "title": "Python",
+          "ext": "py",
+          "comment": {
+            "line": "#"
+          },
+          "module": {
+            "name": "nasa-open-apis"
+          },
+          "srcfeature": false,
+          "deps": {
+            "requests": {
+              "active": true,
+              "version": "2.33",
+              "kind": "prod"
+            }
+          },
+          "name": "py",
+          "active": true
+        },
+        "rb": {
+          "title": "Ruby",
+          "ext": "rb",
+          "comment": {
+            "line": "#"
+          },
+          "module": {
+            "name": "nasa-open-apis"
+          },
+          "srcfeature": false,
+          "deps": {
+            "voxgig-struct": {
+              "active": true,
+              "version": "0.0.10",
+              "kind": "prod"
+            },
+            "json": {
+              "active": true,
+              "version": "0",
+              "kind": "prod"
+            }
+          },
+          "name": "rb",
+          "active": true
+        }
+      },
+      "option": {}
+    },
+    "def": {
+      "desc": ""
+    },
+    "api": {
+      "guide": {},
+      "entity": {}
+    }
+  },
+  "name__orig": "nasa-open-apis",
+  "Name": "NasaOpenApis",
+  "name_": "nasa_open_apis",
+  "name-": "nasa-open-apis",
+  "NAME": "NASA-OPEN-APIS"
+}

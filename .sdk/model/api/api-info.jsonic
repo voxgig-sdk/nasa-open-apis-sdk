@@ -1,0 +1,25 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        name: "NASA API Support"
+        url: "https://api.nasa.gov"
+      }
+      description: "The NASA Open APIs provide developers with easy access to a wide range of NASA data, including imagery and scientific information. These APIs are designed to enhance the usability of NASA's dataset for developers, educators, and researchers."
+      servers: [
+        {
+          description: "NASA Open APIs Production Server"
+          url: "https://api.nasa.gov"
+        }
+      ]
+      termsOfService: "https://api.nasa.gov"
+      title: "NASA Open APIs"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

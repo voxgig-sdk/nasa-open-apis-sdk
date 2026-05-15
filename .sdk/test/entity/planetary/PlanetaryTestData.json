@@ -1,0 +1,14 @@
+{
+  "existing": {
+    "planetary": {
+      "PLANETARY00": {},
+      "PLANETARY01": {},
+      "PLANETARY02": {}
+    }
+  },
+  "new": {
+    "planetary": {
+      "planetary_ref01": {}
+    }
+  }
+}

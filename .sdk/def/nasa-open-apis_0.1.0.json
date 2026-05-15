@@ -1,0 +1,461 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "NASA Open APIs",
+    "description": "The NASA Open APIs provide developers with easy access to a wide range of NASA data, including imagery and scientific information. These APIs are designed to enhance the usability of NASA's dataset for developers, educators, and researchers.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "NASA API Support",
+      "url": "https://api.nasa.gov"
+    },
+    "termsOfService": "https://api.nasa.gov"
+  },
+  "servers": [
+    {
+      "url": "https://api.nasa.gov",
+      "description": "NASA Open APIs Production Server"
+    }
+  ],
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "paths": {
+    "/planetary/apod": {
+      "get": {
+        "summary": "Astronomy Picture of the Day",
+        "description": "Retrieve the Astronomy Picture of the Day (APOD), which includes an image or video along with a brief explanation written by a professional astronomer.",
+        "operationId": "getApod",
+        "tags": [
+          "Planetary"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "description": "API key for authentication. Use DEMO_KEY for limited demo access.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "DEMO_KEY"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date of the APOD image to retrieve (YYYY-MM-DD format). Defaults to today's date.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "The start date for a range of dates (YYYY-MM-DD format). Used with end_date.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "The end date for a range of dates (YYYY-MM-DD format). Used with start_date.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "description": "Number of randomly selected images to return. Cannot be used with date or start_date/end_date.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "thumbs",
+            "in": "query",
+            "description": "Return the URL of video thumbnail if the media type is video.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with APOD data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ApodResponse"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ApodResponse"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          },
+          "403": {
+            "description": "Forbidden - invalid API key"
+          },
+          "404": {
+            "description": "Not found - no APOD for specified date"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/mars-photos/api/v1/rovers/{rover}/photos": {
+      "get": {
+        "summary": "Mars Rover Photos",
+        "description": "Retrieve photos from NASA's Mars rovers (Curiosity, Opportunity, and Spirit) based on mission sol (Martian day) or Earth date.",
+        "operationId": "getMarsRoverPhotos",
+        "tags": [
+          "Mars Rover"
+        ],
+        "parameters": [
+          {
+            "name": "rover",
+            "in": "path",
+            "description": "The Mars rover name (curiosity, opportunity, or spirit)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "curiosity",
+                "opportunity",
+                "spirit"
+              ]
+            }
+          },
+          {
+            "name": "api_key",
+            "in": "query",
+            "description": "API key for authentication. Use DEMO_KEY for limited demo access.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "DEMO_KEY"
+            }
+          },
+          {
+            "name": "sol",
+            "in": "query",
+            "description": "Martian sol (day) on which photos were taken. Either sol or earth_date must be provided.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "earth_date",
+            "in": "query",
+            "description": "Earth date when photos were taken (YYYY-MM-DD format). Either sol or earth_date must be provided.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "camera",
+            "in": "query",
+            "description": "Filter results by camera abbreviation (e.g., FHAZ, RHAZ, MAST, CHEMCAM, MAHLI, MARDI, NAVCAM, PANCAM, MINITES)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for paginated results",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with Mars rover photos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarsPhotosResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          },
+          "403": {
+            "description": "Forbidden - invalid API key"
+          },
+          "404": {
+            "description": "Not found - rover or photos not found"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "query",
+        "description": "API key for NASA Open APIs. Register at https://api.nasa.gov to get your key, or use DEMO_KEY for limited testing."
+      }
+    },
+    "schemas": {
+      "ApodResponse": {
+        "type": "object",
+        "properties": {
+          "copyright": {
+            "type": "string",
+            "description": "The name of the copyright holder"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "The date of the APOD image"
+          },
+          "explanation": {
+            "type": "string",
+            "description": "The explanation of the image written by an astronomer"
+          },
+          "hdurl": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL for the high-resolution image"
+          },
+          "media_type": {
+            "type": "string",
+            "description": "The type of media (image or video)",
+            "enum": [
+              "image",
+              "video"
+            ]
+          },
+          "service_version": {
+            "type": "string",
+            "description": "The version of the APOD API service"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the image"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL of the APOD image or video"
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL of the video thumbnail (only present if media_type is video and thumbs parameter is true)"
+          }
+        },
+        "required": [
+          "date",
+          "explanation",
+          "media_type",
+          "title",
+          "url"
+        ]
+      },
+      "MarsPhotosResponse": {
+        "type": "object",
+        "properties": {
+          "photos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MarsPhoto"
+            }
+          }
+        },
+        "required": [
+          "photos"
+        ]
+      },
+      "MarsPhoto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the photo"
+          },
+          "sol": {
+            "type": "integer",
+            "description": "Martian sol when the photo was taken"
+          },
+          "camera": {
+            "$ref": "#/components/schemas/Camera"
+          },
+          "img_src": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the image"
+          },
+          "earth_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Earth date when the photo was taken"
+          },
+          "rover": {
+            "$ref": "#/components/schemas/Rover"
+          }
+        },
+        "required": [
+          "id",
+          "sol",
+          "camera",
+          "img_src",
+          "earth_date",
+          "rover"
+        ]
+      },
+      "Camera": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Camera identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Camera abbreviation"
+          },
+          "rover_id": {
+            "type": "integer",
+            "description": "Rover identifier"
+          },
+          "full_name": {
+            "type": "string",
+            "description": "Full camera name"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "rover_id",
+          "full_name"
+        ]
+      },
+      "Rover": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Rover identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Rover name"
+          },
+          "landing_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the rover landed on Mars"
+          },
+          "launch_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date when the rover was launched from Earth"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the rover",
+            "enum": [
+              "active",
+              "complete"
+            ]
+          },
+          "max_sol": {
+            "type": "integer",
+            "description": "Maximum sol for which photos are available"
+          },
+          "max_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Maximum Earth date for which photos are available"
+          },
+          "total_photos": {
+            "type": "integer",
+            "description": "Total number of photos taken by the rover"
+          },
+          "cameras": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "full_name": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "List of cameras on the rover"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "landing_date",
+          "launch_date",
+          "status"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Planetary",
+      "description": "APIs related to planetary data and imagery"
+    },
+    {
+      "name": "Mars Rover",
+      "description": "APIs for accessing Mars rover mission photos"
+    }
+  ]
+}

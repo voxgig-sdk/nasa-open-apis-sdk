@@ -1,0 +1,89 @@
+# Entity: planetary
+
+main: kit: entity: planetary: {
+
+  alias: field: {}
+
+  name: "planetary"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: "DEMO_KEY"
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "count"
+                orig: "count"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "date"
+                orig: "date"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "end_date"
+                orig: "end_date"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "start_date"
+                orig: "start_date"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: false
+                kind: "query"
+                name: "thumb"
+                orig: "thumb"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/planetary/apod"
+          parts: [
+            "planetary"
+            "apod"
+          ]
+          select: {
+            "$action": "apod"
+            exist: [
+              "api_key"
+              "count"
+              "date"
+              "end_date"
+              "start_date"
+              "thumb"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

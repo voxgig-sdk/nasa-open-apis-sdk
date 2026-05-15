@@ -1,0 +1,145 @@
+# Entity: mars_photo
+
+main: kit: entity: mars_photo: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "camera"
+      req: true
+      type: "`$OBJECT`"
+    }
+    {
+      name: "earth_date"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: true
+      type: "`$INTEGER`"
+    }
+    {
+      name: "img_src"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "rover"
+      req: true
+      type: "`$OBJECT`"
+    }
+    {
+      name: "sol"
+      req: true
+      type: "`$INTEGER`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "mars_photo"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "rover_id"
+                orig: "rover"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: "DEMO_KEY"
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "camera"
+                orig: "camera"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "earth_date"
+                orig: "earth_date"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 1
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "sol"
+                orig: "sol"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/mars-photos/api/v1/rovers/{rover}/photos"
+          parts: [
+            "mars-photos"
+            "api"
+            "v1"
+            "rovers"
+            "{rover_id}"
+            "photos"
+          ]
+          rename: {
+            param: {
+              rover: "rover_id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "camera"
+              "earth_date"
+              "page"
+              "rover_id"
+              "sol"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "rover"
+      ]
+    ]
+  }
+
+
+
+}

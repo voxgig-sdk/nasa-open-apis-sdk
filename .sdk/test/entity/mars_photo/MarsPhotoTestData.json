@@ -1,0 +1,44 @@
+{
+  "existing": {
+    "mars_photo": {
+      "MARS_PHOTO00": {
+        "camera": {},
+        "earth_date": "s3d",
+        "id": "MARS_PHOTO00",
+        "img_src": "s3f",
+        "rover": {},
+        "sol": "s41",
+        "rover_id": "ROVER01"
+      },
+      "MARS_PHOTO01": {
+        "camera": {},
+        "earth_date": "s79",
+        "id": "MARS_PHOTO01",
+        "img_src": "s7b",
+        "rover": {},
+        "sol": "s7d",
+        "rover_id": "ROVER01"
+      },
+      "MARS_PHOTO02": {
+        "camera": {},
+        "earth_date": "sb5",
+        "id": "MARS_PHOTO02",
+        "img_src": "sb7",
+        "rover": {},
+        "sol": "sb9",
+        "rover_id": "ROVER01"
+      }
+    }
+  },
+  "new": {
+    "mars_photo": {
+      "mars_photo_ref01": {
+        "camera": {},
+        "earth_date": "sf1",
+        "img_src": "sf3",
+        "rover": {},
+        "sol": "sf5"
+      }
+    }
+  }
+}

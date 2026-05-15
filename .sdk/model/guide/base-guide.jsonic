@@ -1,0 +1,22 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 2
+  metrics: count: path: 2
+  metrics: count: method: 2
+
+  entity: mars_photo: {
+    path: "/mars-photos/api/v1/rovers/{rover}/photos": {
+      rename: param: "rover": *"rover_id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: planetary: {
+    path: "/planetary/apod": {
+      action: "apod": {}
+      op: load: method: *GET
+    }
+  }
+
+}

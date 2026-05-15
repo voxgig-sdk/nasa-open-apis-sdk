@@ -1,0 +1,28 @@
+# BasicPlanetaryFlow
+
+main: kit: flow: BasicPlanetaryFlow:
+{
+  entity: "planetary",
+  kind: "basic",
+  name: "BasicPlanetaryFlow",
+  step: [
+    {
+      input: {
+        ref: "planetary_ref01",
+        srcdatavar: "planetary_ref01_data",
+        suffix: "_dt0"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-planetary_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPlanetaryFlow"
+}
