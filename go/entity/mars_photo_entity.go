@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/nasa-open-apis-sdk/core"
+	"github.com/voxgig-sdk/nasa-open-apis-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/nasa-open-apis-sdk/go/utility/struct"
 )
 
 type MarsPhotoEntity struct {

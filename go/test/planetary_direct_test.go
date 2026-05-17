@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/nasa-open-apis-sdk"
-	"github.com/voxgig-sdk/nasa-open-apis-sdk/core"
+	sdk "github.com/voxgig-sdk/nasa-open-apis-sdk/go"
+	"github.com/voxgig-sdk/nasa-open-apis-sdk/go/core"
 )
 
 func TestPlanetaryDirect(t *testing.T) {

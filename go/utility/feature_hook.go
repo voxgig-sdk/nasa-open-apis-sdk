@@ -3,7 +3,7 @@ package utility
 import (
 	"reflect"
 
-	"github.com/voxgig-sdk/nasa-open-apis-sdk/core"
+	"github.com/voxgig-sdk/nasa-open-apis-sdk/go/core"
 )
 
 func featureHookUtil(ctx *core.Context, name string) {

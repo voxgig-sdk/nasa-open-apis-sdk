@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/voxgig-sdk/nasa-open-apis-sdk/core"
+	"github.com/voxgig-sdk/nasa-open-apis-sdk/go/core"
 )
 
 type LogFeature struct {

@@ -1,10 +1,10 @@
 package voxgignasaopenapissdk
 
 import (
-	"github.com/voxgig-sdk/nasa-open-apis-sdk/core"
-	"github.com/voxgig-sdk/nasa-open-apis-sdk/entity"
-	"github.com/voxgig-sdk/nasa-open-apis-sdk/feature"
-	_ "github.com/voxgig-sdk/nasa-open-apis-sdk/utility"
+	"github.com/voxgig-sdk/nasa-open-apis-sdk/go/core"
+	"github.com/voxgig-sdk/nasa-open-apis-sdk/go/entity"
+	"github.com/voxgig-sdk/nasa-open-apis-sdk/go/feature"
+	_ "github.com/voxgig-sdk/nasa-open-apis-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

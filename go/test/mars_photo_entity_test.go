@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/nasa-open-apis-sdk"
-	"github.com/voxgig-sdk/nasa-open-apis-sdk/core"
+	sdk "github.com/voxgig-sdk/nasa-open-apis-sdk/go"
+	"github.com/voxgig-sdk/nasa-open-apis-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/nasa-open-apis-sdk/go/utility/struct"
 )
 
 func TestMarsPhotoEntity(t *testing.T) {

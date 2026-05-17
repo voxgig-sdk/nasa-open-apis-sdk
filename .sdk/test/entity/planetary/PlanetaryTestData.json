@@ -1,9 +1,15 @@
 {
   "existing": {
     "planetary": {
-      "PLANETARY00": {},
-      "PLANETARY01": {},
-      "PLANETARY02": {}
+      "PLANETARY00": {
+        "id": "PLANETARY00"
+      },
+      "PLANETARY01": {
+        "id": "PLANETARY01"
+      },
+      "PLANETARY02": {
+        "id": "PLANETARY02"
+      }
     }
   },
   "new": {

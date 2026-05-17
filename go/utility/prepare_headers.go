@@ -1,9 +1,9 @@
 package utility
 
 import (
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/nasa-open-apis-sdk/go/utility/struct"
 
-	"github.com/voxgig-sdk/nasa-open-apis-sdk/core"
+	"github.com/voxgig-sdk/nasa-open-apis-sdk/go/core"
 )
 
 func prepareHeadersUtil(ctx *core.Context) map[string]any {
