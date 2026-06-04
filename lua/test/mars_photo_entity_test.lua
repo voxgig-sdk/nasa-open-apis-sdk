@@ -94,7 +94,6 @@ function mars_photo_basic_setup(extra)
     ["NASAOPENAPIS_TEST_MARS_PHOTO_ENTID"] = idmap,
     ["NASAOPENAPIS_TEST_LIVE"] = "FALSE",
     ["NASAOPENAPIS_TEST_EXPLAIN"] = "FALSE",
-    ["NASAOPENAPIS_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -106,7 +105,6 @@ function mars_photo_basic_setup(extra)
   if env["NASAOPENAPIS_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["NASAOPENAPIS_APIKEY"],
       },
       extra or {},
     })

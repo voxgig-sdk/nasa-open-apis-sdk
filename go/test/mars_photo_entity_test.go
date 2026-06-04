@@ -121,7 +121,6 @@ func mars_photoBasicSetup(extra map[string]any) *entityTestSetup {
 		"NASAOPENAPIS_TEST_MARS_PHOTO_ENTID": idmap,
 		"NASAOPENAPIS_TEST_LIVE":      "FALSE",
 		"NASAOPENAPIS_TEST_EXPLAIN":   "FALSE",
-		"NASAOPENAPIS_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["NASAOPENAPIS_TEST_MARS_PHOTO_ENTID"])
@@ -132,7 +131,6 @@ func mars_photoBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["NASAOPENAPIS_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["NASAOPENAPIS_APIKEY"],
 			},
 			extra,
 		})

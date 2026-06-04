@@ -87,14 +87,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'NASAOPENAPIS_TEST_MARS_PHOTO_ENTID': {},
     'NASAOPENAPIS_TEST_LIVE': 'FALSE',
-    'NASAOPENAPIS_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.NASAOPENAPIS_TEST_LIVE
 
   if (live) {
     const client = new NasaOpenApisSDK({
-      apikey: env.NASAOPENAPIS_APIKEY,
     })
 
     let idmap: any = env['NASAOPENAPIS_TEST_MARS_PHOTO_ENTID']

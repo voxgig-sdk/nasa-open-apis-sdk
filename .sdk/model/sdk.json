@@ -18,7 +18,18 @@
         ],
         "termsOfService": "https://api.nasa.gov",
         "title": "NASA Open APIs",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "tagline": "Tap NASA's open data: imagery, planetary science, and near-Earth object feeds via a single API key",
+        "homepage": "https://api.nasa.gov",
+        "docs_url": "https://api.nasa.gov",
+        "license_short": "NASA data is generally in the public domain; check individual datasets and follow NASA media usage guidelines.",
+        "license_md": "- Most data and imagery served by NASA is in the public domain in the United States and free to use.\n- Some images may include third-party content (e.g., from partner agencies or photographers) with separate restrictions.\n- Follow NASA's media usage guidelines and avoid implying NASA endorsement of derived products.\n- See https://www.nasa.gov/nasa-brand-center/images-and-media/ for the official terms.",
+        "about_md": "[NASA Open APIs](https://api.nasa.gov) is a developer-facing gateway to public datasets from the U.S. National Aeronautics and Space Administration. The portal bundles a number of independent NASA APIs (Astronomy Picture of the Day, Mars Rover Photos, Near-Earth Object Web Service, EPIC, EONET, and more) behind a shared `api_key` query parameter.\n\nWhat you typically get from these APIs:\n\n- Daily astronomy imagery and explanations (APOD)\n- Photographs from the Curiosity, Opportunity, and Spirit Mars rovers, queryable by sol or Earth date and camera\n- Near-Earth asteroid feeds, lookups, and the full browseable catalogue\n- Earth imagery from the DSCOVR EPIC camera and Landsat\n- Natural event tracking via EONET\n\nAuthentication is via an `api_key` query string parameter. A shared `DEMO_KEY` is available for quick experimentation but is rate-limited (commonly 30 requests/hour and 50/day per IP); a free personal key from https://api.nasa.gov raises the limits substantially. CORS is enabled for most endpoints.",
+        "entity_desc": {
+          "mars_photo": "Photographs taken by NASA's Mars rovers (Curiosity, Opportunity, Spirit), filterable by sol, Earth date, and camera; served from the Mars Rover Photos API under paths such as `/mars-photos/api/v1/rovers/{rover}/photos`.",
+          "planetary": "Planetary-science endpoints, most notably the Astronomy Picture of the Day (APOD) at `/planetary/apod`, returning the daily image or video plus its title, explanation, and copyright (if any)."
+        },
+        "auth": false
       },
       "config": {
         "auth": {
@@ -26,7 +37,15 @@
         },
         "headers": {
           "content-type": "application/json"
-        }
+        },
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ]
       },
       "entity": {
         "mars_photo": {

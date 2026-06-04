@@ -88,7 +88,6 @@ function mars_photo_basic_setup($extra)
         "NASAOPENAPIS_TEST_MARS_PHOTO_ENTID" => $idmap,
         "NASAOPENAPIS_TEST_LIVE" => "FALSE",
         "NASAOPENAPIS_TEST_EXPLAIN" => "FALSE",
-        "NASAOPENAPIS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -100,7 +99,6 @@ function mars_photo_basic_setup($extra)
     if ($env["NASAOPENAPIS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["NASAOPENAPIS_APIKEY"],
             ],
             $extra ?? [],
         ]);

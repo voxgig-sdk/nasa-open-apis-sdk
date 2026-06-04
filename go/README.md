@@ -28,16 +28,13 @@ package main
 
 import (
     "fmt"
-    "os"
 
     sdk "github.com/voxgig-sdk/nasa-open-apis-sdk/go"
     "github.com/voxgig-sdk/nasa-open-apis-sdk/go/core"
 )
 
 func main() {
-    client := sdk.NewNasaOpenApisSDK(map[string]any{
-        "apikey": os.Getenv("NASA-OPEN-APIS_APIKEY"),
-    })
+    client := sdk.NewNasaOpenApisSDK(map[string]any{})
 ```
 
 ### 2. List marsphotos
@@ -140,7 +137,6 @@ Create a `.env.local` file at the project root:
 
 ```
 NASA-OPEN-APIS_TEST_LIVE=TRUE
-NASA-OPEN-APIS_APIKEY=<your-key>
 ```
 
 Then run:
@@ -162,7 +158,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `"apikey"` | `string` | API key for authentication. |
 | `"base"` | `string` | Base URL of the API server. |
 | `"prefix"` | `string` | URL path prefix prepended to all requests. |
 | `"suffix"` | `string` | URL path suffix appended to all requests. |

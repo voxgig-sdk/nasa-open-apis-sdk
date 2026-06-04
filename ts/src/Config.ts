@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://api.nasa.gov',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },

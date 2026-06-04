@@ -77,14 +77,12 @@ function mars_photo_direct_setup(mockres)
   local env = runner.env_override({
     ["NASAOPENAPIS_TEST_MARS_PHOTO_ENTID"] = {},
     ["NASAOPENAPIS_TEST_LIVE"] = "FALSE",
-    ["NASAOPENAPIS_APIKEY"] = "NONE",
   })
 
   local live = env["NASAOPENAPIS_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["NASAOPENAPIS_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {
