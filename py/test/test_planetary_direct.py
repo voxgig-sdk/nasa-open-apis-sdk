@@ -64,12 +64,14 @@ def _planetary_direct_setup(mockres):
     env = runner.env_override({
         "NASAOPENAPIS_TEST_PLANETARY_ENTID": {},
         "NASAOPENAPIS_TEST_LIVE": "FALSE",
+        "NASAOPENAPIS_APIKEY": "NONE",
     })
 
     live = env.get("NASAOPENAPIS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
+            "apikey": env.get("NASAOPENAPIS_APIKEY"),
         }
         client = NasaOpenApisSDK(merged_opts)
         return {

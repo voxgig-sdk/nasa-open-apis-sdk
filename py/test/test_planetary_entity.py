@@ -91,6 +91,7 @@ def _planetary_basic_setup(extra):
         "NASAOPENAPIS_TEST_PLANETARY_ENTID": idmap,
         "NASAOPENAPIS_TEST_LIVE": "FALSE",
         "NASAOPENAPIS_TEST_EXPLAIN": "FALSE",
+        "NASAOPENAPIS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -101,6 +102,7 @@ def _planetary_basic_setup(extra):
     if env.get("NASAOPENAPIS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
+                "apikey": env.get("NASAOPENAPIS_APIKEY"),
             },
             extra or {},
         ])

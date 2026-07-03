@@ -38,6 +38,10 @@ class Config {
   options = {
     base: 'https://api.nasa.gov',
 
+    auth: {
+      prefix: 'Bearer',
+    },
+
     headers: {
       "content-type": "application/json"
     },
@@ -58,107 +62,109 @@ class Config {
     "mars_photo": {
       "fields": [
         {
+          "active": true,
           "name": "camera",
           "req": true,
           "type": "`$OBJECT`",
-          "active": true,
           "index$": 0
         },
         {
+          "active": true,
           "name": "earth_date",
           "req": true,
           "type": "`$STRING`",
-          "active": true,
           "index$": 1
         },
         {
+          "active": true,
           "name": "id",
           "req": true,
           "type": "`$INTEGER`",
-          "active": true,
           "index$": 2
         },
         {
+          "active": true,
           "name": "img_src",
           "req": true,
           "type": "`$STRING`",
-          "active": true,
           "index$": 3
         },
         {
+          "active": true,
           "name": "rover",
           "req": true,
           "type": "`$OBJECT`",
-          "active": true,
           "index$": 4
         },
         {
+          "active": true,
           "name": "sol",
           "req": true,
           "type": "`$INTEGER`",
-          "active": true,
           "index$": 5
         }
       ],
       "name": "mars_photo",
       "op": {
         "list": {
+          "input": "data",
           "name": "list",
           "points": [
             {
+              "active": true,
               "args": {
                 "params": [
                   {
+                    "active": true,
                     "kind": "param",
                     "name": "rover_id",
                     "orig": "rover",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   }
                 ],
                 "query": [
                   {
+                    "active": true,
                     "example": "DEMO_KEY",
                     "kind": "query",
                     "name": "api_key",
                     "orig": "api_key",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "kind": "query",
                     "name": "camera",
                     "orig": "camera",
                     "reqd": false,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "kind": "query",
                     "name": "earth_date",
                     "orig": "earth_date",
                     "reqd": false,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "example": 1,
                     "kind": "query",
                     "name": "page",
                     "orig": "page",
                     "reqd": false,
-                    "type": "`$INTEGER`",
-                    "active": true
+                    "type": "`$INTEGER`"
                   },
                   {
+                    "active": true,
                     "kind": "query",
                     "name": "sol",
                     "orig": "sol",
                     "reqd": false,
-                    "type": "`$INTEGER`",
-                    "active": true
+                    "type": "`$INTEGER`"
                   }
                 ]
               },
@@ -191,11 +197,9 @@ class Config {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "active": true,
               "index$": 0
             }
           ],
-          "input": "data",
           "key$": "list"
         }
       },
@@ -212,60 +216,62 @@ class Config {
       "name": "planetary",
       "op": {
         "load": {
+          "input": "data",
           "name": "load",
           "points": [
             {
+              "active": true,
               "args": {
                 "query": [
                   {
+                    "active": true,
                     "example": "DEMO_KEY",
                     "kind": "query",
                     "name": "api_key",
                     "orig": "api_key",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "kind": "query",
                     "name": "count",
                     "orig": "count",
                     "reqd": false,
-                    "type": "`$INTEGER`",
-                    "active": true
+                    "type": "`$INTEGER`"
                   },
                   {
+                    "active": true,
                     "kind": "query",
                     "name": "date",
                     "orig": "date",
                     "reqd": false,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "kind": "query",
                     "name": "end_date",
                     "orig": "end_date",
                     "reqd": false,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "kind": "query",
                     "name": "start_date",
                     "orig": "start_date",
                     "reqd": false,
-                    "type": "`$STRING`",
-                    "active": true
+                    "type": "`$STRING`"
                   },
                   {
+                    "active": true,
                     "example": false,
                     "kind": "query",
                     "name": "thumb",
                     "orig": "thumb",
                     "reqd": false,
-                    "type": "`$BOOLEAN`",
-                    "active": true
+                    "type": "`$BOOLEAN`"
                   }
                 ]
               },
@@ -290,11 +296,9 @@ class Config {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "active": true,
               "index$": 0
             }
           ],
-          "input": "data",
           "key$": "load"
         }
       },

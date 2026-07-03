@@ -76,12 +76,14 @@ def mars_photo_direct_setup(mockres)
   env = Runner.env_override({
     "NASAOPENAPIS_TEST_MARS_PHOTO_ENTID" => {},
     "NASAOPENAPIS_TEST_LIVE" => "FALSE",
+    "NASAOPENAPIS_APIKEY" => "NONE",
   })
 
   live = env["NASAOPENAPIS_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
+      "apikey" => env["NASAOPENAPIS_APIKEY"],
     }
     client = NasaOpenApisSDK.new(merged_opts)
     return {

@@ -114,6 +114,7 @@ function basicSetup(extra?: any) {
     'NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID': idmap,
     'NASA_OPEN_APIS_TEST_LIVE': 'FALSE',
     'NASA_OPEN_APIS_TEST_EXPLAIN': 'FALSE',
+    'NASA_OPEN_APIS_APIKEY': 'NONE',
   })
 
   idmap = env['NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID']
@@ -123,6 +124,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new NasaOpenApisSDK(merge([
       {
+        apikey: env.NASA_OPEN_APIS_APIKEY,
       },
       extra
     ]))

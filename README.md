@@ -1,22 +1,8 @@
 # NasaOpenApis SDK
 
-Tap NASA's open data: imagery, planetary science, and near-Earth object feeds via a single API key
+NASA Open APIs client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About NASA Open APIs
-
-[NASA Open APIs](https://api.nasa.gov) is a developer-facing gateway to public datasets from the U.S. National Aeronautics and Space Administration. The portal bundles a number of independent NASA APIs (Astronomy Picture of the Day, Mars Rover Photos, Near-Earth Object Web Service, EPIC, EONET, and more) behind a shared `api_key` query parameter.
-
-What you typically get from these APIs:
-
-- Daily astronomy imagery and explanations (APOD)
-- Photographs from the Curiosity, Opportunity, and Spirit Mars rovers, queryable by sol or Earth date and camera
-- Near-Earth asteroid feeds, lookups, and the full browseable catalogue
-- Earth imagery from the DSCOVR EPIC camera and Landsat
-- Natural event tracking via EONET
-
-Authentication is via an `api_key` query string parameter. A shared `DEMO_KEY` is available for quick experimentation but is rate-limited (commonly 30 requests/hour and 50/day per IP); a free personal key from https://api.nasa.gov raises the limits substantially. CORS is enabled for most endpoints.
 
 ## Try it
 
@@ -50,29 +36,31 @@ gem install nasa-open-apis-sdk
 luarocks install nasa-open-apis-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { NasaOpenApisSDK } from 'nasa-open-apis'
 
-const client = new NasaOpenApisSDK({})
+const client = new NasaOpenApisSDK({
+  apikey: process.env.NASA-OPEN-APIS_APIKEY,
+})
 
 // List all marsphotos
 const marsphotos = await client.MarsPhoto().list()
+console.log(marsphotos.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -102,8 +90,8 @@ The API exposes 2 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **MarsPhoto** | Photographs taken by NASA's Mars rovers (Curiosity, Opportunity, Spirit), filterable by sol, Earth date, and camera; served from the Mars Rover Photos API under paths such as `/mars-photos/api/v1/rovers/{rover}/photos`. | `/mars-photos/api/v1/rovers/{rover}/photos` |
-| **Planetary** | Planetary-science endpoints, most notably the Astronomy Picture of the Day (APOD) at `/planetary/apod`, returning the daily image or video plus its title, explanation, and copyright (if any). | `/planetary/apod` |
+| **MarsPhoto** |  | `/mars-photos/api/v1/rovers/{rover}/photos` |
+| **Planetary** |  | `/planetary/apod` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -113,12 +101,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from nasaopenapis_sdk import NasaOpenApisSDK
 
-client = NasaOpenApisSDK({})
+client = NasaOpenApisSDK({
+    "apikey": os.environ.get("NASA-OPEN-APIS_APIKEY"),
+})
 
 # List all marsphotos
-marsphotos, err = client.MarsPhoto(None).list(None, None)
+marsphotos, err = client.MarsPhoto().list()
+print(marsphotos)
 ```
 
 ### PHP
@@ -127,10 +119,13 @@ marsphotos, err = client.MarsPhoto(None).list(None, None)
 <?php
 require_once 'nasaopenapis_sdk.php';
 
-$client = new NasaOpenApisSDK([]);
+$client = new NasaOpenApisSDK([
+    "apikey" => getenv("NASA-OPEN-APIS_APIKEY"),
+]);
 
 // List all marsphotos
-[$marsphotos, $err] = $client->MarsPhoto(null)->list(null, null);
+[$marsphotos, $err] = $client->MarsPhoto()->list();
+print_r($marsphotos);
 ```
 
 ### Golang
@@ -138,10 +133,13 @@ $client = new NasaOpenApisSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/nasa-open-apis-sdk/go"
 
-client := sdk.NewNasaOpenApisSDK(map[string]any{})
+client := sdk.NewNasaOpenApisSDK(map[string]any{
+    "apikey": os.Getenv("NASA-OPEN-APIS_APIKEY"),
+})
 
 // List all marsphotos
 marsphotos, err := client.MarsPhoto(nil).List(nil, nil)
+fmt.Println(marsphotos)
 ```
 
 ### Ruby
@@ -149,10 +147,13 @@ marsphotos, err := client.MarsPhoto(nil).List(nil, nil)
 ```ruby
 require_relative "NasaOpenApis_sdk"
 
-client = NasaOpenApisSDK.new({})
+client = NasaOpenApisSDK.new({
+  "apikey" => ENV["NASA-OPEN-APIS_APIKEY"],
+})
 
 # List all marsphotos
-marsphotos, err = client.MarsPhoto(nil).list(nil, nil)
+marsphotos, err = client.MarsPhoto().list
+puts marsphotos
 ```
 
 ### Lua
@@ -160,10 +161,13 @@ marsphotos, err = client.MarsPhoto(nil).list(nil, nil)
 ```lua
 local sdk = require("nasa-open-apis_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("NASA-OPEN-APIS_APIKEY"),
+})
 
 -- List all marsphotos
-local marsphotos, err = client:MarsPhoto(nil):list(nil, nil)
+local marsphotos, err = client:MarsPhoto():list()
+print(marsphotos)
 ```
 
 ## Unit testing in offline mode
@@ -182,25 +186,21 @@ const result = await client.MarsPhoto().load({ id: 'test01' })
 ### Python
 
 ```python
-client = NasaOpenApisSDK.test(None, None)
-result, err = client.MarsPhoto(None).load(
-    {"id": "test01"}, None
-)
+client = NasaOpenApisSDK.test()
+result, err = client.MarsPhoto().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = NasaOpenApisSDK::test(null, null);
-[$result, $err] = $client->MarsPhoto(null)->load(
-    ["id" => "test01"], null
-);
+$client = NasaOpenApisSDK::test();
+[$result, $err] = $client->MarsPhoto()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.MarsPhoto(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -209,19 +209,15 @@ result, err := client.MarsPhoto(nil).Load(
 ### Ruby
 
 ```ruby
-client = NasaOpenApisSDK.test(nil, nil)
-result, err = client.MarsPhoto(nil).load(
-  { "id" => "test01" }, nil
-)
+client = NasaOpenApisSDK.test
+result, err = client.MarsPhoto().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:MarsPhoto(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:MarsPhoto():load({ id = "test01" })
 ```
 
 ## How it works
@@ -325,15 +321,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the NASA Open APIs
-
-- Upstream: [https://api.nasa.gov](https://api.nasa.gov)
-
-- Most data and imagery served by NASA is in the public domain in the United States and free to use.
-- Some images may include third-party content (e.g., from partner agencies or photographers) with separate restrictions.
-- Follow NASA's media usage guidelines and avoid implying NASA endorsement of derived products.
-- See https://www.nasa.gov/nasa-brand-center/images-and-media/ for the official terms.
 
 ---
 
