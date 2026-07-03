@@ -10,7 +10,7 @@ The PHP SDK for the NasaOpenApis API — an entity-oriented client using PHP con
 
 ## Install
 ```bash
-composer require voxgig/nasa-open-apis-sdk
+composer require voxgig-sdk/nasa-open-apis
 ```
 
 

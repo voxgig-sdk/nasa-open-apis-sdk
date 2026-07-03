@@ -8,12 +8,14 @@ source = {
   dir = "nasa-open-apis-sdk/lua"
 }
 description = {
-  summary = "NasaOpenApis SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the NASA Open APIs public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/nasa-open-apis-sdk",
+  issues_url = "https://github.com/voxgig-sdk/nasa-open-apis-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "nasa-open-apis" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {

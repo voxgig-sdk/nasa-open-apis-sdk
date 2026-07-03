@@ -10,7 +10,7 @@ The Lua SDK for the NasaOpenApis API — an entity-oriented client using Lua con
 
 ## Install
 ```bash
-luarocks install nasa-open-apis-sdk
+luarocks install voxgig-sdk-nasa-open-apis
 ```
 
 If the module is not yet published, add the source directory to

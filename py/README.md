@@ -10,7 +10,7 @@ The Python SDK for the NasaOpenApis API — an entity-oriented client following 
 
 ## Install
 ```bash
-pip install nasa-open-apis-sdk
+pip install voxgig-sdk-nasa-open-apis
 ```
 
 Or install from source:

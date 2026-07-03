@@ -10,7 +10,7 @@ The TypeScript SDK for the NasaOpenApis API — a type-safe, entity-oriented cli
 
 ## Install
 ```bash
-npm install nasa-open-apis
+npm install @voxgig-sdk/nasa-open-apis
 ```
 ## Tutorial: your first API call
 

@@ -10,13 +10,13 @@ The Ruby SDK for the NasaOpenApis API — an entity-oriented client using idioma
 
 ## Install
 ```bash
-gem install nasa-open-apis-sdk
+gem install voxgig-sdk-nasa-open-apis
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "nasa-open-apis-sdk"
+gem "voxgig-sdk-nasa-open-apis"
 ```
 
 Then run:
