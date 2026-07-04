@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch MarsPhotoListMatch
+---@param ctrl? table
+---@return MarsPhoto[]
+---@return string? err
 function MarsPhotoEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -94,6 +94,7 @@ class NasaOpenApisConfig
                         'orig' => 'rover',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                     'query' => [

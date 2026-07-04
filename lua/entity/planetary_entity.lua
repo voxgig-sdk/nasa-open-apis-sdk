@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch PlanetaryLoadMatch
+---@param ctrl? table
+---@return Planetary
+---@return string? err
 function PlanetaryEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

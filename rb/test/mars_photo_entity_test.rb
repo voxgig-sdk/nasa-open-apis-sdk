@@ -45,8 +45,7 @@ class MarsPhotoEntityTest < Minitest::Test
       "rover_id" => setup[:idmap]["rover01"],
     }
 
-    mars_photo_ref01_list_result, err = mars_photo_ref01_ent.list(mars_photo_ref01_match, nil)
-    assert_nil err
+    mars_photo_ref01_list_result = mars_photo_ref01_ent.list(mars_photo_ref01_match, nil)
     assert mars_photo_ref01_list_result.is_a?(Array)
 
   end

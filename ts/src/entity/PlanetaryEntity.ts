@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Planetary,
+  PlanetaryLoadMatch,
+} from '../NasaOpenApisTypes'
 
 // TODO: needs Entity superclass
-class PlanetaryEntity extends NasaOpenApisEntityBase {
+class PlanetaryEntity extends NasaOpenApisEntityBase<Planetary> {
 
   constructor(client: NasaOpenApisSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class PlanetaryEntity extends NasaOpenApisEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: PlanetaryLoadMatch, ctrl?: Control): Promise<Planetary> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class PlanetaryEntity extends NasaOpenApisEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Planetary> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

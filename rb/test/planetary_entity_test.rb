@@ -42,8 +42,7 @@ class PlanetaryEntityTest < Minitest::Test
     # LOAD
     planetary_ref01_ent = client.Planetary(nil)
     planetary_ref01_match_dt0 = {}
-    planetary_ref01_data_dt0_loaded, err = planetary_ref01_ent.load(planetary_ref01_match_dt0, nil)
-    assert_nil err
+    planetary_ref01_data_dt0_loaded = planetary_ref01_ent.load(planetary_ref01_match_dt0, nil)
     assert !planetary_ref01_data_dt0_loaded.nil?
 
   end

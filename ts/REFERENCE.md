@@ -122,7 +122,7 @@ Alias for `NasaOpenApisSDK.test()`.
 ## MarsPhotoEntity
 
 ```ts
-const mars_photo = client.MarsPhoto()
+const mars_photo = client.mars_photo
 ```
 
 ### Fields
@@ -143,7 +143,7 @@ const mars_photo = client.MarsPhoto()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.MarsPhoto().list()
+const results = await client.mars_photo.list()
 ```
 
 ### Common Methods
@@ -177,7 +177,7 @@ Return a copy of the entity options.
 ## PlanetaryEntity
 
 ```ts
-const planetary = client.Planetary()
+const planetary = client.planetary
 ```
 
 ### Operations
@@ -187,7 +187,7 @@ const planetary = client.Planetary()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Planetary().load({ id: 'planetary_id' })
+const result = await client.planetary.load({ id: 'planetary_id' })
 ```
 
 ### Common Methods

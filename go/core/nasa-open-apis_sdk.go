@@ -245,11 +245,17 @@ func (sdk *NasaOpenApisSDK) Direct(fetchargs map[string]any) (map[string]any, er
 }
 
 
+// MarsPhoto returns a MarsPhoto entity bound to this client.
+// Idiomatic usage: client.MarsPhoto(nil).List(nil, nil) or
+// client.MarsPhoto(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *NasaOpenApisSDK) MarsPhoto(data map[string]any) NasaOpenApisEntity {
 	return NewMarsPhotoEntityFunc(sdk, data)
 }
 
 
+// Planetary returns a Planetary entity bound to this client.
+// Idiomatic usage: client.Planetary(nil).List(nil, nil) or
+// client.Planetary(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *NasaOpenApisSDK) Planetary(data map[string]any) NasaOpenApisEntity {
 	return NewPlanetaryEntityFunc(sdk, data)
 }

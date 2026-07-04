@@ -52,8 +52,7 @@ class TestMarsPhotoEntity:
             "rover_id": setup["idmap"]["rover01"],
         }
 
-        mars_photo_ref01_list_result, err = mars_photo_ref01_ent.list(mars_photo_ref01_match, None)
-        assert err is None
+        mars_photo_ref01_list_result = mars_photo_ref01_ent.list(mars_photo_ref01_match, None)
         assert isinstance(mars_photo_ref01_list_result, list)
 
 

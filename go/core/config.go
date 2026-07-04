@@ -88,6 +88,7 @@ func MakeConfig() map[string]any {
 											"orig": "rover",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 									},
 									"query": []any{

@@ -3,6 +3,8 @@
 import { MarsPhotoEntity } from './entity/MarsPhotoEntity'
 import { PlanetaryEntity } from './entity/PlanetaryEntity'
 
+export type * from './NasaOpenApisTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -203,12 +205,28 @@ class NasaOpenApisSDK {
 
 
 
+  _mars_photo?: MarsPhotoEntity
+
+  // Idiomatic facade: `client.mars_photo.list()` / `client.mars_photo.load({ id })`.
+  get mars_photo(): MarsPhotoEntity {
+    return (this._mars_photo ??= new MarsPhotoEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.mars_photo` instead. */
   MarsPhoto(data?: any) {
     const self = this
     return new MarsPhotoEntity(self,data)
   }
 
 
+  _planetary?: PlanetaryEntity
+
+  // Idiomatic facade: `client.planetary.list()` / `client.planetary.load({ id })`.
+  get planetary(): PlanetaryEntity {
+    return (this._planetary ??= new PlanetaryEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.planetary` instead. */
   Planetary(data?: any) {
     const self = this
     return new PlanetaryEntity(self,data)

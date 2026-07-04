@@ -49,8 +49,7 @@ class TestPlanetaryEntity:
         # LOAD
         planetary_ref01_ent = client.Planetary(None)
         planetary_ref01_match_dt0 = {}
-        planetary_ref01_data_dt0_loaded, err = planetary_ref01_ent.load(planetary_ref01_match_dt0, None)
-        assert err is None
+        planetary_ref01_data_dt0_loaded = planetary_ref01_ent.load(planetary_ref01_match_dt0, None)
         assert planetary_ref01_data_dt0_loaded is not None
 
 

@@ -89,6 +89,7 @@ def make_config():
                       "orig": "rover",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                   "query": [

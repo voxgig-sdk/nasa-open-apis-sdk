@@ -45,6 +45,7 @@ class MarsPhotoEntity
     end
   end
 
+  # @return [MarsPhoto, Hash] the current MarsPhoto data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class MarsPhotoEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of MarsPhoto fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class MarsPhotoEntity
   
 
   
+  # List MarsPhoto items matching the given filter.
+  #
+  # @param reqmatch [MarsPhotoListMatch, Hash, nil] match filter (any subset of MarsPhoto fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<MarsPhoto>, Array] the matching MarsPhoto items; raises NasaOpenApisError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

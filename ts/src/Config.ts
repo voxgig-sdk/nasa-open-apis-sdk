@@ -120,7 +120,8 @@ class Config {
                     "name": "rover_id",
                     "orig": "rover",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ],
                 "query": [

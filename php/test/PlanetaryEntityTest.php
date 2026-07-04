@@ -49,8 +49,7 @@ class PlanetaryEntityTest extends TestCase
         // LOAD
         $planetary_ref01_ent = $client->Planetary(null);
         $planetary_ref01_match_dt0 = [];
-        [$planetary_ref01_data_dt0_loaded, $err] = $planetary_ref01_ent->load($planetary_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $planetary_ref01_data_dt0_loaded = $planetary_ref01_ent->load($planetary_ref01_match_dt0, null);
         $this->assertNotNull($planetary_ref01_data_dt0_loaded);
 
     }

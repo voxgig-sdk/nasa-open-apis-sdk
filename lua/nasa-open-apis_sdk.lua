@@ -244,12 +244,38 @@ end
 
 
 
+-- Idiomatic facade: client:mars_photo():list() / client:mars_photo():load({ id = ... })
+function NasaOpenApisSDK:mars_photo(data)
+  local EntityMod = require("entity.mars_photo_entity")
+  if data == nil then
+    if self._mars_photo == nil then
+      self._mars_photo = EntityMod.new(self, nil)
+    end
+    return self._mars_photo
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:mars_photo() instead.
 function NasaOpenApisSDK:MarsPhoto(data)
   local EntityMod = require("entity.mars_photo_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:planetary():list() / client:planetary():load({ id = ... })
+function NasaOpenApisSDK:planetary(data)
+  local EntityMod = require("entity.planetary_entity")
+  if data == nil then
+    if self._planetary == nil then
+      self._planetary = EntityMod.new(self, nil)
+    end
+    return self._planetary
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:planetary() instead.
 function NasaOpenApisSDK:Planetary(data)
   local EntityMod = require("entity.planetary_entity")
   return EntityMod.new(self, data)

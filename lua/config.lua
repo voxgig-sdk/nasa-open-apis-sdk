@@ -88,6 +88,7 @@ local function make_config()
                       ["orig"] = "rover",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                   },
                   ["query"] = {

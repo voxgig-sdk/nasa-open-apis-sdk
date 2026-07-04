@@ -144,16 +144,23 @@ class NasaOpenApisSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class NasaOpenApisSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,20 +212,42 @@ class NasaOpenApisSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def mars_photo(self):
+        """Idiomatic facade: client.mars_photo.list() / client.mars_photo.load({"id": ...})."""
+        from entity.mars_photo_entity import MarsPhotoEntity
+        cached = getattr(self, "_mars_photo", None)
+        if cached is None:
+            cached = MarsPhotoEntity(self, None)
+            self._mars_photo = cached
+        return cached
 
     def MarsPhoto(self, data=None):
+        # Deprecated: use client.mars_photo instead.
         from entity.mars_photo_entity import MarsPhotoEntity
         return MarsPhotoEntity(self, data)
 
 
+    @property
+    def planetary(self):
+        """Idiomatic facade: client.planetary.list() / client.planetary.load({"id": ...})."""
+        from entity.planetary_entity import PlanetaryEntity
+        cached = getattr(self, "_planetary", None)
+        if cached is None:
+            cached = PlanetaryEntity(self, None)
+            self._planetary = cached
+        return cached
+
     def Planetary(self, data=None):
+        # Deprecated: use client.planetary instead.
         from entity.planetary_entity import PlanetaryEntity
         return PlanetaryEntity(self, data)
 

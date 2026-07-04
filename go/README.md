@@ -10,14 +10,18 @@ The Golang SDK for the NasaOpenApis API — an entity-oriented client using stan
 
 ## Install
 ```bash
-go get github.com/voxgig-sdk/nasa-open-apis-sdk/go
+go get github.com/voxgig-sdk/nasa-open-apis-sdk/go@latest
 ```
 
-If the module is not yet published to a registry, use a `replace` directive
-in your `go.mod` to point to a local checkout:
+The Go module proxy resolves the version from the `go/vX.Y.Z` GitHub
+release tag — see [Releases](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases) for the available versions.
+
+To vendor from a local checkout instead, clone this repo alongside your
+project and add a `replace` directive pointing at the checked-out
+`go/` directory:
 
 ```bash
-go mod edit -replace github.com/voxgig-sdk/nasa-open-apis-sdk/go=../path/to/github.com/voxgig-sdk/nasa-open-apis-sdk/go
+go mod edit -replace github.com/voxgig-sdk/nasa-open-apis-sdk/go=../nasa-open-apis-sdk/go
 ```
 
 
@@ -41,7 +45,7 @@ import (
 
 func main() {
     client := sdk.NewNasaOpenApisSDK(map[string]any{
-        "apikey": os.Getenv("NASA-OPEN-APIS_APIKEY"),
+        "apikey": os.Getenv("NASA_OPEN_APIS_APIKEY"),
     })
 ```
 
@@ -109,7 +113,7 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Planet(nil).Load(
+result, err := client.MarsPhoto(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
 // result contains mock response data
@@ -144,8 +148,8 @@ client := sdk.NewNasaOpenApisSDK(map[string]any{
 Create a `.env.local` file at the project root:
 
 ```
-NASA-OPEN-APIS_TEST_LIVE=TRUE
-NASA-OPEN-APIS_APIKEY=<your-key>
+NASA_OPEN_APIS_TEST_LIVE=TRUE
+NASA_OPEN_APIS_APIKEY=<your-key>
 ```
 
 Then run:
@@ -369,11 +373,11 @@ Entity instances are stateful. After a successful `Load`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-moon := client.Moon(nil)
-moon.Load(map[string]any{"planet_id": "earth", "id": "luna"}, nil)
+marsphoto := client.MarsPhoto(nil)
+marsphoto.Load(map[string]any{"id": "example_id"}, nil)
 
-// moon.Data() now returns the loaded moon data
-// moon.Match() returns the last match criteria
+// marsphoto.Data() now returns the loaded marsphoto data
+// marsphoto.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

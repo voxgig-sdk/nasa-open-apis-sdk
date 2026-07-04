@@ -52,8 +52,7 @@ class MarsPhotoEntityTest extends TestCase
             "rover_id" => $setup["idmap"]["rover01"],
         ];
 
-        [$mars_photo_ref01_list_result, $err] = $mars_photo_ref01_ent->list($mars_photo_ref01_match, null);
-        $this->assertNull($err);
+        $mars_photo_ref01_list_result = $mars_photo_ref01_ent->list($mars_photo_ref01_match, null);
         $this->assertIsArray($mars_photo_ref01_list_result);
 
     }

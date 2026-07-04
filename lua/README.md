@@ -9,12 +9,9 @@ The Lua SDK for the NasaOpenApis API — an entity-oriented client using Lua con
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-nasa-open-apis
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -32,14 +29,14 @@ loading a specific record.
 local sdk = require("nasa-open-apis_sdk")
 
 local client = sdk.new({
-  apikey = os.getenv("NASA-OPEN-APIS_APIKEY"),
+  apikey = os.getenv("NASA_OPEN_APIS_APIKEY"),
 })
 ```
 
 ### 2. List marsphotos
 
 ```lua
-local result, err = client:MarsPhoto():list()
+local result, err = client:marsphoto():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -93,7 +90,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:NasaOpenApis():load({ id = "test01" })
+local result, err = client:marsphoto():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -126,8 +123,8 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-NASA-OPEN-APIS_TEST_LIVE=TRUE
-NASA-OPEN-APIS_APIKEY=<your-key>
+NASA_OPEN_APIS_TEST_LIVE=TRUE
+NASA_OPEN_APIS_APIKEY=<your-key>
 ```
 
 Then run:
@@ -242,7 +239,7 @@ API path: `/planetary/apod`
 
 ### MarsPhoto
 
-Create an instance: `const mars_photo = client.MarsPhoto()`
+Create an instance: `const mars_photo = client.mars_photo`
 
 #### Operations
 
@@ -264,13 +261,13 @@ Create an instance: `const mars_photo = client.MarsPhoto()`
 #### Example: List
 
 ```ts
-const mars_photos = await client.MarsPhoto().list()
+const mars_photos = await client.mars_photo.list()
 ```
 
 
 ### Planetary
 
-Create an instance: `const planetary = client.Planetary()`
+Create an instance: `const planetary = client.planetary`
 
 #### Operations
 
@@ -281,7 +278,7 @@ Create an instance: `const planetary = client.Planetary()`
 #### Example: Load
 
 ```ts
-const planetary = await client.Planetary().load({ id: 'planetary_id' })
+const planetary = await client.planetary.load({ id: 'planetary_id' })
 ```
 
 
@@ -356,11 +353,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local marsphoto = client:marsphoto()
+marsphoto:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- marsphoto:data_get() now returns the loaded marsphoto data
+-- marsphoto:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration
