@@ -208,26 +208,14 @@ class NasaOpenApisSDK
   end
 
 
-  # Idiomatic facade: client.mars_photo.list / client.mars_photo.load({ "id" => ... })
-  def mars_photo
-    require_relative 'entity/mars_photo_entity'
-    @mars_photo ||= MarsPhotoEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.mars_photo instead.
+  # Canonical facade: client.MarsPhoto.list / client.MarsPhoto.load({ "id" => ... })
   def MarsPhoto(data = nil)
     require_relative 'entity/mars_photo_entity'
     MarsPhotoEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.planetary.list / client.planetary.load({ "id" => ... })
-  def planetary
-    require_relative 'entity/planetary_entity'
-    @planetary ||= PlanetaryEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.planetary instead.
+  # Canonical facade: client.Planetary.list / client.Planetary.load({ "id" => ... })
   def Planetary(data = nil)
     require_relative 'entity/planetary_entity'
     PlanetaryEntity.new(self, data)

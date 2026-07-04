@@ -85,7 +85,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## MarsPhotoEntity
 
 ```python
-mars_photo = client.mars_photo
+mars_photo = client.MarsPhoto()
 ```
 
 ### Fields
@@ -106,7 +106,9 @@ mars_photo = client.mars_photo
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.mars_photo.list({})
+results = client.MarsPhoto().list({})
+for mars_photo in results:
+    print(mars_photo)
 ```
 
 ### Common Methods
@@ -141,7 +143,7 @@ Return the entity name.
 ## PlanetaryEntity
 
 ```python
-planetary = client.planetary
+planetary = client.Planetary()
 ```
 
 ### Operations
@@ -151,7 +153,7 @@ planetary = client.planetary
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.planetary.load({"id": "planetary_id"})
+result = client.Planetary().load({"id": "planetary_id"})
 ```
 
 ### Common Methods

@@ -220,41 +220,21 @@ class NasaOpenApisSDK:
         }
 
 
-    @property
-    def mars_photo(self):
-        """Idiomatic facade: client.mars_photo.list() / client.mars_photo.load({"id": ...})."""
-        from entity.mars_photo_entity import MarsPhotoEntity
-        cached = getattr(self, "_mars_photo", None)
-        if cached is None:
-            cached = MarsPhotoEntity(self, None)
-            self._mars_photo = cached
-        return cached
-
-    def MarsPhoto(self, data=None):
-        # Deprecated: use client.mars_photo instead.
+    def MarsPhoto(self, data=None) -> "MarsPhotoEntity":
+        """Entity factory: client.MarsPhoto().list({}) / client.MarsPhoto().load({"id": ...})."""
         from entity.mars_photo_entity import MarsPhotoEntity
         return MarsPhotoEntity(self, data)
 
 
-    @property
-    def planetary(self):
-        """Idiomatic facade: client.planetary.list() / client.planetary.load({"id": ...})."""
-        from entity.planetary_entity import PlanetaryEntity
-        cached = getattr(self, "_planetary", None)
-        if cached is None:
-            cached = PlanetaryEntity(self, None)
-            self._planetary = cached
-        return cached
-
-    def Planetary(self, data=None):
-        # Deprecated: use client.planetary instead.
+    def Planetary(self, data=None) -> "PlanetaryEntity":
+        """Entity factory: client.Planetary().list({}) / client.Planetary().load({"id": ...})."""
         from entity.planetary_entity import PlanetaryEntity
         return PlanetaryEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "NasaOpenApisSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -274,3 +254,10 @@ class NasaOpenApisSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.mars_photo_entity import MarsPhotoEntity
+    from entity.planetary_entity import PlanetaryEntity

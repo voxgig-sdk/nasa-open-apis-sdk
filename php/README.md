@@ -31,18 +31,16 @@ $client = new NasaOpenApisSDK([
 ]);
 ```
 
-### 2. List marsphotos
+### 2. List marsphoto records
 
 ```php
 try {
-    $result = $client->marsphoto()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of MarsPhoto records — iterate directly.
+    $marsphotos = $client->MarsPhoto()->list();
+    foreach ($marsphotos as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -88,13 +86,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = NasaOpenApisSDK::test();
+$client = NasaOpenApisSDK::test([
+    "entity" => ["marsphoto" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->marsphoto()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$marsphoto = $client->MarsPhoto()->load(["id" => "test01"]);
+print_r($marsphoto);
 ```
 
 ### Use a custom fetch function
@@ -247,7 +249,7 @@ API path: `/planetary/apod`
 
 ### MarsPhoto
 
-Create an instance: `const mars_photo = client.mars_photo`
+Create an instance: `$mars_photo = $client->MarsPhoto();`
 
 #### Operations
 
@@ -268,14 +270,15 @@ Create an instance: `const mars_photo = client.mars_photo`
 
 #### Example: List
 
-```ts
-const mars_photos = await client.mars_photo.list()
+```php
+// list() returns an array of MarsPhoto records (throws on error).
+$mars_photos = $client->MarsPhoto()->list();
 ```
 
 
 ### Planetary
 
-Create an instance: `const planetary = client.planetary`
+Create an instance: `$planetary = $client->Planetary();`
 
 #### Operations
 
@@ -285,8 +288,9 @@ Create an instance: `const planetary = client.planetary`
 
 #### Example: Load
 
-```ts
-const planetary = await client.planetary.load({ id: 'planetary_id' })
+```php
+// load() returns the bare Planetary record (throws on error).
+$planetary = $client->Planetary()->load(["id" => "planetary_id"]);
 ```
 
 
@@ -361,7 +365,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$marsphoto = $client->marsphoto();
+$marsphoto = $client->MarsPhoto();
 $marsphoto->load(["id" => "example_id"]);
 
 // $marsphoto->dataGet() now returns the loaded marsphoto data

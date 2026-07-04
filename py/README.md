@@ -34,14 +34,16 @@ client = NasaOpenApisSDK({
 })
 ```
 
-### 2. List marsphotos
+### 2. List marsphoto records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.marsphoto.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    marsphotos = client.MarsPhoto().list({})
+    for marsphoto in marsphotos:
+        print(marsphoto)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -89,8 +91,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = NasaOpenApisSDK.test()
 
-result = client.marsphoto.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+marsphoto = client.MarsPhoto().load({"id": "test01"})
+# marsphoto contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -240,7 +243,7 @@ API path: `/planetary/apod`
 
 ### MarsPhoto
 
-Create an instance: `const mars_photo = client.mars_photo`
+Create an instance: `mars_photo = client.MarsPhoto()`
 
 #### Operations
 
@@ -261,14 +264,14 @@ Create an instance: `const mars_photo = client.mars_photo`
 
 #### Example: List
 
-```ts
-const mars_photos = await client.mars_photo.list()
+```python
+mars_photos = client.MarsPhoto().list({})
 ```
 
 
 ### Planetary
 
-Create an instance: `const planetary = client.planetary`
+Create an instance: `planetary = client.Planetary()`
 
 #### Operations
 
@@ -278,8 +281,8 @@ Create an instance: `const planetary = client.planetary`
 
 #### Example: Load
 
-```ts
-const planetary = await client.planetary.load({ id: 'planetary_id' })
+```python
+planetary = client.Planetary().load({"id": "planetary_id"})
 ```
 
 
@@ -353,7 +356,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-marsphoto = client.marsphoto
+marsphoto = client.MarsPhoto()
 marsphoto.load({"id": "example_id"})
 
 # marsphoto.data_get() now returns the loaded marsphoto data

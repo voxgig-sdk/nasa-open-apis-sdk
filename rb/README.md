@@ -30,16 +30,14 @@ client = NasaOpenApisSDK.new({
 })
 ```
 
-### 2. List marsphotos
+### 2. List marsphoto records
 
 ```ruby
 begin
-  result = client.marsphoto.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of MarsPhoto records — iterate directly.
+  marsphotos = client.MarsPhoto.list
+  marsphotos.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -87,13 +85,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = NasaOpenApisSDK.test
+client = NasaOpenApisSDK.test({
+  "entity" => { "marsphoto" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.marsphoto.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+marsphoto = client.MarsPhoto.load({ "id" => "test01" })
+puts marsphoto
 ```
 
 ### Use a custom fetch function
@@ -242,7 +244,7 @@ API path: `/planetary/apod`
 
 ### MarsPhoto
 
-Create an instance: `const mars_photo = client.mars_photo`
+Create an instance: `mars_photo = client.MarsPhoto`
 
 #### Operations
 
@@ -263,14 +265,15 @@ Create an instance: `const mars_photo = client.mars_photo`
 
 #### Example: List
 
-```ts
-const mars_photos = await client.mars_photo.list()
+```ruby
+# list returns an Array of MarsPhoto records (raises on error).
+mars_photos = client.MarsPhoto.list
 ```
 
 
 ### Planetary
 
-Create an instance: `const planetary = client.planetary`
+Create an instance: `planetary = client.Planetary`
 
 #### Operations
 
@@ -280,8 +283,9 @@ Create an instance: `const planetary = client.planetary`
 
 #### Example: Load
 
-```ts
-const planetary = await client.planetary.load({ id: 'planetary_id' })
+```ruby
+# load returns the bare Planetary record (raises on error).
+planetary = client.Planetary.load({ "id" => "planetary_id" })
 ```
 
 
@@ -356,7 +360,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-marsphoto = client.marsphoto
+marsphoto = client.MarsPhoto
 marsphoto.load({ "id" => "example_id" })
 
 # marsphoto.data_get now returns the loaded marsphoto data

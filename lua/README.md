@@ -33,17 +33,17 @@ local client = sdk.new({
 })
 ```
 
-### 2. List marsphotos
+### 2. List marsphoto records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:marsphoto():list()
+local marsphotos, err = client:MarsPhoto():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(marsphotos) do
+  print(item["id"], item["name"])
 end
 ```
 
@@ -90,8 +90,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:marsphoto():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:MarsPhoto():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -194,17 +194,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local mars_photo, err = client:MarsPhoto():load({ id = "example_id" })
+    if err then error(err) end
+    -- mars_photo is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -239,7 +244,7 @@ API path: `/planetary/apod`
 
 ### MarsPhoto
 
-Create an instance: `const mars_photo = client.mars_photo`
+Create an instance: `local mars_photo = client:MarsPhoto(nil)`
 
 #### Operations
 
@@ -260,14 +265,14 @@ Create an instance: `const mars_photo = client.mars_photo`
 
 #### Example: List
 
-```ts
-const mars_photos = await client.mars_photo.list()
+```lua
+local mars_photos, err = client:MarsPhoto():list()
 ```
 
 
 ### Planetary
 
-Create an instance: `const planetary = client.planetary`
+Create an instance: `local planetary = client:Planetary(nil)`
 
 #### Operations
 
@@ -277,8 +282,8 @@ Create an instance: `const planetary = client.planetary`
 
 #### Example: Load
 
-```ts
-const planetary = await client.planetary.load({ id: 'planetary_id' })
+```lua
+local planetary, err = client:Planetary():load({ id = "planetary_id" })
 ```
 
 
@@ -353,7 +358,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local marsphoto = client:marsphoto()
+local marsphoto = client:MarsPhoto()
 marsphoto:load({ id = "example_id" })
 
 -- marsphoto:data_get() now returns the loaded marsphoto data

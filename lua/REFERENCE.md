@@ -88,7 +88,7 @@ same parameters as `direct()`.
 ## MarsPhotoEntity
 
 ```lua
-local mars_photo = client:mars_photo(nil)
+local mars_photo = client:MarsPhoto(nil)
 ```
 
 ### Fields
@@ -109,7 +109,7 @@ local mars_photo = client:mars_photo(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:mars_photo():list()
+local results, err = client:MarsPhoto():list()
 ```
 
 ### Common Methods
@@ -145,7 +145,7 @@ Return the entity name.
 ## PlanetaryEntity
 
 ```lua
-local planetary = client:planetary(nil)
+local planetary = client:Planetary(nil)
 ```
 
 ### Operations
@@ -155,7 +155,7 @@ local planetary = client:planetary(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:planetary():load({ id = "planetary_id" })
+local result, err = client:Planetary():load({ id = "planetary_id" })
 ```
 
 ### Common Methods

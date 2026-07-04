@@ -28,9 +28,11 @@ const client = new NasaOpenApisSDK({
   apikey: process.env.NASA_OPEN_APIS_APIKEY,
 })
 
-// List all marsphotos
-const marsphotos = await client.marsphoto.list()
-console.log(marsphotos.data)
+// List all marsphotos (returns MarsPhoto[])
+const marsphotos = await client.MarsPhoto().list()
+for (const marsphoto of marsphotos) {
+  console.log(marsphoto)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -89,9 +91,10 @@ client = NasaOpenApisSDK({
     "apikey": os.environ.get("NASA_OPEN_APIS_APIKEY"),
 })
 
-# List all marsphotos
-marsphotos = client.marsphoto.list()
-print(marsphotos)
+# List all marsphotos (returns a list, raises on error)
+marsphotos = client.MarsPhoto().list({})
+for marsphoto in marsphotos:
+    print(marsphoto)
 ```
 
 ### PHP
@@ -104,8 +107,8 @@ $client = new NasaOpenApisSDK([
     "apikey" => getenv("NASA_OPEN_APIS_APIKEY"),
 ]);
 
-// List all marsphotos (throws on error)
-$marsphotos = $client->marsphoto()->list();
+// List all marsphotos (returns an array; throws on error)
+$marsphotos = $client->MarsPhoto()->list();
 print_r($marsphotos);
 ```
 
@@ -132,8 +135,8 @@ client = NasaOpenApisSDK.new({
   "apikey" => ENV["NASA_OPEN_APIS_APIKEY"],
 })
 
-# List all marsphotos
-marsphotos = client.marsphoto.list
+# List all marsphotos (returns an Array; raises on error)
+marsphotos = client.MarsPhoto.list
 puts marsphotos
 ```
 
@@ -147,7 +150,7 @@ local client = sdk.new({
 })
 
 -- List all marsphotos
-local marsphotos, err = client:marsphoto():list()
+local marsphotos, err = client:MarsPhoto():list()
 print(marsphotos)
 ```
 
@@ -160,22 +163,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = NasaOpenApisSDK.test()
-const result = await client.marsphoto.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const marsphoto = await client.MarsPhoto().load({ id: 1 })
+// marsphoto is a bare MarsPhoto populated with mock data
+console.log(marsphoto)
 ```
 
 ### Python
 
 ```python
 client = NasaOpenApisSDK.test()
-result = client.marsphoto.load({"id": "test01"})
+marsphoto = client.MarsPhoto().load({"id": "test01"})
+print(marsphoto)
 ```
 
 ### PHP
 
 ```php
-$client = NasaOpenApisSDK::test();
-$result = $client->marsphoto()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = NasaOpenApisSDK::test([
+    "entity" => ["marsphoto" => ["test01" => ["id" => "test01"]]],
+]);
+$marsphoto = $client->MarsPhoto()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -190,15 +198,18 @@ result, err := client.MarsPhoto(nil).Load(
 ### Ruby
 
 ```ruby
-client = NasaOpenApisSDK.test
-result = client.marsphoto.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = NasaOpenApisSDK.test({
+  "entity" => { "marsphoto" => { "test01" => { "id" => "test01" } } },
+})
+marsphoto = client.MarsPhoto.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:marsphoto():load({ id = "test01" })
+local result, err = client:MarsPhoto():load({ id = "test01" })
 ```
 
 ## How it works
@@ -246,6 +257,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

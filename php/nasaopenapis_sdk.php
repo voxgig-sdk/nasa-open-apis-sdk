@@ -233,10 +233,10 @@ class NasaOpenApisSDK
 
     private $_mars_photo = null;
 
-    // Idiomatic facade: $client->mars_photo()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias MarsPhoto() (PHP method
-    // names are case-insensitive).
-    public function mars_photo($data = null)
+    // Canonical facade: $client->MarsPhoto()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->mars_photo()
+    // resolves here too.
+    public function MarsPhoto($data = null)
     {
         require_once __DIR__ . '/entity/mars_photo_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class NasaOpenApisSDK
 
     private $_planetary = null;
 
-    // Idiomatic facade: $client->planetary()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Planetary() (PHP method
-    // names are case-insensitive).
-    public function planetary($data = null)
+    // Canonical facade: $client->Planetary()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->planetary()
+    // resolves here too.
+    public function Planetary($data = null)
     {
         require_once __DIR__ . '/entity/planetary_entity.php';
         if ($data === null) {

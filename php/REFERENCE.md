@@ -90,7 +90,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## MarsPhotoEntity
 
 ```php
-$mars_photo = $client->mars_photo();
+$mars_photo = $client->MarsPhoto();
 ```
 
 ### Fields
@@ -111,7 +111,7 @@ $mars_photo = $client->mars_photo();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->mars_photo()->list([]);
+$results = $client->MarsPhoto()->list([]);
 ```
 
 ### Common Methods
@@ -147,7 +147,7 @@ Return the entity name.
 ## PlanetaryEntity
 
 ```php
-$planetary = $client->planetary();
+$planetary = $client->Planetary();
 ```
 
 ### Operations
@@ -157,7 +157,7 @@ $planetary = $client->planetary();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->planetary()->load(["id" => "planetary_id"]);
+$result = $client->Planetary()->load(["id" => "planetary_id"]);
 ```
 
 ### Common Methods

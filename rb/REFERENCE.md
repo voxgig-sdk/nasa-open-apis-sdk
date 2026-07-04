@@ -91,7 +91,7 @@ same parameters as `direct()`. Raises on error.
 ## MarsPhotoEntity
 
 ```ruby
-mars_photo = client.mars_photo
+mars_photo = client.MarsPhoto
 ```
 
 ### Fields
@@ -112,7 +112,7 @@ mars_photo = client.mars_photo
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.mars_photo.list(nil)
+results = client.MarsPhoto.list(nil)
 ```
 
 ### Common Methods
@@ -148,7 +148,7 @@ Return the entity name.
 ## PlanetaryEntity
 
 ```ruby
-planetary = client.planetary
+planetary = client.Planetary
 ```
 
 ### Operations
@@ -158,7 +158,7 @@ planetary = client.planetary
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.planetary.load({ "id" => "planetary_id" })
+result = client.Planetary.load({ "id" => "planetary_id" })
 ```
 
 ### Common Methods
