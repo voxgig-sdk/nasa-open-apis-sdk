@@ -27,8 +27,7 @@ type MarsPhotoListMatch struct {
 type Planetary struct {
 }
 
-// PlanetaryLoadMatch mirrors the planetary fields as an all-optional match
-// filter (Go analog of Partial<Planetary>).
+// PlanetaryLoadMatch is the typed request payload for Planetary.LoadTyped.
 type PlanetaryLoadMatch struct {
 }
 

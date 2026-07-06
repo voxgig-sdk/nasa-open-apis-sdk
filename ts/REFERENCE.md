@@ -129,12 +129,12 @@ const mars_photo = client.MarsPhoto()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `camera` | ``$OBJECT`` | Yes |  |
-| `earth_date` | ``$STRING`` | Yes |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `img_src` | ``$STRING`` | Yes |  |
-| `rover` | ``$OBJECT`` | Yes |  |
-| `sol` | ``$INTEGER`` | Yes |  |
+| `camera` | `Record<string, any>` | Yes |  |
+| `earth_date` | `string` | Yes |  |
+| `id` | `number` | Yes |  |
+| `img_src` | `string` | Yes |  |
+| `rover` | `Record<string, any>` | Yes |  |
+| `sol` | `number` | Yes |  |
 
 ### Operations
 
@@ -187,7 +187,7 @@ const planetary = client.Planetary()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Planetary().load({ id: 'planetary_id' })
+const result = await client.Planetary().load()
 ```
 
 ### Common Methods

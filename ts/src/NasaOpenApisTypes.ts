@@ -21,5 +21,6 @@ export interface MarsPhotoListMatch {
 export interface Planetary {
 }
 
-export type PlanetaryLoadMatch = Partial<Planetary>
+export interface PlanetaryLoadMatch {
+}
 

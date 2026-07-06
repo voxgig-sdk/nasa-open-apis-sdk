@@ -221,13 +221,13 @@ class NasaOpenApisSDK:
 
 
     def MarsPhoto(self, data=None) -> "MarsPhotoEntity":
-        """Entity factory: client.MarsPhoto().list({}) / client.MarsPhoto().load({"id": ...})."""
+        """Entity factory: client.MarsPhoto().list() / client.MarsPhoto().load({"id": ...})."""
         from entity.mars_photo_entity import MarsPhotoEntity
         return MarsPhotoEntity(self, data)
 
 
     def Planetary(self, data=None) -> "PlanetaryEntity":
-        """Entity factory: client.Planetary().list({}) / client.Planetary().load({"id": ...})."""
+        """Entity factory: client.Planetary().list() / client.Planetary().load({"id": ...})."""
         from entity.planetary_entity import PlanetaryEntity
         return PlanetaryEntity(self, data)
 

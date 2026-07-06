@@ -8,7 +8,7 @@ Complete API reference for the NasaOpenApis Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'nasa-open-apis_sdk'
+require_relative 'NasaOpenApis_sdk'
 
 client = NasaOpenApisSDK.new(options)
 ```
@@ -98,21 +98,21 @@ mars_photo = client.MarsPhoto
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `camera` | ``$OBJECT`` | Yes |  |
-| `earth_date` | ``$STRING`` | Yes |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `img_src` | ``$STRING`` | Yes |  |
-| `rover` | ``$OBJECT`` | Yes |  |
-| `sol` | ``$INTEGER`` | Yes |  |
+| `camera` | `Hash` | Yes |  |
+| `earth_date` | `String` | Yes |  |
+| `id` | `Integer` | Yes |  |
+| `img_src` | `String` | Yes |  |
+| `rover` | `Hash` | Yes |  |
+| `sol` | `Integer` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.MarsPhoto.list(nil)
+results = client.MarsPhoto.list
 ```
 
 ### Common Methods
@@ -158,7 +158,7 @@ planetary = client.Planetary
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Planetary.load({ "id" => "planetary_id" })
+result = client.Planetary.load()
 ```
 
 ### Common Methods

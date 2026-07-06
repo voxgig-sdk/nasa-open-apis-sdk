@@ -95,12 +95,12 @@ local mars_photo = client:MarsPhoto(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `camera` | ``$OBJECT`` | Yes |  |
-| `earth_date` | ``$STRING`` | Yes |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `img_src` | ``$STRING`` | Yes |  |
-| `rover` | ``$OBJECT`` | Yes |  |
-| `sol` | ``$INTEGER`` | Yes |  |
+| `camera` | `table` | Yes |  |
+| `earth_date` | `string` | Yes |  |
+| `id` | `number` | Yes |  |
+| `img_src` | `string` | Yes |  |
+| `rover` | `table` | Yes |  |
+| `sol` | `number` | Yes |  |
 
 ### Operations
 
@@ -155,7 +155,7 @@ local planetary = client:Planetary(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Planetary():load({ id = "planetary_id" })
+local result, err = client:Planetary():load()
 ```
 
 ### Common Methods

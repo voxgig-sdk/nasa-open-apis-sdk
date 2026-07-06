@@ -17,8 +17,6 @@ go build -o nasa-open-apis-cli ./...
 ```sh
 # One-shot: arguments form a single AQL expression
 ./nasa-open-apis-cli list mars_photo
-./nasa-open-apis-cli load 1 mars_photo
-./nasa-open-apis-cli load '{id:1}' mars_photo
 
 # REPL
 ./nasa-open-apis-cli
@@ -30,7 +28,6 @@ go build -o nasa-open-apis-cli ./...
 |----------|----------------------------------------------|----------------------------|
 | `list`   | `[entity]` · `[query entity]`                | List records               |
 | `load`   | `[entity]` · `[query entity]`                | Load a single record       |
-| `update` | `[entity]` · `[query entity]`                | Update a record            |
 
 `query` is either a Map (`{id:1}`) or a Scalar (`1`, treated as `{id:1}`).
 `entity` is one of the SDK's entity names (auto-quoted as an atom).

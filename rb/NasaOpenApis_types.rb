@@ -50,7 +50,7 @@ MarsPhotoListMatch = Struct.new(
 class Planetary
 end
 
-# Match filter for Planetary#load (any subset of Planetary fields).
+# Request payload for Planetary#load.
 class PlanetaryLoadMatch
 end
 

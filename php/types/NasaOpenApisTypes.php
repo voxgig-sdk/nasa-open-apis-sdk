@@ -34,7 +34,7 @@ class Planetary
 {
 }
 
-/** Match filter for Planetary#load (any subset of Planetary fields). */
+/** Request payload for Planetary#load. */
 class PlanetaryLoadMatch
 {
 }

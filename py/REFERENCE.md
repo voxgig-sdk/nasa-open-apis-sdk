@@ -8,7 +8,7 @@ Complete API reference for the NasaOpenApis Python SDK.
 ### Constructor
 
 ```python
-from nasa-open-apis_sdk import NasaOpenApisSDK
+from nasaopenapis_sdk import NasaOpenApisSDK
 
 client = NasaOpenApisSDK(options)
 ```
@@ -92,21 +92,21 @@ mars_photo = client.MarsPhoto()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `camera` | ``$OBJECT`` | Yes |  |
-| `earth_date` | ``$STRING`` | Yes |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `img_src` | ``$STRING`` | Yes |  |
-| `rover` | ``$OBJECT`` | Yes |  |
-| `sol` | ``$INTEGER`` | Yes |  |
+| `camera` | `dict` | Yes |  |
+| `earth_date` | `str` | Yes |  |
+| `id` | `int` | Yes |  |
+| `img_src` | `str` | Yes |  |
+| `rover` | `dict` | Yes |  |
+| `sol` | `int` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.MarsPhoto().list({})
+results = client.MarsPhoto().list()
 for mars_photo in results:
     print(mars_photo)
 ```
@@ -153,7 +153,7 @@ planetary = client.Planetary()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Planetary().load({"id": "planetary_id"})
+result = client.Planetary().load()
 ```
 
 ### Common Methods
