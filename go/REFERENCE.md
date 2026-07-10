@@ -95,7 +95,8 @@ same parameters as `Direct()`.
 ## MarsPhotoEntity
 
 ```go
-mars_photo := client.MarsPhoto(nil)
+marsPhoto := client.MarsPhoto(nil)
+fmt.Println(marsPhoto.GetName()) // "mars_photo"
 ```
 
 ### Fields
@@ -117,6 +118,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.MarsPhoto(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -147,6 +152,7 @@ Return the entity name.
 
 ```go
 planetary := client.Planetary(nil)
+fmt.Println(planetary.GetName()) // "planetary"
 ```
 
 ### Operations
@@ -157,6 +163,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Planetary(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

@@ -53,12 +53,12 @@ func main() {
         "apikey": os.Getenv("NASA_OPEN_APIS_APIKEY"),
     })
 
-    // List marsphoto records — the value is the array of records itself.
-    marsphotos, err := client.MarsPhoto(nil).List(nil, nil)
+    // List marsPhoto records — the value is the array of records itself.
+    marsPhotos, err := client.MarsPhoto(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-    for _, item := range marsphotos.([]any) {
+    for _, item := range marsPhotos.([]any) {
         fmt.Println(item)
     }
 }
@@ -140,13 +140,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-marsphoto, err := client.MarsPhoto(nil).List(
+marsPhoto, err := client.MarsPhoto(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(marsphoto) // the returned mock data
+fmt.Println(marsPhoto) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -255,9 +255,9 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    marsphoto, err := client.MarsPhoto(nil).List(map[string]any{/* fields */}, nil)
+    marsPhoto, err := client.MarsPhoto(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // marsphoto is the returned record
+    // marsPhoto is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -295,7 +295,7 @@ API path: `/planetary/apod`
 
 ### MarsPhoto
 
-Create an instance: `mars_photo := client.MarsPhoto(nil)`
+Create an instance: `marsPhoto := client.MarsPhoto(nil)`
 
 #### Operations
 
@@ -317,11 +317,11 @@ Create an instance: `mars_photo := client.MarsPhoto(nil)`
 #### Example: List
 
 ```go
-mars_photos, err := client.MarsPhoto(nil).List(nil, nil)
+marsPhotos, err := client.MarsPhoto(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(mars_photos) // the array of records
+fmt.Println(marsPhotos) // the array of records
 ```
 
 
