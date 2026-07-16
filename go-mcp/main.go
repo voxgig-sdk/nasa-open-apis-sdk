@@ -37,7 +37,20 @@ func main() {
 	addr := flag.String("addr", ":8080", "listen address for http transport")
 	flag.Parse()
 
-	client := sdk.NewNasaOpenApisSDK(nil)
+	// Configure from the environment: NASA_OPEN_APIS_APIKEY carries the API key and
+	// NASA_OPEN_APIS_BASE optionally overrides the API base URL (e.g. production).
+	// Both injectable by a secrets vault. Unset -> nil config defaults.
+	var opts map[string]any
+	if apikey := os.Getenv("NASA_OPEN_APIS_APIKEY"); apikey != "" {
+		opts = map[string]any{"apikey": apikey}
+	}
+	if base := os.Getenv("NASA_OPEN_APIS_BASE"); base != "" {
+		if opts == nil {
+			opts = map[string]any{}
+		}
+		opts["base"] = base
+	}
+	client := sdk.NewNasaOpenApisSDK(opts)
 	server := mcp.NewServer(
 		&mcp.Implementation{
 			Name:    "nasa-open-apis",
