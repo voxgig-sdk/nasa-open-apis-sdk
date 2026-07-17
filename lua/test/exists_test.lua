@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- NasaOpenApis SDK exists test
 
 local sdk = require("nasa-open-apis_sdk")
 
