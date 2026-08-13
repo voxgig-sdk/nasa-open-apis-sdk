@@ -125,7 +125,7 @@ main: kit: entity: mars_photo: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.photos`"
           }
         }
       ]

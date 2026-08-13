@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# NasaOpenApis SDK exists test
 
 import pytest
 from nasaopenapis_sdk import NasaOpenApisSDK

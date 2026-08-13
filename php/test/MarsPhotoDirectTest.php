@@ -80,16 +80,16 @@ function mars_photo_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "NASAOPENAPIS_TEST_MARS_PHOTO_ENTID" => [],
-        "NASAOPENAPIS_TEST_LIVE" => "FALSE",
-        "NASAOPENAPIS_APIKEY" => "NONE",
+        "NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID" => [],
+        "NASA_OPEN_APIS_TEST_LIVE" => "FALSE",
+        "NASA_OPEN_APIS_APIKEY" => "NONE",
     ]);
 
-    $live = $env["NASAOPENAPIS_TEST_LIVE"] === "TRUE";
+    $live = $env["NASA_OPEN_APIS_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["NASAOPENAPIS_APIKEY"],
+            "apikey" => $env["NASA_OPEN_APIS_APIKEY"],
         ];
         $client = new NasaOpenApisSDK($merged_opts);
         return [

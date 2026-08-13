@@ -121,7 +121,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = NasaOpenApisSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 marsphoto = client.MarsPhoto.list()
 puts marsphoto
 ```
@@ -309,7 +310,7 @@ Create an instance: `planetary = client.Planetary`
 #### Example: Load
 
 ```ruby
-# load returns the bare Planetary record (raises on error).
+# load returns the ENTITY — call data_get for the Planetary record (raises on error).
 planetary = client.Planetary.load()
 ```
 

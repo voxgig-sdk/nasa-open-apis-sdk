@@ -26,8 +26,8 @@ import {
 describe('MarsPhotoEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when NASAOPENAPIS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('NASAOPENAPIS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when NASA_OPEN_APIS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('NASA_OPEN_APIS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = NasaOpenApisSDK.test()
@@ -64,7 +64,7 @@ describe('MarsPhotoEntity', async () => {
     const mars_photo_ref01_match: any = {}
     mars_photo_ref01_match['rover_id'] = setup.idmap['rover01']
 
-    const mars_photo_ref01_list = await mars_photo_ref01_ent.list(mars_photo_ref01_match)
+    const mars_photo_ref01_list = (await mars_photo_ref01_ent.list(mars_photo_ref01_match)).map((e: any) => e.data())
 
 
   })

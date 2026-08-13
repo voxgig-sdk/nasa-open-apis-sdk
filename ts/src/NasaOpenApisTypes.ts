@@ -22,5 +22,11 @@ export interface Planetary {
 }
 
 export interface PlanetaryLoadMatch {
+
+  // Selects a custom action instead of the plain load:
+  //   'apod'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
 }
 

@@ -50,9 +50,10 @@ func TestMarsPhotoDirect(t *testing.T) {
 			"params": params,
 		})
 		if setup.live {
-			// Live mode is lenient: synthetic IDs frequently 4xx and the
-			// list-response shape varies wildly across public APIs. Skip
-			// rather than fail when the call doesn't return a usable list.
+			// Live-mode leniency is a model decision
+			// (main.kit.test.live.strict): synthetic IDs 4xx constantly
+			// against an arbitrary public API, so the default SKIPS here.
+			// A project that owns its test server sets strict and FAILS.
 			if err != nil {
 				t.Skipf("list call failed (likely synthetic IDs against live API): %v", err)
 			}
@@ -116,21 +117,21 @@ func mars_photoDirectSetup(mockres any) *mars_photoDirectSetupResult {
 	calls := &[]map[string]any{}
 
 	env := envOverride(map[string]any{
-		"NASAOPENAPIS_TEST_MARS_PHOTO_ENTID": map[string]any{},
-		"NASAOPENAPIS_TEST_LIVE":    "FALSE",
-		"NASAOPENAPIS_APIKEY":       "NONE",
+		"NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID": map[string]any{},
+		"NASA_OPEN_APIS_TEST_LIVE":    "FALSE",
+		"NASA_OPEN_APIS_APIKEY":       "NONE",
 	})
 
-	live := env["NASAOPENAPIS_TEST_LIVE"] == "TRUE"
+	live := env["NASA_OPEN_APIS_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["NASAOPENAPIS_APIKEY"],
+			"apikey": env["NASA_OPEN_APIS_APIKEY"],
 		}
 		client := sdk.NewNasaOpenApisSDK(mergedOpts)
 
 		idmap := map[string]any{}
-		if entidRaw, ok := env["NASAOPENAPIS_TEST_MARS_PHOTO_ENTID"]; ok {
+		if entidRaw, ok := env["NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID"]; ok {
 			if entidStr, ok := entidRaw.(string); ok && strings.HasPrefix(entidStr, "{") {
 				json.Unmarshal([]byte(entidStr), &idmap)
 			} else if entidMap, ok := entidRaw.(map[string]any); ok {

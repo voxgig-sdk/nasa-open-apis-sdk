@@ -143,7 +143,7 @@ const mars_photo = client.MarsPhoto()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.MarsPhoto().list()
+const results = await client.MarsPhoto().list({ rover_id: "example" })
 ```
 
 ### Common Methods
@@ -178,6 +178,26 @@ Return a copy of the entity options.
 
 ```ts
 const planetary = client.Planetary()
+```
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `apod` | `/planetary/apod` | `client.Planetary().load({ $action: 'apod', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Planetary record — check the API definition for its shape.
+
+```ts
+const result = await client.Planetary().load({
+  $action: 'apod',
+  /* ...the action's own arguments */
+})
 ```
 
 ### Operations

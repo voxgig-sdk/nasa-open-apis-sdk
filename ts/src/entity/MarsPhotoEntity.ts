@@ -37,7 +37,7 @@ class MarsPhotoEntity extends NasaOpenApisEntityBase<MarsPhoto> {
 
 
 
-  async list(this: any, reqmatch?: MarsPhotoListMatch, ctrl?: Control): Promise<MarsPhoto[]> {
+  async list(this: any, reqmatch?: MarsPhotoListMatch, ctrl?: Control): Promise<MarsPhotoEntity[]> {
 
     const utility = this._utility
 

@@ -26,8 +26,8 @@ import {
 describe('PlanetaryEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when NASAOPENAPIS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('NASAOPENAPIS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when NASA_OPEN_APIS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('NASA_OPEN_APIS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = NasaOpenApisSDK.test()
@@ -62,7 +62,7 @@ describe('PlanetaryEntity', async () => {
     // LOAD
     const planetary_ref01_ent = client.Planetary()
     const planetary_ref01_match_dt0: any = {}
-    const planetary_ref01_data_dt0 = await planetary_ref01_ent.load(planetary_ref01_match_dt0)
+    const planetary_ref01_data_dt0 = (await planetary_ref01_ent.load(planetary_ref01_match_dt0)).data()
     assert(null != planetary_ref01_data_dt0)
 
 

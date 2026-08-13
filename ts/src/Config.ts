@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'NasaOpenApis',
   }
 
 
@@ -169,6 +169,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/mars-photos/api/v1/rovers/{rover}/photos",
               "parts": [
@@ -196,7 +197,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.photos`"
               },
               "index$": 0
             }
@@ -276,6 +277,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/planetary/apod",
               "parts": [

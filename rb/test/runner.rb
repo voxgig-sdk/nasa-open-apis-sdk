@@ -23,8 +23,8 @@ module NasaOpenApisTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("NASAOPENAPIS_TEST_LIVE")
-    override = getenv("NASAOPENAPIS_TEST_OVERRIDE")
+    live = getenv("NASA_OPEN_APIS_TEST_LIVE")
+    override = getenv("NASA_OPEN_APIS_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module NasaOpenApisTestRunner
       end
     end
 
-    explain = getenv("NASAOPENAPIS_TEST_EXPLAIN")
-    m["NASAOPENAPIS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("NASA_OPEN_APIS_TEST_EXPLAIN")
+    m["NASA_OPEN_APIS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

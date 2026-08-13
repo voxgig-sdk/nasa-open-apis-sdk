@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from nasaopenapis_sdk.utility.voxgig_struct import voxgig_struct as vs
 from nasaopenapis_sdk import NasaOpenApisSDK
-from core import helpers
+from nasaopenapis_sdk.core import helpers
 from test import runner
 
 
@@ -70,16 +70,16 @@ def _mars_photo_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "NASAOPENAPIS_TEST_MARS_PHOTO_ENTID": {},
-        "NASAOPENAPIS_TEST_LIVE": "FALSE",
-        "NASAOPENAPIS_APIKEY": "NONE",
+        "NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID": {},
+        "NASA_OPEN_APIS_TEST_LIVE": "FALSE",
+        "NASA_OPEN_APIS_APIKEY": "NONE",
     })
 
-    live = env.get("NASAOPENAPIS_TEST_LIVE") == "TRUE"
+    live = env.get("NASA_OPEN_APIS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("NASAOPENAPIS_APIKEY"),
+            "apikey": env.get("NASA_OPEN_APIS_APIKEY"),
         }
         client = NasaOpenApisSDK(merged_opts)
         return {

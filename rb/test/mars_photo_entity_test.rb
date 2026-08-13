@@ -62,7 +62,7 @@ class MarsPhotoEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set NASAOPENAPIS_TEST_MARS_PHOTO_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -113,39 +113,39 @@ def mars_photo_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["NASAOPENAPIS_TEST_MARS_PHOTO_ENTID"]
+  entid_env_raw = ENV["NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "NASAOPENAPIS_TEST_MARS_PHOTO_ENTID" => idmap,
-    "NASAOPENAPIS_TEST_LIVE" => "FALSE",
-    "NASAOPENAPIS_TEST_EXPLAIN" => "FALSE",
-    "NASAOPENAPIS_APIKEY" => "NONE",
+    "NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID" => idmap,
+    "NASA_OPEN_APIS_TEST_LIVE" => "FALSE",
+    "NASA_OPEN_APIS_TEST_EXPLAIN" => "FALSE",
+    "NASA_OPEN_APIS_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["NASAOPENAPIS_TEST_MARS_PHOTO_ENTID"])
+    env["NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["NASAOPENAPIS_TEST_LIVE"] == "TRUE"
+  if env["NASA_OPEN_APIS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["NASAOPENAPIS_APIKEY"],
+        "apikey" => env["NASA_OPEN_APIS_APIKEY"],
       },
       extra || {},
     ])
     client = NasaOpenApisSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["NASAOPENAPIS_TEST_LIVE"] == "TRUE"
+  live = env["NASA_OPEN_APIS_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["NASAOPENAPIS_TEST_EXPLAIN"] == "TRUE",
+    explain: env["NASA_OPEN_APIS_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

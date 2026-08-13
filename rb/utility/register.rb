@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ NasaOpenApisUtility.registrar = ->(u) {
   u.prepare_params = NasaOpenApisUtilities::PrepareParams
   u.prepare_path = NasaOpenApisUtilities::PreparePath
   u.prepare_query = NasaOpenApisUtilities::PrepareQuery
+  u.graphql_body = NasaOpenApisUtilities::GraphqlBody
+  u.graphql_errors = NasaOpenApisUtilities::GraphqlErrors
   u.result_basic = NasaOpenApisUtilities::ResultBasic
   u.result_body = NasaOpenApisUtilities::ResultBody
   u.result_headers = NasaOpenApisUtilities::ResultHeaders

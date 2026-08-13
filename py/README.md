@@ -46,7 +46,7 @@ error — iterate it directly.
 
 ```python
 try:
-    marsphotos = client.MarsPhoto().list()
+    marsphotos = client.MarsPhoto().list({"rover_id": "example"})
     for marsphoto in marsphotos:
         print(marsphoto)
 except Exception as err:
@@ -127,7 +127,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = NasaOpenApisSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 marsphoto = client.MarsPhoto().list()
 # marsphoto contains the mock response record
 ```
@@ -227,7 +228,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -298,7 +299,7 @@ Create an instance: `mars_photo = client.MarsPhoto()`
 #### Example: List
 
 ```python
-mars_photos = client.MarsPhoto().list()
+mars_photos = client.MarsPhoto().list({"rover_id": "example"})
 ```
 
 

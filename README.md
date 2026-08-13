@@ -23,7 +23,7 @@ support (`list`, `load`):
 
 ```ts
 const client = new NasaOpenApisSDK()
-const items = await client.MarsPhoto().list()
+const items = await client.MarsPhoto().list({ rover_id: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = NasaOpenApisSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = NasaOpenApisSDK.test({
+  entity: {
+    mars_photo: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const marsphotos = await client.MarsPhoto().list()
-// marsphotos is an array of bare MarsPhoto records populated with mock data
+// marsphotos is an array of MarsPhoto entities, populated with mock data
+// — call marsphotos[0].data() for the record itself
 console.log(marsphotos)
 ```
 
@@ -112,8 +121,8 @@ const client = new NasaOpenApisSDK({
   apikey: process.env.NASA_OPEN_APIS_APIKEY,
 })
 
-// List all marsphotos (returns MarsPhoto[])
-const marsphotos = await client.MarsPhoto().list()
+// List all marsphotos (returns MarsPhotoEntity[] — .data() for the record)
+const marsphotos = await client.MarsPhoto().list({ rover_id: "example" })
 for (const marsphoto of marsphotos) {
   console.log(marsphoto)
 }
@@ -176,7 +185,7 @@ client = NasaOpenApisSDK({
 })
 
 # List all marsphotos (returns a list, raises on error)
-marsphotos = client.MarsPhoto().list()
+marsphotos = client.MarsPhoto().list({"rover_id": "example"})
 for marsphoto in marsphotos:
     print(marsphoto)
 ```
@@ -357,6 +366,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://api.nasa.gov](https://api.nasa.gov)
 

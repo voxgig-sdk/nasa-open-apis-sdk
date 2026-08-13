@@ -37,10 +37,12 @@ const client = new NasaOpenApisSDK({
 
 ### 2. List marsphoto records
 
-`list()` resolves to an array of MarsPhoto objects — iterate it directly:
+`list()` resolves to an array of MarsPhoto ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
-const marsphotos = await client.MarsPhoto().list()
+const marsphotos = await client.MarsPhoto().list({ rover_id: "example" })
 
 for (const marsphoto of marsphotos) {
   console.log(marsphoto)
@@ -122,7 +124,8 @@ Create a mock client for unit testing — no server required:
 const client = NasaOpenApisSDK.test()
 
 const marsphoto = await client.MarsPhoto().list()
-// marsphoto is a bare entity populated with mock response data
+// marsphoto is the entity, populated with mock response data
+// — call marsphoto.data() for the record itself
 console.log(marsphoto)
 ```
 
@@ -342,7 +345,7 @@ Create an instance: `const mars_photo = client.MarsPhoto()`
 #### Example: List
 
 ```ts
-const mars_photos = await client.MarsPhoto().list()
+const mars_photos = await client.MarsPhoto().list({ rover_id: "example" })
 ```
 
 

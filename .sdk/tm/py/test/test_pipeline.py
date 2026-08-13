@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import NasaOpenApisSDK
-from core.error import NasaOpenApisError
-from core.result import NasaOpenApisResult
-from core.response import NasaOpenApisResponse
-from core.spec import NasaOpenApisSpec
-from feature.base_feature import NasaOpenApisBaseFeature
+from projectname_sdk.core.error import NasaOpenApisError
+from projectname_sdk.core.result import NasaOpenApisResult
+from projectname_sdk.core.response import NasaOpenApisResponse
+from projectname_sdk.core.spec import NasaOpenApisSpec
+from projectname_sdk.feature.base_feature import NasaOpenApisBaseFeature
 
 
 def _client():

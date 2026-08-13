@@ -136,6 +136,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/mars-photos/api/v1/rovers/{rover}/photos",
                 ["parts"] = {
@@ -163,7 +164,7 @@ local function make_config()
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.photos`",
                 },
                 ["index$"] = 0,
               },
@@ -243,6 +244,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/planetary/apod",
                 ["parts"] = {

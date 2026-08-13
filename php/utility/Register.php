@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ NasaOpenApisUtility::setRegistrar(function (NasaOpenApisUtility $u): void {
     $u->prepare_params = [NasaOpenApisPrepareParams::class, 'call'];
     $u->prepare_path = [NasaOpenApisPreparePath::class, 'call'];
     $u->prepare_query = [NasaOpenApisPrepareQuery::class, 'call'];
+    $u->graphql_body = [NasaOpenApisGraphql::class, 'body'];
+    $u->graphql_errors = [NasaOpenApisGraphql::class, 'errors'];
     $u->result_basic = [NasaOpenApisResultBasic::class, 'call'];
     $u->result_body = [NasaOpenApisResultBody::class, 'call'];
     $u->result_headers = [NasaOpenApisResultHeaders::class, 'call'];

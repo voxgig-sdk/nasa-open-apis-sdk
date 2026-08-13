@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import NasaOpenApisControl
-from core.error import NasaOpenApisError
-from core.result import NasaOpenApisResult
-from core.spec import NasaOpenApisSpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import NasaOpenApisControl
+from projectname_sdk.core.error import NasaOpenApisError
+from projectname_sdk.core.result import NasaOpenApisResult
+from projectname_sdk.core.spec import NasaOpenApisSpec
 
 
 # True when this SDK was generated with the named feature.

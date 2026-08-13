@@ -106,7 +106,7 @@ mars_photo = client.MarsPhoto()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.MarsPhoto().list()
+results = client.MarsPhoto().list({"rover_id": "example"})
 for mars_photo in results:
     print(mars_photo)
 ```

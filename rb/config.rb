@@ -137,6 +137,7 @@ module NasaOpenApisConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/mars-photos/api/v1/rovers/{rover}/photos",
                   "parts" => [
@@ -164,7 +165,7 @@ module NasaOpenApisConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.photos`",
                   },
                   "index$" => 0,
                 },
@@ -244,6 +245,7 @@ module NasaOpenApisConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/planetary/apod",
                   "parts" => [

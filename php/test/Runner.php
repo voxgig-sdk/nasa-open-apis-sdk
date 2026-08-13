@@ -43,8 +43,8 @@ class NasaOpenApisTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('NASAOPENAPIS_TEST_LIVE');
-        $override = self::getenv('NASAOPENAPIS_TEST_OVERRIDE');
+        $live = self::getenv('NASA_OPEN_APIS_TEST_LIVE');
+        $override = self::getenv('NASA_OPEN_APIS_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class NasaOpenApisTestRunner
             }
         }
 
-        $explain = self::getenv('NASAOPENAPIS_TEST_EXPLAIN');
+        $explain = self::getenv('NASA_OPEN_APIS_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['NASAOPENAPIS_TEST_EXPLAIN'] = $explain;
+            $m['NASA_OPEN_APIS_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

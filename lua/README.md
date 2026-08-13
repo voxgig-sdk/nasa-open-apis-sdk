@@ -225,9 +225,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local mars_photo, err = client:MarsPhoto():load()
+    local planetary, err = client:Planetary():load()
     if err then error(err) end
-    -- mars_photo is the loaded record
+    -- planetary is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
