@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from nasaopenapis_sdk.config import make_config
+from nasaopenapis_sdk.config import shared_config
 from nasaopenapis_sdk.features import _make_feature
 from nasaopenapis_sdk.core.control import NasaOpenApisControl
 from nasaopenapis_sdk.core.error import NasaOpenApisError
@@ -24,7 +24,7 @@ from nasaopenapis_sdk.core.spec import NasaOpenApisSpec
 
 # True when this SDK was generated with the named feature.
 def has_feature(name):
-    feature = make_config().get("feature")
+    feature = shared_config().get("feature")
     return isinstance(feature, dict) and feature.get(name) is not None
 
 

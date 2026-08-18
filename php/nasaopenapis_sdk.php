@@ -40,7 +40,7 @@ class NasaOpenApisSDK
         $utility = new NasaOpenApisUtility();
         $this->_utility = $utility;
 
-        $config = NasaOpenApisConfig::make_config();
+        $config = NasaOpenApisConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

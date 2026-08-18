@@ -28,7 +28,7 @@ class NasaOpenApisSDK
     utility = NasaOpenApisUtility.new
     @_utility = utility
 
-    config = NasaOpenApisConfig.make_config
+    config = NasaOpenApisConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,
