@@ -96,11 +96,11 @@ local mars_photo = client:MarsPhoto(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `camera` | `table` | Yes |  |
-| `earth_date` | `string` | Yes |  |
-| `id` | `number` | Yes |  |
-| `img_src` | `string` | Yes |  |
+| `earth_date` | `string` | Yes | Earth date when the photo was taken |
+| `id` | `number` | Yes | Unique identifier for the photo |
+| `img_src` | `string` | Yes | URL of the image |
 | `rover` | `table` | Yes |  |
-| `sol` | `number` | Yes |  |
+| `sol` | `number` | Yes | Martian sol when the photo was taken |
 
 ### Operations
 

@@ -99,11 +99,11 @@ mars_photo = client.MarsPhoto
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `camera` | `Hash` | Yes |  |
-| `earth_date` | `String` | Yes |  |
-| `id` | `Integer` | Yes |  |
-| `img_src` | `String` | Yes |  |
+| `earth_date` | `String` | Yes | Earth date when the photo was taken |
+| `id` | `Integer` | Yes | Unique identifier for the photo |
+| `img_src` | `String` | Yes | URL of the image |
 | `rover` | `Hash` | Yes |  |
-| `sol` | `Integer` | Yes |  |
+| `sol` | `Integer` | Yes | Martian sol when the photo was taken |
 
 ### Operations
 

@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -297,11 +297,11 @@ The `prepare()` method returns:
 | Field | Description |
 | --- | --- |
 | `camera` |  |
-| `earth_date` |  |
-| `id` |  |
-| `img_src` |  |
+| `earth_date` | Earth date when the photo was taken |
+| `id` | Unique identifier for the photo |
+| `img_src` | URL of the image |
 | `rover` |  |
-| `sol` |  |
+| `sol` | Martian sol when the photo was taken |
 
 Operations: list.
 
@@ -336,11 +336,11 @@ Create an instance: `const mars_photo = client.MarsPhoto()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `camera` | `Record<string, any>` |  |
-| `earth_date` | `string` |  |
-| `id` | `number` |  |
-| `img_src` | `string` |  |
+| `earth_date` | `string` | Earth date when the photo was taken |
+| `id` | `number` | Unique identifier for the photo |
+| `img_src` | `string` | URL of the image |
 | `rover` | `Record<string, any>` |  |
-| `sol` | `number` |  |
+| `sol` | `number` | Martian sol when the photo was taken |
 
 #### Example: List
 

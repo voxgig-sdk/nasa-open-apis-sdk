@@ -19,6 +19,9 @@ module NasaOpenApisConfig
     {
       "main" => {
         "name" => "NasaOpenApis",
+        "slug" => "nasa-open-apis",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
@@ -51,16 +54,19 @@ module NasaOpenApisConfig
             {
               "name" => "earth_date",
               "req" => true,
+              "short" => "Earth date when the photo was taken",
               "type" => "`$STRING`",
             },
             {
               "name" => "id",
               "req" => true,
+              "short" => "Unique identifier for the photo",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "img_src",
               "req" => true,
+              "short" => "URL of the image",
               "type" => "`$STRING`",
             },
             {
@@ -71,6 +77,7 @@ module NasaOpenApisConfig
             {
               "name" => "sol",
               "req" => true,
+              "short" => "Martian sol when the photo was taken",
               "type" => "`$INTEGER`",
             },
           ],

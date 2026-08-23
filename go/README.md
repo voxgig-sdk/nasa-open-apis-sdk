@@ -6,7 +6,7 @@ The Golang SDK for the NasaOpenApis API — an entity-oriented client using stan
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.MarsPhoto(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -269,11 +269,11 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | Field | Description |
 | --- | --- |
 | `"camera"` |  |
-| `"earth_date"` |  |
-| `"id"` |  |
-| `"img_src"` |  |
+| `"earth_date"` | Earth date when the photo was taken |
+| `"id"` | Unique identifier for the photo |
+| `"img_src"` | URL of the image |
 | `"rover"` |  |
-| `"sol"` |  |
+| `"sol"` | Martian sol when the photo was taken |
 
 Operations: List.
 
@@ -308,11 +308,11 @@ Create an instance: `marsPhoto := client.MarsPhoto(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `camera` | `map[string]any` |  |
-| `earth_date` | `string` |  |
-| `id` | `int` |  |
-| `img_src` | `string` |  |
+| `earth_date` | `string` | Earth date when the photo was taken |
+| `id` | `int` | Unique identifier for the photo |
+| `img_src` | `string` | URL of the image |
 | `rover` | `map[string]any` |  |
-| `sol` | `int` |  |
+| `sol` | `int` | Martian sol when the photo was taken |
 
 #### Example: List
 

@@ -254,11 +254,11 @@ On error, `ok` is `false` and `$err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `camera` |  |
-| `earth_date` |  |
-| `id` |  |
-| `img_src` |  |
+| `earth_date` | Earth date when the photo was taken |
+| `id` | Unique identifier for the photo |
+| `img_src` | URL of the image |
 | `rover` |  |
-| `sol` |  |
+| `sol` | Martian sol when the photo was taken |
 
 Operations: List.
 
@@ -293,11 +293,11 @@ Create an instance: `$mars_photo = $client->MarsPhoto();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `camera` | `array` |  |
-| `earth_date` | `string` |  |
-| `id` | `int` |  |
-| `img_src` | `string` |  |
+| `earth_date` | `string` | Earth date when the photo was taken |
+| `id` | `int` | Unique identifier for the photo |
+| `img_src` | `string` | URL of the image |
 | `rover` | `array` |  |
-| `sol` | `int` |  |
+| `sol` | `int` | Martian sol when the photo was taken |
 
 #### Example: List
 

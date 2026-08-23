@@ -104,11 +104,11 @@ fmt.Println(marsPhoto.GetName()) // "mars_photo"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `camera` | `map[string]any` | Yes |  |
-| `earth_date` | `string` | Yes |  |
-| `id` | `int` | Yes |  |
-| `img_src` | `string` | Yes |  |
+| `earth_date` | `string` | Yes | Earth date when the photo was taken |
+| `id` | `int` | Yes | Unique identifier for the photo |
+| `img_src` | `string` | Yes | URL of the image |
 | `rover` | `map[string]any` | Yes |  |
-| `sol` | `int` | Yes |  |
+| `sol` | `int` | Yes | Martian sol when the photo was taken |
 
 ### Operations
 

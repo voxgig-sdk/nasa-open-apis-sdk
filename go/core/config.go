@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "NasaOpenApis",
+			"slug": "nasa-open-apis",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -43,16 +46,19 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "earth_date",
 						"req": true,
+						"short": "Earth date when the photo was taken",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
 						"req": true,
+						"short": "Unique identifier for the photo",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "img_src",
 						"req": true,
+						"short": "URL of the image",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -63,6 +69,7 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "sol",
 						"req": true,
+						"short": "Martian sol when the photo was taken",
 						"type": "`$INTEGER`",
 					},
 				},

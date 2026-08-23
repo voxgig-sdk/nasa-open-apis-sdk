@@ -28,6 +28,9 @@ def make_config():
     return {
         "main": {
             "name": "NasaOpenApis",
+            "slug": "nasa-open-apis",
+            "version": "0.0.1",
+            "target": "py",
         },
         "feature": {
             "test": {
@@ -60,16 +63,19 @@ def make_config():
           {
             "name": "earth_date",
             "req": True,
+            "short": "Earth date when the photo was taken",
             "type": "`$STRING`",
           },
           {
             "name": "id",
             "req": True,
+            "short": "Unique identifier for the photo",
             "type": "`$INTEGER`",
           },
           {
             "name": "img_src",
             "req": True,
+            "short": "URL of the image",
             "type": "`$STRING`",
           },
           {
@@ -80,6 +86,7 @@ def make_config():
           {
             "name": "sol",
             "req": True,
+            "short": "Martian sol when the photo was taken",
             "type": "`$INTEGER`",
           },
         ],

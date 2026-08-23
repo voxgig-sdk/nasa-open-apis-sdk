@@ -130,11 +130,11 @@ const mars_photo = client.MarsPhoto()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `camera` | `Record<string, any>` | Yes |  |
-| `earth_date` | `string` | Yes |  |
-| `id` | `number` | Yes |  |
-| `img_src` | `string` | Yes |  |
+| `earth_date` | `string` | Yes | Earth date when the photo was taken |
+| `id` | `number` | Yes | Unique identifier for the photo |
+| `img_src` | `string` | Yes | URL of the image |
 | `rover` | `Record<string, any>` | Yes |  |
-| `sol` | `number` | Yes |  |
+| `sol` | `number` | Yes | Martian sol when the photo was taken |
 
 ### Operations
 

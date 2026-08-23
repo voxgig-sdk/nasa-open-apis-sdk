@@ -239,11 +239,11 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | Field | Description |
 | --- | --- |
 | `camera` |  |
-| `earth_date` |  |
-| `id` |  |
-| `img_src` |  |
+| `earth_date` | Earth date when the photo was taken |
+| `id` | Unique identifier for the photo |
+| `img_src` | URL of the image |
 | `rover` |  |
-| `sol` |  |
+| `sol` | Martian sol when the photo was taken |
 
 Operations: List.
 
@@ -278,11 +278,11 @@ Create an instance: `local mars_photo = client:MarsPhoto(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `camera` | `table` |  |
-| `earth_date` | `string` |  |
-| `id` | `number` |  |
-| `img_src` | `string` |  |
+| `earth_date` | `string` | Earth date when the photo was taken |
+| `id` | `number` | Unique identifier for the photo |
+| `img_src` | `string` | URL of the image |
 | `rover` | `table` |  |
-| `sol` | `number` |  |
+| `sol` | `number` | Martian sol when the photo was taken |
 
 #### Example: List
 
