@@ -28,6 +28,7 @@ module NasaOpenApisConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
