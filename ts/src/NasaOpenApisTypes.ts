@@ -16,12 +16,23 @@ export interface MarsPhoto {
 
 export interface MarsPhotoListMatch {
   rover_id: string
+  api_key: string
+  camera?: string
+  earth_date?: string
+  page?: number
+  sol?: number
 }
 
 export interface Planetary {
 }
 
 export interface PlanetaryLoadMatch {
+  api_key: string
+  count?: number
+  date?: string
+  end_date?: string
+  start_date?: string
+  thumb?: boolean
 
   // Selects a custom action instead of the plain load:
   //   'apod'

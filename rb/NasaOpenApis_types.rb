@@ -41,8 +41,28 @@ MarsPhoto = Struct.new(
 #
 # @!attribute [rw] rover_id
 #   @return [String]
+#
+# @!attribute [rw] api_key
+#   @return [String]
+#
+# @!attribute [rw] camera
+#   @return [String, nil]
+#
+# @!attribute [rw] earth_date
+#   @return [String, nil]
+#
+# @!attribute [rw] page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] sol
+#   @return [Integer, nil]
 MarsPhotoListMatch = Struct.new(
   :rover_id,
+  :api_key,
+  :camera,
+  :earth_date,
+  :page,
+  :sol,
   keyword_init: true
 )
 
@@ -51,6 +71,31 @@ class Planetary
 end
 
 # Request payload for Planetary#load.
-class PlanetaryLoadMatch
-end
+#
+# @!attribute [rw] api_key
+#   @return [String]
+#
+# @!attribute [rw] count
+#   @return [Integer, nil]
+#
+# @!attribute [rw] date
+#   @return [String, nil]
+#
+# @!attribute [rw] end_date
+#   @return [String, nil]
+#
+# @!attribute [rw] start_date
+#   @return [String, nil]
+#
+# @!attribute [rw] thumb
+#   @return [Boolean, nil]
+PlanetaryLoadMatch = Struct.new(
+  :api_key,
+  :count,
+  :date,
+  :end_date,
+  :start_date,
+  :thumb,
+  keyword_init: true
+)
 

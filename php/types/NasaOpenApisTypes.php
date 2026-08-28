@@ -27,6 +27,11 @@ class MarsPhoto
 class MarsPhotoListMatch
 {
     public string $rover_id;
+    public string $api_key;
+    public ?string $camera = null;
+    public ?string $earth_date = null;
+    public ?int $page = null;
+    public ?int $sol = null;
 }
 
 /** Planetary entity data model. */
@@ -37,5 +42,11 @@ class Planetary
 /** Request payload for Planetary#load. */
 class PlanetaryLoadMatch
 {
+    public string $api_key;
+    public ?int $count = null;
+    public ?string $date = null;
+    public ?string $end_date = null;
+    public ?string $start_date = null;
+    public ?bool $thumb = null;
 }
 

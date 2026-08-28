@@ -46,7 +46,7 @@ error — iterate it directly.
 
 ```python
 try:
-    marsphotos = client.MarsPhoto().list({"rover_id": "example"})
+    marsphotos = client.MarsPhoto().list({"rover_id": "example", "api_key": "example"})
     for marsphoto in marsphotos:
         print(marsphoto)
 except Exception as err:
@@ -299,7 +299,7 @@ Create an instance: `mars_photo = client.MarsPhoto()`
 #### Example: List
 
 ```python
-mars_photos = client.MarsPhoto().list({"rover_id": "example"})
+mars_photos = client.MarsPhoto().list({"rover_id": "example", "api_key": "example"})
 ```
 
 
@@ -316,8 +316,31 @@ Create an instance: `planetary = client.Planetary()`
 #### Example: Load
 
 ```python
-planetary = client.Planetary().load()
+planetary = client.Planetary().load({"api_key": "api_key"})
 ```
+
+## Features
+
+This SDK ships 1 optional features. Each is **inactive until you
+switch it on**, so an SDK you have not configured behaves exactly as if none of
+them existed — no retries, no cache, no logging, no measurable overhead.
+
+Activate a feature by name in the client options, alongside the options shown
+above:
+
+| Feature | What it does |
+|---|---|
+| [`test`](#test) | In-memory mock transport for testing without a live server |
+
+### test
+
+In-memory mock transport for testing without a live server.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+
+Set `feature.test.active` to enable it, then override any of the options above.
 
 
 ## Advanced

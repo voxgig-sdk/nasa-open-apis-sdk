@@ -16,10 +16,21 @@
 
 ---@class MarsPhotoListMatch
 ---@field rover_id string
+---@field api_key string
+---@field camera? string
+---@field earth_date? string
+---@field page? number
+---@field sol? number
 
 ---@class Planetary
 
 ---@class PlanetaryLoadMatch
+---@field api_key string
+---@field count? number
+---@field date? string
+---@field end_date? string
+---@field start_date? string
+---@field thumb? boolean
 
 local M = {}
 

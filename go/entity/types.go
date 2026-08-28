@@ -25,6 +25,11 @@ type MarsPhoto struct {
 // MarsPhotoListMatch is the typed request payload for MarsPhoto.ListTyped.
 type MarsPhotoListMatch struct {
 	RoverId string `json:"rover_id"`
+	ApiKey string `json:"api_key"`
+	Camera *string `json:"camera,omitempty"`
+	EarthDate *string `json:"earth_date,omitempty"`
+	Page *int `json:"page,omitempty"`
+	Sol *int `json:"sol,omitempty"`
 }
 
 // Planetary is the typed data model for the planetary entity.
@@ -33,6 +38,12 @@ type Planetary struct {
 
 // PlanetaryLoadMatch is the typed request payload for Planetary.LoadTyped.
 type PlanetaryLoadMatch struct {
+	ApiKey string `json:"api_key"`
+	Count *int `json:"count,omitempty"`
+	Date *string `json:"date,omitempty"`
+	EndDate *string `json:"end_date,omitempty"`
+	StartDate *string `json:"start_date,omitempty"`
+	Thumb *bool `json:"thumb,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

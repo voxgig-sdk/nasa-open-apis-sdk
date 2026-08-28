@@ -25,13 +25,29 @@ class MarsPhoto(TypedDict):
     sol: int
 
 
-class MarsPhotoListMatch(TypedDict):
+class MarsPhotoListMatchRequired(TypedDict):
     rover_id: str
+    api_key: str
+
+
+class MarsPhotoListMatch(MarsPhotoListMatchRequired, total=False):
+    camera: str
+    earth_date: str
+    page: int
+    sol: int
 
 
 class Planetary(TypedDict):
     pass
 
 
-class PlanetaryLoadMatch(TypedDict):
-    pass
+class PlanetaryLoadMatchRequired(TypedDict):
+    api_key: str
+
+
+class PlanetaryLoadMatch(PlanetaryLoadMatchRequired, total=False):
+    count: int
+    date: str
+    end_date: str
+    start_date: str
+    thumb: bool
