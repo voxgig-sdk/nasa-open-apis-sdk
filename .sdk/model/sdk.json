@@ -40,6 +40,7 @@
             },
             {
               "active": true,
+              "format": "date",
               "name": "earth_date",
               "req": true,
               "short": "Earth date when the photo was taken",
@@ -54,6 +55,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "img_src",
               "req": true,
               "short": "URL of the image",
@@ -144,19 +146,31 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/mars-photos/api/v1/rovers/{rover}/photos",
-                  "parts": [
-                    "mars-photos",
-                    "api",
-                    "v1",
-                    "rovers",
-                    "{rover_id}",
-                    "photos"
-                  ],
                   "rename": {
                     "param": {
                       "rover": "rover_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "mars-photos"
+                    },
+                    {
+                      "lit": "api"
+                    },
+                    {
+                      "lit": "v1"
+                    },
+                    {
+                      "lit": "rovers"
+                    },
+                    {
+                      "var": "rover_id"
+                    },
+                    {
+                      "lit": "photos"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -254,9 +268,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/planetary/apod",
-                  "parts": [
-                    "planetary",
-                    "apod"
+                  "segments": [
+                    {
+                      "lit": "planetary"
+                    },
+                    {
+                      "lit": "apod"
+                    }
                   ],
                   "select": {
                     "$action": "apod",
@@ -346,8 +364,11 @@
             }
           },
           "name": "test",
+          "needs": {},
           "origname": "",
           "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
           "target": {
             "go": {
               "deps": {}
@@ -505,6 +526,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -530,6 +554,10 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/runner_test.go",
+            "test/struct_runner_test.go"
+          ],
           "title": "Golang"
         },
         "go-cli": {
@@ -581,6 +609,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -605,6 +634,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go CLI"
         },
         "go-mcp": {
@@ -656,6 +686,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -680,6 +711,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go MCP server"
         },
         "lua": {
@@ -720,6 +752,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -745,6 +780,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.lua"
+          ],
           "title": "Lua"
         },
         "php": {
@@ -779,6 +817,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -804,6 +845,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/StructRunner.php"
+          ],
           "title": "PHP"
         },
         "py": {
@@ -844,6 +888,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -869,6 +916,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.py"
+          ],
           "title": "Python"
         },
         "rb": {
@@ -914,6 +964,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -939,6 +992,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.rb"
+          ],
           "title": "Ruby"
         },
         "ts": {
@@ -956,11 +1012,6 @@
               "active": true,
               "kind": "dev",
               "version": "^25.6.0"
-            },
-            "dotenv": {
-              "active": true,
-              "kind": "dev",
-              "version": "^17.4.2"
             },
             "typescript": {
               "active": true,
@@ -989,6 +1040,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1013,6 +1067,14 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [
+            "test/runner.ts",
+            "test/vendor/omni/compat.ts",
+            "src/feature/secrets/sekreto/Providers.ts",
+            "src/feature/secrets/sekreto/Sigv4.ts",
+            "src/feature/secrets/sekreto/provider/Registry.ts",
+            "src/feature/secrets/sekreto/provider/http.ts"
+          ],
           "title": "TypeScript"
         }
       },

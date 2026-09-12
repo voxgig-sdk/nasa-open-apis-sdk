@@ -106,14 +106,22 @@ func planetaryDirectSetup(mockres any) *planetaryDirectSetupResult {
 	env := envOverride(map[string]any{
 		"NASA_OPEN_APIS_TEST_PLANETARY_ENTID": map[string]any{},
 		"NASA_OPEN_APIS_TEST_LIVE":    "FALSE",
-		"NASA_OPEN_APIS_APIKEY":       "NONE",
+		"NASA_OPEN_APIS_APIKEY":       "",
 	})
 
 	live := env["NASA_OPEN_APIS_TEST_LIVE"] == "TRUE"
 
 	if live {
-		mergedOpts := map[string]any{
+		// sdk-test-control.json's test.client.options seeds the live
+		// client; the generated fields below overwrite anything they name.
+		mergedOpts := map[string]any{}
+		for k, v := range liveClientOptions() {
+			mergedOpts[k] = v
+		}
+		for k, v := range map[string]any{
 			"apikey": env["NASA_OPEN_APIS_APIKEY"],
+		} {
+			mergedOpts[k] = v
 		}
 		client := sdk.NewNasaOpenApisSDK(mergedOpts)
 

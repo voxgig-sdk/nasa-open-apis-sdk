@@ -91,7 +91,7 @@ function planetary_basic_setup(extra)
     ["NASA_OPEN_APIS_TEST_PLANETARY_ENTID"] = idmap,
     ["NASA_OPEN_APIS_TEST_LIVE"] = "FALSE",
     ["NASA_OPEN_APIS_TEST_EXPLAIN"] = "FALSE",
-    ["NASA_OPEN_APIS_APIKEY"] = "NONE",
+    ["NASA_OPEN_APIS_APIKEY"] = "",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -102,6 +102,9 @@ function planetary_basic_setup(extra)
 
   if env["NASA_OPEN_APIS_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
+      -- FIRST, so the generated fields below win: sdk-test-control.json's
+      -- test.client.options adds to the live client, it does not redirect it.
+      runner.live_client_options(),
       {
         apikey = env["NASA_OPEN_APIS_APIKEY"],
       },

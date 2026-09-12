@@ -60,9 +60,13 @@ main: kit: entity: planetary: {
           }
           method: "GET"
           orig: "/planetary/apod"
-          parts: [
-            "planetary"
-            "apod"
+          segments: [
+            {
+              lit: "planetary"
+            }
+            {
+              lit: "apod"
+            }
           ]
           select: {
             "$action": "apod"

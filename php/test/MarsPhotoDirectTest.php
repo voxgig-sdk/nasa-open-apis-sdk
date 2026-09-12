@@ -82,15 +82,17 @@ function mars_photo_direct_setup($mockres)
     $env = Runner::env_override([
         "NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID" => [],
         "NASA_OPEN_APIS_TEST_LIVE" => "FALSE",
-        "NASA_OPEN_APIS_APIKEY" => "NONE",
+        "NASA_OPEN_APIS_APIKEY" => "",
     ]);
 
     $live = $env["NASA_OPEN_APIS_TEST_LIVE"] === "TRUE";
 
     if ($live) {
-        $merged_opts = [
+        // Merged so the generated fields win: sdk-test-control.json's
+        // test.client.options adds to the live client, it does not redirect it.
+        $merged_opts = array_merge(Runner::live_client_options(), [
             "apikey" => $env["NASA_OPEN_APIS_APIKEY"],
-        ];
+        ]);
         $client = new NasaOpenApisSDK($merged_opts);
         return [
             "client" => $client,

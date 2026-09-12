@@ -84,7 +84,7 @@ function planetary_basic_setup($extra)
         "NASA_OPEN_APIS_TEST_PLANETARY_ENTID" => $idmap,
         "NASA_OPEN_APIS_TEST_LIVE" => "FALSE",
         "NASA_OPEN_APIS_TEST_EXPLAIN" => "FALSE",
-        "NASA_OPEN_APIS_APIKEY" => "NONE",
+        "NASA_OPEN_APIS_APIKEY" => "",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -95,10 +95,17 @@ function planetary_basic_setup($extra)
 
     if ($env["NASA_OPEN_APIS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
+            // FIRST, so the generated fields below win: sdk-test-control.json's
+            // test.client.options adds to the live client, it does not redirect it.
+            Runner::live_client_options(),
             [
                 "apikey" => $env["NASA_OPEN_APIS_APIKEY"],
             ],
-            $extra ?? [],
+            // ismap, not a plain "?? []" default: an empty PHP array is a
+            // LIST, and a non-map later entry REPLACES the accumulated map in
+            // merge - so the no-extras call discarded live_client_options()
+            // and the apikey/server map above it.
+            Vs::ismap($extra) ? $extra : new \stdClass(),
         ]);
         $client = new NasaOpenApisSDK(Helpers::to_map($merged_opts));
     }

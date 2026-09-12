@@ -53,6 +53,7 @@ module NasaOpenApisConfig
               "type" => "`$OBJECT`",
             },
             {
+              "format" => "date",
               "name" => "earth_date",
               "req" => true,
               "short" => "Earth date when the photo was taken",
@@ -65,6 +66,7 @@ module NasaOpenApisConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "uri",
               "name" => "img_src",
               "req" => true,
               "short" => "URL of the image",
@@ -82,6 +84,10 @@ module NasaOpenApisConfig
               "type" => "`$INTEGER`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "mars_photo",
           "op" => {
             "list" => {
@@ -138,19 +144,31 @@ module NasaOpenApisConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/mars-photos/api/v1/rovers/{rover}/photos",
-                  "parts" => [
-                    "mars-photos",
-                    "api",
-                    "v1",
-                    "rovers",
-                    "{rover_id}",
-                    "photos",
-                  ],
                   "rename" => {
                     "param" => {
                       "rover" => "rover_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "mars-photos",
+                    },
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "v1",
+                    },
+                    {
+                      "lit" => "rovers",
+                    },
+                    {
+                      "var" => "rover_id",
+                    },
+                    {
+                      "lit" => "photos",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "api_key",
@@ -165,6 +183,14 @@ module NasaOpenApisConfig
                     "req" => "`reqdata`",
                     "res" => "`body.photos`",
                   },
+                  "parts" => [
+                    "mars-photos",
+                    "api",
+                    "v1",
+                    "rovers",
+                    "{rover_id}",
+                    "photos",
+                  ],
                 },
               ],
             },
@@ -232,9 +258,13 @@ module NasaOpenApisConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/planetary/apod",
-                  "parts" => [
-                    "planetary",
-                    "apod",
+                  "segments" => [
+                    {
+                      "lit" => "planetary",
+                    },
+                    {
+                      "lit" => "apod",
+                    },
                   ],
                   "select" => {
                     "$action" => "apod",
@@ -251,6 +281,10 @@ module NasaOpenApisConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "planetary",
+                    "apod",
+                  ],
                 },
               ],
             },

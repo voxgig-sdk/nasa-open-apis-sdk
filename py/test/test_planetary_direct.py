@@ -63,15 +63,18 @@ def _planetary_direct_setup(mockres):
     env = runner.env_override({
         "NASA_OPEN_APIS_TEST_PLANETARY_ENTID": {},
         "NASA_OPEN_APIS_TEST_LIVE": "FALSE",
-        "NASA_OPEN_APIS_APIKEY": "NONE",
+        "NASA_OPEN_APIS_APIKEY": "",
     })
 
     live = env.get("NASA_OPEN_APIS_TEST_LIVE") == "TRUE"
 
     if live:
-        merged_opts = {
+        # sdk-test-control.json's test.client.options seeds the live
+        # client; the generated fields below overwrite anything they name.
+        merged_opts = dict(runner.live_client_options())
+        merged_opts.update({
             "apikey": env.get("NASA_OPEN_APIS_APIKEY"),
-        }
+        })
         client = NasaOpenApisSDK(merged_opts)
         return {
             "client": client,

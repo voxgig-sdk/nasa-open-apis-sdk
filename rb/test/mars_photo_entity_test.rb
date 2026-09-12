@@ -120,7 +120,7 @@ def mars_photo_basic_setup(extra)
     "NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID" => idmap,
     "NASA_OPEN_APIS_TEST_LIVE" => "FALSE",
     "NASA_OPEN_APIS_TEST_EXPLAIN" => "FALSE",
-    "NASA_OPEN_APIS_APIKEY" => "NONE",
+    "NASA_OPEN_APIS_APIKEY" => "",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -131,6 +131,9 @@ def mars_photo_basic_setup(extra)
 
   if env["NASA_OPEN_APIS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
         "apikey" => env["NASA_OPEN_APIS_APIKEY"],
       },

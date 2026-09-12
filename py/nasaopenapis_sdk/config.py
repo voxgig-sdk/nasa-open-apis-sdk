@@ -1,6 +1,14 @@
 # NasaOpenApis SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -62,6 +70,7 @@ def make_config():
             "type": "`$OBJECT`",
           },
           {
+            "format": "date",
             "name": "earth_date",
             "req": True,
             "short": "Earth date when the photo was taken",
@@ -74,6 +83,7 @@ def make_config():
             "type": "`$INTEGER`",
           },
           {
+            "format": "uri",
             "name": "img_src",
             "req": True,
             "short": "URL of the image",
@@ -91,6 +101,10 @@ def make_config():
             "type": "`$INTEGER`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "mars_photo",
         "op": {
           "list": {
@@ -147,19 +161,31 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/mars-photos/api/v1/rovers/{rover}/photos",
-                "parts": [
-                  "mars-photos",
-                  "api",
-                  "v1",
-                  "rovers",
-                  "{rover_id}",
-                  "photos",
-                ],
                 "rename": {
                   "param": {
                     "rover": "rover_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "mars-photos",
+                  },
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "rovers",
+                  },
+                  {
+                    "var": "rover_id",
+                  },
+                  {
+                    "lit": "photos",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -174,6 +200,14 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.photos`",
                 },
+                "parts": [
+                  "mars-photos",
+                  "api",
+                  "v1",
+                  "rovers",
+                  "{rover_id}",
+                  "photos",
+                ],
               },
             ],
           },
@@ -241,9 +275,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/planetary/apod",
-                "parts": [
-                  "planetary",
-                  "apod",
+                "segments": [
+                  {
+                    "lit": "planetary",
+                  },
+                  {
+                    "lit": "apod",
+                  },
                 ],
                 "select": {
                   "$action": "apod",
@@ -260,6 +298,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "planetary",
+                  "apod",
+                ],
               },
             ],
           },

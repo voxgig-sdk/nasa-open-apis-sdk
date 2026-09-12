@@ -11,6 +11,7 @@ main: kit: entity: mars_photo: {
       type: "`$OBJECT`"
     }
     {
+      format: "date"
       name: "earth_date"
       req: true
       short: "Earth date when the photo was taken"
@@ -23,6 +24,7 @@ main: kit: entity: mars_photo: {
       type: "`$INTEGER`"
     }
     {
+      format: "uri"
       name: "img_src"
       req: true
       short: "URL of the image"
@@ -104,19 +106,31 @@ main: kit: entity: mars_photo: {
           }
           method: "GET"
           orig: "/mars-photos/api/v1/rovers/{rover}/photos"
-          parts: [
-            "mars-photos"
-            "api"
-            "v1"
-            "rovers"
-            "{rover_id}"
-            "photos"
-          ]
           rename: {
             param: {
               rover: "rover_id"
             }
           }
+          segments: [
+            {
+              lit: "mars-photos"
+            }
+            {
+              lit: "api"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "rovers"
+            }
+            {
+              var: "rover_id"
+            }
+            {
+              lit: "photos"
+            }
+          ]
           select: {
             exist: [
               "api_key"

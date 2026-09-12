@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -79,6 +90,7 @@ class Config {
           "type": "`$OBJECT`"
         },
         {
+          "format": "date",
           "name": "earth_date",
           "req": true,
           "short": "Earth date when the photo was taken",
@@ -91,6 +103,7 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "uri",
           "name": "img_src",
           "req": true,
           "short": "URL of the image",
@@ -108,6 +121,10 @@ class Config {
           "type": "`$INTEGER`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "mars_photo",
       "op": {
         "list": {
@@ -164,19 +181,31 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/mars-photos/api/v1/rovers/{rover}/photos",
-              "parts": [
-                "mars-photos",
-                "api",
-                "v1",
-                "rovers",
-                "{rover_id}",
-                "photos"
-              ],
               "rename": {
                 "param": {
                   "rover": "rover_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "mars-photos"
+                },
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "v1"
+                },
+                {
+                  "lit": "rovers"
+                },
+                {
+                  "var": "rover_id"
+                },
+                {
+                  "lit": "photos"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -190,7 +219,15 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.photos`"
-              }
+              },
+              "parts": [
+                "mars-photos",
+                "api",
+                "v1",
+                "rovers",
+                "{rover_id}",
+                "photos"
+              ]
             }
           ]
         }
@@ -258,9 +295,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/planetary/apod",
-              "parts": [
-                "planetary",
-                "apod"
+              "segments": [
+                {
+                  "lit": "planetary"
+                },
+                {
+                  "lit": "apod"
+                }
               ],
               "select": {
                 "$action": "apod",
@@ -276,7 +317,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "planetary",
+                "apod"
+              ]
             }
           ]
         }
@@ -292,6 +337,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

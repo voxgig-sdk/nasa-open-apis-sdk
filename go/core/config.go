@@ -45,6 +45,7 @@ func MakeConfig() map[string]any {
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
+						"format": "date",
 						"name": "earth_date",
 						"req": true,
 						"short": "Earth date when the photo was taken",
@@ -57,6 +58,7 @@ func MakeConfig() map[string]any {
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
+						"format": "uri",
 						"name": "img_src",
 						"req": true,
 						"short": "URL of the image",
@@ -73,6 +75,10 @@ func MakeConfig() map[string]any {
 						"short": "Martian sol when the photo was taken",
 						"type": "`$INTEGER`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "mars_photo",
 				"op": map[string]any{
@@ -130,17 +136,29 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/mars-photos/api/v1/rovers/{rover}/photos",
-								"parts": []any{
-									"mars-photos",
-									"api",
-									"v1",
-									"rovers",
-									"{rover_id}",
-									"photos",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"rover": "rover_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "mars-photos",
+									},
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "v1",
+									},
+									map[string]any{
+										"lit": "rovers",
+									},
+									map[string]any{
+										"var": "rover_id",
+									},
+									map[string]any{
+										"lit": "photos",
 									},
 								},
 								"select": map[string]any{
@@ -156,6 +174,14 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.photos`",
+								},
+								"parts": []any{
+									"mars-photos",
+									"api",
+									"v1",
+									"rovers",
+									"{rover_id}",
+									"photos",
 								},
 							},
 						},
@@ -224,9 +250,13 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/planetary/apod",
-								"parts": []any{
-									"planetary",
-									"apod",
+								"segments": []any{
+									map[string]any{
+										"lit": "planetary",
+									},
+									map[string]any{
+										"lit": "apod",
+									},
 								},
 								"select": map[string]any{
 									"$action": "apod",
@@ -243,6 +273,10 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"parts": []any{
+									"planetary",
+									"apod",
+								},
 							},
 						},
 					},
@@ -253,6 +287,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (
