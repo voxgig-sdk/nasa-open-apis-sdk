@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { NasaOpenApisSDK } from '@voxgig-sdk/nasa-open-apis'
+import { NasaOpenApisSDK } from '@voxgig-sdk/nasa-open-apis-sdk'
 
 const client = new NasaOpenApisSDK({
   apikey: process.env.NASA_OPEN_APIS_APIKEY,
@@ -448,7 +448,7 @@ nasa-open-apis/
 Import the SDK from the package root:
 
 ```ts
-import { NasaOpenApisSDK } from '@voxgig-sdk/nasa-open-apis'
+import { NasaOpenApisSDK } from '@voxgig-sdk/nasa-open-apis-sdk'
 ```
 
 ### Entity state

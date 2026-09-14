@@ -105,7 +105,7 @@ local results, err = client:MarsPhoto():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/nasa-open-apis` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases) |
+| TypeScript | `@voxgig-sdk/nasa-open-apis-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases) |
 | Python | `voxgig-sdk-nasa-open-apis` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases) |
 | PHP | `voxgig-sdk/nasa-open-apis` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/nasa-open-apis-sdk/go` | `go get github.com/voxgig-sdk/nasa-open-apis-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:MarsPhoto():list()
 ### TypeScript
 
 ```ts
-import { NasaOpenApisSDK } from '@voxgig-sdk/nasa-open-apis'
+import { NasaOpenApisSDK } from '@voxgig-sdk/nasa-open-apis-sdk'
 
 const client = new NasaOpenApisSDK({
   apikey: process.env.NASA_OPEN_APIS_APIKEY,
