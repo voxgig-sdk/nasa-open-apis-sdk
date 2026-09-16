@@ -24,7 +24,71 @@
         "repr": "auto"
       },
       "contributor": {},
-      "docs": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "mars_photo": {
           "active": true,
@@ -142,6 +206,12 @@
                         "type": "`$INTEGER`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "GET /mars-photos/api/v1/rovers/{rover}/photos",
+                    "json": "{\"operationId\":\"getMarsRoverPhotos\",\"parameters\":[{\"description\":\"The Mars rover name (curiosity, opportunity, or spirit)\",\"in\":\"path\",\"name\":\"rover\",\"required\":true,\"schema\":{\"enum\":[\"curiosity\",\"opportunity\",\"spirit\"],\"type\":\"string\"}},{\"description\":\"API key for authentication. Use DEMO_KEY for limited demo access.\",\"in\":\"query\",\"name\":\"api_key\",\"required\":true,\"schema\":{\"default\":\"DEMO_KEY\",\"type\":\"string\"}},{\"description\":\"Martian sol (day) on which photos were taken. Either sol or earth_date must be provided.\",\"in\":\"query\",\"name\":\"sol\",\"required\":false,\"schema\":{\"minimum\":0,\"type\":\"integer\"}},{\"description\":\"Earth date when photos were taken (YYYY-MM-DD format). Either sol or earth_date must be provided.\",\"in\":\"query\",\"name\":\"earth_date\",\"required\":false,\"schema\":{\"format\":\"date\",\"type\":\"string\"}},{\"description\":\"Filter results by camera abbreviation (e.g., FHAZ, RHAZ, MAST, CHEMCAM, MAHLI, MARDI, NAVCAM, PANCAM, MINITES)\",\"in\":\"query\",\"name\":\"camera\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Page number for paginated results\",\"in\":\"query\",\"name\":\"page\",\"required\":false,\"schema\":{\"default\":1,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"photos\":{\"items\":{\"properties\":{\"camera\":{\"properties\":{\"full_name\":{\"description\":\"Full camera name\",\"type\":\"string\"},\"id\":{\"description\":\"Camera identifier\",\"type\":\"integer\"},\"name\":{\"description\":\"Camera abbreviation\",\"type\":\"string\"},\"rover_id\":{\"description\":\"Rover identifier\",\"type\":\"integer\"}},\"required\":[\"id\",\"name\",\"rover_id\",\"full_name\"],\"type\":\"object\"},\"earth_date\":{\"description\":\"Earth date when the photo was taken\",\"format\":\"date\",\"type\":\"string\"},\"id\":{\"description\":\"Unique identifier for the photo\",\"type\":\"integer\"},\"img_src\":{\"description\":\"URL of the image\",\"format\":\"uri\",\"type\":\"string\"},\"rover\":{\"properties\":{\"cameras\":{\"description\":\"List of cameras on the rover\",\"items\":{\"properties\":{\"full_name\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"id\":{\"description\":\"Rover identifier\",\"type\":\"integer\"},\"landing_date\":{\"description\":\"Date when the rover landed on Mars\",\"format\":\"date\",\"type\":\"string\"},\"launch_date\":{\"description\":\"Date when the rover was launched from Earth\",\"format\":\"date\",\"type\":\"string\"},\"max_date\":{\"description\":\"Maximum Earth date for which photos are available\",\"format\":\"date\",\"type\":\"string\"},\"max_sol\":{\"description\":\"Maximum sol for which photos are available\",\"type\":\"integer\"},\"name\":{\"description\":\"Rover name\",\"type\":\"string\"},\"status\":{\"description\":\"Current status of the rover\",\"enum\":[\"active\",\"complete\"],\"type\":\"string\"},\"total_photos\":{\"description\":\"Total number of photos taken by the rover\",\"type\":\"integer\"}},\"required\":[\"id\",\"name\",\"landing_date\",\"launch_date\",\"status\"],\"type\":\"object\"},\"sol\":{\"description\":\"Martian sol when the photo was taken\",\"type\":\"integer\"}},\"required\":[\"id\",\"sol\",\"camera\",\"img_src\",\"earth_date\",\"rover\"],\"type\":\"object\"},\"type\":\"array\"}},\"required\":[\"photos\"],\"type\":\"object\"}}},\"description\":\"Successful response with Mars rover photos\"},\"400\":{\"description\":\"Bad request - invalid parameters\"},\"403\":{\"description\":\"Forbidden - invalid API key\"},\"404\":{\"description\":\"Not found - rover or photos not found\"},\"429\":{\"description\":\"Rate limit exceeded\"},\"500\":{\"description\":\"Internal server error\"}},\"security\":[{\"apiKey\":[]}],\"securitySchemes\":{\"apiKey\":{\"description\":\"API key for NASA Open APIs. Register at https://api.nasa.gov to get your key, or use DEMO_KEY for limited testing.\",\"in\":\"query\",\"name\":\"api_key\",\"type\":\"apiKey\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "GET",
@@ -265,6 +335,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "GET /planetary/apod",
+                    "json": "{\"operationId\":\"getApod\",\"parameters\":[{\"description\":\"API key for authentication. Use DEMO_KEY for limited demo access.\",\"in\":\"query\",\"name\":\"api_key\",\"required\":true,\"schema\":{\"default\":\"DEMO_KEY\",\"type\":\"string\"}},{\"description\":\"The date of the APOD image to retrieve (YYYY-MM-DD format). Defaults to today's date.\",\"in\":\"query\",\"name\":\"date\",\"required\":false,\"schema\":{\"format\":\"date\",\"type\":\"string\"}},{\"description\":\"The start date for a range of dates (YYYY-MM-DD format). Used with end_date.\",\"in\":\"query\",\"name\":\"start_date\",\"required\":false,\"schema\":{\"format\":\"date\",\"type\":\"string\"}},{\"description\":\"The end date for a range of dates (YYYY-MM-DD format). Used with start_date.\",\"in\":\"query\",\"name\":\"end_date\",\"required\":false,\"schema\":{\"format\":\"date\",\"type\":\"string\"}},{\"description\":\"Number of randomly selected images to return. Cannot be used with date or start_date/end_date.\",\"in\":\"query\",\"name\":\"count\",\"required\":false,\"schema\":{\"maximum\":100,\"minimum\":1,\"type\":\"integer\"}},{\"description\":\"Return the URL of video thumbnail if the media type is video.\",\"in\":\"query\",\"name\":\"thumbs\",\"required\":false,\"schema\":{\"default\":false,\"type\":\"boolean\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"oneOf\":[{\"properties\":{\"copyright\":{\"description\":\"The name of the copyright holder\",\"type\":\"string\"},\"date\":{\"description\":\"The date of the APOD image\",\"format\":\"date\",\"type\":\"string\"},\"explanation\":{\"description\":\"The explanation of the image written by an astronomer\",\"type\":\"string\"},\"hdurl\":{\"description\":\"The URL for the high-resolution image\",\"format\":\"uri\",\"type\":\"string\"},\"media_type\":{\"description\":\"The type of media (image or video)\",\"enum\":[\"image\",\"video\"],\"type\":\"string\"},\"service_version\":{\"description\":\"The version of the APOD API service\",\"type\":\"string\"},\"thumbnail_url\":{\"description\":\"The URL of the video thumbnail (only present if media_type is video and thumbs parameter is true)\",\"format\":\"uri\",\"type\":\"string\"},\"title\":{\"description\":\"The title of the image\",\"type\":\"string\"},\"url\":{\"description\":\"The URL of the APOD image or video\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"date\",\"explanation\",\"media_type\",\"title\",\"url\"],\"type\":\"object\"},{\"items\":{\"properties\":{\"copyright\":{\"description\":\"The name of the copyright holder\",\"type\":\"string\"},\"date\":{\"description\":\"The date of the APOD image\",\"format\":\"date\",\"type\":\"string\"},\"explanation\":{\"description\":\"The explanation of the image written by an astronomer\",\"type\":\"string\"},\"hdurl\":{\"description\":\"The URL for the high-resolution image\",\"format\":\"uri\",\"type\":\"string\"},\"media_type\":{\"description\":\"The type of media (image or video)\",\"enum\":[\"image\",\"video\"],\"type\":\"string\"},\"service_version\":{\"description\":\"The version of the APOD API service\",\"type\":\"string\"},\"thumbnail_url\":{\"description\":\"The URL of the video thumbnail (only present if media_type is video and thumbs parameter is true)\",\"format\":\"uri\",\"type\":\"string\"},\"title\":{\"description\":\"The title of the image\",\"type\":\"string\"},\"url\":{\"description\":\"The URL of the APOD image or video\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"date\",\"explanation\",\"media_type\",\"title\",\"url\"],\"type\":\"object\"},\"type\":\"array\"}]}}},\"description\":\"Successful response with APOD data\"},\"400\":{\"description\":\"Bad request - invalid parameters\"},\"403\":{\"description\":\"Forbidden - invalid API key\"},\"404\":{\"description\":\"Not found - no APOD for specified date\"},\"429\":{\"description\":\"Rate limit exceeded\"},\"500\":{\"description\":\"Internal server error\"}},\"security\":[{\"apiKey\":[]}],\"securitySchemes\":{\"apiKey\":{\"description\":\"API key for NASA Open APIs. Register at https://api.nasa.gov to get your key, or use DEMO_KEY for limited testing.\",\"in\":\"query\",\"name\":\"api_key\",\"type\":\"apiKey\"}},\"securitySource\":\"definition\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/planetary/apod",
@@ -301,13 +377,223 @@
         }
       },
       "feature": {
+        "ratelimit": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "burst": 5,
+              "rate": 5
+            },
+            "optspec": {
+              "now": "`$FUNCTION`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "ratelimit",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Client-side rate limiting via a token bucket",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
+        "retry": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "factor": 2,
+              "maxDelay": 2000,
+              "minDelay": 50,
+              "retries": 2,
+              "statuses": [
+                408,
+                425,
+                429,
+                500,
+                502,
+                503,
+                504
+              ]
+            },
+            "optspec": {
+              "jitter": "`$BOOLEAN`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "retry",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Automatic retry of transient failures with exponential backoff",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
         "test": {
           "active": true,
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "config": {
             "options": {
               "active": false
-            }
+            },
+            "optspec": {
+              "entity": "`$MAP`",
+              "net": "`$MAP`"
+            },
+            "strict": false
           },
           "hook": {
             "GetData": {
@@ -398,6 +684,102 @@
           "title": "In-memory mock transport for testing without a live server",
           "transport": "base",
           "version": "0.0.1"
+        },
+        "timeout": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "ms": 30000
+            },
+            "optspec": {
+              "clearTimer": "`$FUNCTION`",
+              "setTimer": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "timeout",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Per-request timeout with transport abort",
+          "transport": "wrap",
+          "version": "0.0.1"
         }
       },
       "flow": {
@@ -487,6 +869,48 @@
         "website": "https://nasa.gov"
       },
       "option": {},
+      "optspec": {
+        "allow": {
+          "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
+          "op": "create,update,load,list,remove,command,direct,graphql"
+        },
+        "apikey": "",
+        "auth": {
+          "basic": false,
+          "prefix": ""
+        },
+        "base": "http://localhost:8000",
+        "clean": {
+          "keys": "key,token,id"
+        },
+        "entity": {
+          "`$CHILD`": {
+            "`$OPEN`": true,
+            "active": false,
+            "alias": {}
+          }
+        },
+        "extend": "`$ANY`",
+        "headers": {
+          "`$CHILD`": "`$STRING`"
+        },
+        "prefix": "",
+        "secret": "",
+        "server": {
+          "`$CHILD`": ""
+        },
+        "suffix": "",
+        "system": {
+          "fetch": "`$ANY`"
+        },
+        "test": {
+          "active": false,
+          "entity": {
+            "`$OPEN`": true
+          }
+        },
+        "utility": {}
+      },
       "repo": {
         "host": "github.com",
         "path": ""
@@ -1041,6 +1465,7 @@
           },
           "package": "@voxgig/sdkgen",
           "provides": {
+            "schema": true,
             "sekreto": true
           },
           "publish": {
@@ -1082,7 +1507,7 @@
         "live": {
           "app": false,
           "base": "",
-          "strict": false
+          "strict": true
         }
       }
     }

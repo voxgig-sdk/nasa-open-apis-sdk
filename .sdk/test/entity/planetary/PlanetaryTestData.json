@@ -16,5 +16,234 @@
     "planetary": {
       "planetary_ref01": {}
     }
+  },
+  "requests": {
+    "GET /planetary/apod": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getApod",
+        "parameters": [
+          {
+            "description": "API key for authentication. Use DEMO_KEY for limited demo access.",
+            "in": "query",
+            "name": "api_key",
+            "required": true,
+            "schema": {
+              "default": "DEMO_KEY",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The date of the APOD image to retrieve (YYYY-MM-DD format). Defaults to today's date.",
+            "in": "query",
+            "name": "date",
+            "required": false,
+            "schema": {
+              "format": "date",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The start date for a range of dates (YYYY-MM-DD format). Used with end_date.",
+            "in": "query",
+            "name": "start_date",
+            "required": false,
+            "schema": {
+              "format": "date",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The end date for a range of dates (YYYY-MM-DD format). Used with start_date.",
+            "in": "query",
+            "name": "end_date",
+            "required": false,
+            "schema": {
+              "format": "date",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Number of randomly selected images to return. Cannot be used with date or start_date/end_date.",
+            "in": "query",
+            "name": "count",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Return the URL of video thumbnail if the media type is video.",
+            "in": "query",
+            "name": "thumbs",
+            "required": false,
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "copyright": {
+                          "description": "The name of the copyright holder",
+                          "type": "string"
+                        },
+                        "date": {
+                          "description": "The date of the APOD image",
+                          "format": "date",
+                          "type": "string"
+                        },
+                        "explanation": {
+                          "description": "The explanation of the image written by an astronomer",
+                          "type": "string"
+                        },
+                        "hdurl": {
+                          "description": "The URL for the high-resolution image",
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "media_type": {
+                          "description": "The type of media (image or video)",
+                          "enum": [
+                            "image",
+                            "video"
+                          ],
+                          "type": "string"
+                        },
+                        "service_version": {
+                          "description": "The version of the APOD API service",
+                          "type": "string"
+                        },
+                        "thumbnail_url": {
+                          "description": "The URL of the video thumbnail (only present if media_type is video and thumbs parameter is true)",
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "title": {
+                          "description": "The title of the image",
+                          "type": "string"
+                        },
+                        "url": {
+                          "description": "The URL of the APOD image or video",
+                          "format": "uri",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "date",
+                        "explanation",
+                        "media_type",
+                        "title",
+                        "url"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "items": {
+                        "properties": {
+                          "copyright": {
+                            "description": "The name of the copyright holder",
+                            "type": "string"
+                          },
+                          "date": {
+                            "description": "The date of the APOD image",
+                            "format": "date",
+                            "type": "string"
+                          },
+                          "explanation": {
+                            "description": "The explanation of the image written by an astronomer",
+                            "type": "string"
+                          },
+                          "hdurl": {
+                            "description": "The URL for the high-resolution image",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "media_type": {
+                            "description": "The type of media (image or video)",
+                            "enum": [
+                              "image",
+                              "video"
+                            ],
+                            "type": "string"
+                          },
+                          "service_version": {
+                            "description": "The version of the APOD API service",
+                            "type": "string"
+                          },
+                          "thumbnail_url": {
+                            "description": "The URL of the video thumbnail (only present if media_type is video and thumbs parameter is true)",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "The title of the image",
+                            "type": "string"
+                          },
+                          "url": {
+                            "description": "The URL of the APOD image or video",
+                            "format": "uri",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "date",
+                          "explanation",
+                          "media_type",
+                          "title",
+                          "url"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Successful response with APOD data"
+          },
+          "400": {
+            "description": "Bad request - invalid parameters"
+          },
+          "403": {
+            "description": "Forbidden - invalid API key"
+          },
+          "404": {
+            "description": "Not found - no APOD for specified date"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "description": "API key for NASA Open APIs. Register at https://api.nasa.gov to get your key, or use DEMO_KEY for limited testing.",
+            "in": "query",
+            "name": "api_key",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
   }
 }

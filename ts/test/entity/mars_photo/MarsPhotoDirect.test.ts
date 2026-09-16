@@ -2,6 +2,7 @@
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
 
 
 import { NasaOpenApisSDK } from '../../..'
@@ -43,6 +44,7 @@ describe('MarsPhotoDirect', async () => {
 
 
   test('direct-list-mars_photo', async (t: any) => {
+    if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
     if (maybeSkipControl(t, 'direct', 'direct-list-mars_photo', setup.live)) return
     if (skipIfMissingIds(t, setup, ["rover01"])) return
@@ -65,16 +67,18 @@ describe('MarsPhotoDirect', async () => {
     })
 
     if (setup.live) {
-      // Live mode is lenient: synthetic IDs frequently 4xx and the list-
-      // response shape varies wildly across public APIs. Skip rather than
-      // fail when the call doesn't return a usable list.
-      if (!result.ok || result.status < 200 || result.status >= 300) {
-        return
-      }
-      const listArr = unwrapListData(result.data)
-      if (!Array.isArray(listArr)) {
-        return
-      }
+      // STRICT live mode: a non-2xx is a real failure - this project owns
+      // the server it points at, so there is nothing to be lenient about.
+      //
+      // What is NOT asserted here is the MOCK's own fixtures. `direct01`
+      // is a scripted id and `calls` records the mock transport; neither
+      // exists on a live run, so asserting them made strict mode mean
+      // "compare the live server against the mock's script" - a suite that
+      // could not pass against any real API, including this project's own.
+      assert(result.ok === true,
+        'Live request failed: HTTP ' + result.status)
+      assert(result.status >= 200 && result.status < 300)
+      assert(Array.isArray(unwrapListData(result.data)), 'Expected live list response')
     } else {
       assert(result.ok === true)
       assert(result.status === 200)
@@ -92,6 +96,7 @@ describe('MarsPhotoDirect', async () => {
 
 
 
+function liveScenariosActive() { return false && process.env.NASA_OPEN_APIS_TEST_LIVE === 'TRUE' }
 function directSetup(mockres?: any) {
   const calls: any[] = []
 
@@ -104,10 +109,11 @@ function directSetup(mockres?: any) {
   const live = 'TRUE' === env.NASA_OPEN_APIS_TEST_LIVE
 
   if (live) {
+    const transport = createLiveTransport()
     // Merged so the generated fields win: sdk-test-control.json's
     // test.client.options adds to the live client, it does not redirect it.
     const client = new NasaOpenApisSDK(
-      Object.assign({}, liveClientOptions(), {
+      Object.assign({}, liveClientOptions(), { system: { fetch: transport.fetch },
       apikey: env.NASA_OPEN_APIS_APIKEY,
       }))
 
@@ -116,7 +122,7 @@ function directSetup(mockres?: any) {
       idmap = JSON.parse(idmap)
     }
 
-    return { client, calls, live, idmap }
+    return { client, calls, live, idmap, transport }
   }
 
   const mockFetch = async (url: string, init: any) => {

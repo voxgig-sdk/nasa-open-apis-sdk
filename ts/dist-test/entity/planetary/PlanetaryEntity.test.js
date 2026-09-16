@@ -40,6 +40,8 @@ const node_path_1 = __importDefault(require("node:path"));
 const Fs = __importStar(require("node:fs"));
 const node_test_1 = require("node:test");
 const node_assert_1 = __importDefault(require("node:assert"));
+const live_runner_1 = require("../../live-runner");
+const live_entity_1 = require("../../live-entity");
 const __1 = require("../../..");
 const utility_1 = require("../../utility");
 // AFTER the imports on purpose: TypeScript hoists `import` above any
@@ -59,16 +61,12 @@ const utility_1 = require("../../utility");
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.NASA_OPEN_APIS_TEST_LIVE;
         for (const op of ['load']) {
-            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'planetary.' + op, live))
+            if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'planetary.' + op, live))
                 return;
         }
         const setup = basicSetup();
-        // The basic flow consumes synthetic IDs and field values from the
-        // fixture (entity TestData.json). Those don't exist on the live API.
-        // Skip live runs unless the user provided a real ENTID env override.
-        if (setup.syntheticOnly) {
-            t.skip('live entity test uses synthetic IDs from fixture — set NASA_OPEN_APIS_TEST_PLANETARY_ENTID JSON to run live');
-            return;
+        if (setup.live) {
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": [], "name": "planetary", "op": { "load": { "input": "data", "name": "load", "points": [{ "active": true, "args": { "query": [{ "active": true, "example": "DEMO_KEY", "kind": "query", "name": "api_key", "orig": "api_key", "reqd": true, "type": "`$STRING`", "index$": 0 }, { "active": true, "kind": "query", "name": "count", "orig": "count", "reqd": false, "type": "`$INTEGER`", "index$": 1 }, { "active": true, "kind": "query", "name": "date", "orig": "date", "reqd": false, "type": "`$STRING`", "index$": 2 }, { "active": true, "kind": "query", "name": "end_date", "orig": "end_date", "reqd": false, "type": "`$STRING`", "index$": 3 }, { "active": true, "kind": "query", "name": "start_date", "orig": "start_date", "reqd": false, "type": "`$STRING`", "index$": 4 }, { "active": true, "example": false, "kind": "query", "name": "thumb", "orig": "thumb", "reqd": false, "type": "`$BOOLEAN`", "index$": 5 }] }, "contract": { "id": "GET /planetary/apod", "json": "{\"operationId\":\"getApod\",\"parameters\":[{\"description\":\"API key for authentication. Use DEMO_KEY for limited demo access.\",\"in\":\"query\",\"name\":\"api_key\",\"required\":true,\"schema\":{\"default\":\"DEMO_KEY\",\"type\":\"string\"}},{\"description\":\"The date of the APOD image to retrieve (YYYY-MM-DD format). Defaults to today's date.\",\"in\":\"query\",\"name\":\"date\",\"required\":false,\"schema\":{\"format\":\"date\",\"type\":\"string\"}},{\"description\":\"The start date for a range of dates (YYYY-MM-DD format). Used with end_date.\",\"in\":\"query\",\"name\":\"start_date\",\"required\":false,\"schema\":{\"format\":\"date\",\"type\":\"string\"}},{\"description\":\"The end date for a range of dates (YYYY-MM-DD format). Used with start_date.\",\"in\":\"query\",\"name\":\"end_date\",\"required\":false,\"schema\":{\"format\":\"date\",\"type\":\"string\"}},{\"description\":\"Number of randomly selected images to return. Cannot be used with date or start_date/end_date.\",\"in\":\"query\",\"name\":\"count\",\"required\":false,\"schema\":{\"maximum\":100,\"minimum\":1,\"type\":\"integer\"}},{\"description\":\"Return the URL of video thumbnail if the media type is video.\",\"in\":\"query\",\"name\":\"thumbs\",\"required\":false,\"schema\":{\"default\":false,\"type\":\"boolean\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"oneOf\":[{\"properties\":{\"copyright\":{\"description\":\"The name of the copyright holder\",\"type\":\"string\"},\"date\":{\"description\":\"The date of the APOD image\",\"format\":\"date\",\"type\":\"string\"},\"explanation\":{\"description\":\"The explanation of the image written by an astronomer\",\"type\":\"string\"},\"hdurl\":{\"description\":\"The URL for the high-resolution image\",\"format\":\"uri\",\"type\":\"string\"},\"media_type\":{\"description\":\"The type of media (image or video)\",\"enum\":[\"image\",\"video\"],\"type\":\"string\"},\"service_version\":{\"description\":\"The version of the APOD API service\",\"type\":\"string\"},\"thumbnail_url\":{\"description\":\"The URL of the video thumbnail (only present if media_type is video and thumbs parameter is true)\",\"format\":\"uri\",\"type\":\"string\"},\"title\":{\"description\":\"The title of the image\",\"type\":\"string\"},\"url\":{\"description\":\"The URL of the APOD image or video\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"date\",\"explanation\",\"media_type\",\"title\",\"url\"],\"type\":\"object\"},{\"items\":{\"properties\":{\"copyright\":{\"description\":\"The name of the copyright holder\",\"type\":\"string\"},\"date\":{\"description\":\"The date of the APOD image\",\"format\":\"date\",\"type\":\"string\"},\"explanation\":{\"description\":\"The explanation of the image written by an astronomer\",\"type\":\"string\"},\"hdurl\":{\"description\":\"The URL for the high-resolution image\",\"format\":\"uri\",\"type\":\"string\"},\"media_type\":{\"description\":\"The type of media (image or video)\",\"enum\":[\"image\",\"video\"],\"type\":\"string\"},\"service_version\":{\"description\":\"The version of the APOD API service\",\"type\":\"string\"},\"thumbnail_url\":{\"description\":\"The URL of the video thumbnail (only present if media_type is video and thumbs parameter is true)\",\"format\":\"uri\",\"type\":\"string\"},\"title\":{\"description\":\"The title of the image\",\"type\":\"string\"},\"url\":{\"description\":\"The URL of the APOD image or video\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"date\",\"explanation\",\"media_type\",\"title\",\"url\"],\"type\":\"object\"},\"type\":\"array\"}]}}},\"description\":\"Successful response with APOD data\"},\"400\":{\"description\":\"Bad request - invalid parameters\"},\"403\":{\"description\":\"Forbidden - invalid API key\"},\"404\":{\"description\":\"Not found - no APOD for specified date\"},\"429\":{\"description\":\"Rate limit exceeded\"},\"500\":{\"description\":\"Internal server error\"}},\"security\":[{\"apiKey\":[]}],\"securitySchemes\":{\"apiKey\":{\"description\":\"API key for NASA Open APIs. Register at https://api.nasa.gov to get your key, or use DEMO_KEY for limited testing.\",\"in\":\"query\",\"name\":\"api_key\",\"type\":\"apiKey\"}},\"securitySource\":\"definition\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "GET", "orig": "/planetary/apod", "segments": [{ "lit": "planetary" }, { "lit": "apod" }], "select": { "$action": "apod", "exist": ["api_key", "count", "date", "end_date", "start_date", "thumb"] }, "transform": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "planetary", "name__orig": "planetary", "Name": "Planetary", "name_": "planetary", "name-": "planetary", "NAME": "PLANETARY", "index$": 1 }, { "active": true, "entity": "planetary", "key$": "BasicPlanetaryFlow", "kind": "basic", "name": "BasicPlanetaryFlow", "param": {}, "step": [{ "active": true, "data": {}, "input": { "ref": "planetary_ref01", "srcdatavar": "planetary_ref01_data", "suffix": "_dt0" }, "match": {}, "op": "load", "spec": [], "valid": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-planetary_ref01" } }], "index$": 0 }] }, 'Planetary');
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -102,12 +100,6 @@ function basicSetup(extra) {
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
             }]
     });
-    // Detect whether the user provided a real ENTID JSON via env var. The
-    // basic flow consumes synthetic IDs from the fixture file; without an
-    // override those synthetic IDs reach the live API and 4xx. Surface this
-    // to the test so it can skip rather than fail.
-    const idmapEnvVal = process.env['NASA_OPEN_APIS_TEST_PLANETARY_ENTID'];
-    const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{');
     const env = (0, utility_1.envOverride)({
         'NASA_OPEN_APIS_TEST_PLANETARY_ENTID': idmap,
         'NASA_OPEN_APIS_TEST_LIVE': 'FALSE',
@@ -116,7 +108,13 @@ function basicSetup(extra) {
     });
     idmap = env['NASA_OPEN_APIS_TEST_PLANETARY_ENTID'];
     const live = 'TRUE' === env.NASA_OPEN_APIS_TEST_LIVE;
+    const transport = (0, live_runner_1.createLiveTransport)();
     if (live) {
+        const rawIds = process.env['NASA_OPEN_APIS_TEST_PLANETARY_ENTID'];
+        idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {};
+        if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+            throw new Error('Live ENTID must be a JSON object');
+        }
         client = new __1.NasaOpenApisSDK(merge([
             // FIRST, so the generated fields below win: sdk-test-control.json's
             // test.client.options adds to the live client, it does not redirect it.
@@ -129,7 +127,8 @@ function basicSetup(extra) {
             // argument at all - so a bare 'extra' silently discarded the apikey
             // and server values above and handed the SDK undefined. Harmless
             // while there was nothing in that object; not harmless now.
-            extra || {}
+            extra || {},
+            { system: { fetch: transport.fetch } }
         ]));
     }
     const setup = {
@@ -141,7 +140,7 @@ function basicSetup(extra) {
         data: entityData,
         explain: 'TRUE' === env.NASA_OPEN_APIS_TEST_EXPLAIN,
         live,
-        syntheticOnly: live && !idmapOverridden,
+        transport,
         now: Date.now(),
     };
     return setup;

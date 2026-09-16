@@ -4,7 +4,10 @@ declare(strict_types=1);
 // NasaOpenApis SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class NasaOpenApisFeatures
@@ -14,8 +17,14 @@ class NasaOpenApisFeatures
         switch ($name) {
             case "base":
                 return new NasaOpenApisBaseFeature();
+            case "ratelimit":
+                return new NasaOpenApisRatelimitFeature();
+            case "retry":
+                return new NasaOpenApisRetryFeature();
             case "test":
                 return new NasaOpenApisTestFeature();
+            case "timeout":
+                return new NasaOpenApisTimeoutFeature();
             default:
                 return new NasaOpenApisBaseFeature();
         }
@@ -31,7 +40,10 @@ class NasaOpenApisFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

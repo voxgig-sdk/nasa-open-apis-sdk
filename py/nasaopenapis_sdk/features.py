@@ -1,12 +1,18 @@
 # NasaOpenApis SDK feature factory
 
 from nasaopenapis_sdk.feature.base_feature import NasaOpenApisBaseFeature
+from nasaopenapis_sdk.feature.ratelimit_feature import NasaOpenApisRatelimitFeature
+from nasaopenapis_sdk.feature.retry_feature import NasaOpenApisRetryFeature
 from nasaopenapis_sdk.feature.test_feature import NasaOpenApisTestFeature
+from nasaopenapis_sdk.feature.timeout_feature import NasaOpenApisTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: NasaOpenApisBaseFeature(),
+    "ratelimit": lambda: NasaOpenApisRatelimitFeature(),
+    "retry": lambda: NasaOpenApisRetryFeature(),
     "test": lambda: NasaOpenApisTestFeature(),
+    "timeout": lambda: NasaOpenApisTimeoutFeature(),
 }
 
 
