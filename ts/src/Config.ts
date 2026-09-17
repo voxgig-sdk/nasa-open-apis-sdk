@@ -123,6 +123,8 @@ class Config {
 
     auth: {
       prefix: '',
+      in: 'query',
+      name: 'api_key',
     },
 
     headers: {
@@ -131,12 +133,12 @@ class Config {
 
     entity: {
       
-      mars_photo: {
-      },
-
-      planetary: {
-      },
-
+        mars_photo: {
+        },
+  
+        planetary: {
+        },
+  
     }
   }
 

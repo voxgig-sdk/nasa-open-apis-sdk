@@ -81,6 +81,8 @@ func MakeConfig() map[string]any {
 			"base": "https://api.nasa.gov",
 			"auth": map[string]any{
 				"prefix": "",
+				"in": "query",
+				"name": "api_key",
 			},
 			"headers": map[string]any{
 				"content-type": "application/json",

@@ -105,12 +105,12 @@ local results, err = client:MarsPhoto():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/nasa-open-apis-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases) |
-| Python | `voxgig-sdk-nasa-open-apis` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases) |
-| PHP | `voxgig-sdk/nasa-open-apis` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases) |
+| TypeScript | `@voxgig-sdk/nasa-open-apis-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/tags) |
+| Python | `voxgig-sdk-nasa-open-apis` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/tags) |
+| PHP | `voxgig-sdk/nasa-open-apis` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/nasa-open-apis-sdk/go` | `go get github.com/voxgig-sdk/nasa-open-apis-sdk/go@latest` |
-| Ruby | `voxgig-sdk-nasa-open-apis` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases) |
-| Lua | `voxgig-sdk-nasa-open-apis` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases) |
+| Ruby | `voxgig-sdk-nasa-open-apis` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/tags) |
+| Lua | `voxgig-sdk-nasa-open-apis` | publish pending — [install from git tag](https://github.com/voxgig-sdk/nasa-open-apis-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/nasa-open-apis-sdk/go-cli` | `go install github.com/voxgig-sdk/nasa-open-apis-sdk/go-cli/cmd/nasa-open-apis@latest` |
 | Go MCP server | `github.com/voxgig-sdk/nasa-open-apis-sdk/go-mcp` | `go get github.com/voxgig-sdk/nasa-open-apis-sdk/go-mcp@latest` |
 

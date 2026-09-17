@@ -106,6 +106,8 @@ def make_config():
             "base": "https://api.nasa.gov",
             "auth": {
                 "prefix": "",
+                "in": "query",
+                "name": "api_key",
             },
             "headers": {
         "content-type": "application/json",

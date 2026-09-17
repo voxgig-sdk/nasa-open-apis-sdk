@@ -1,4 +1,4 @@
 # Entity Models
 
-@"mars_photo.aon"
-@"planetary.aon"
+@"./mars_photo.aon"
+@"./planetary.aon"
