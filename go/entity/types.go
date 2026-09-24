@@ -1,7 +1,7 @@
 // Typed models for the NasaOpenApis SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,12 +14,6 @@ import (
 
 // MarsPhoto is the typed data model for the mars_photo entity.
 type MarsPhoto struct {
-	Camera map[string]any `json:"camera"`
-	EarthDate string `json:"earth_date"`
-	Id int `json:"id"`
-	ImgSrc string `json:"img_src"`
-	Rover map[string]any `json:"rover"`
-	Sol int `json:"sol"`
 }
 
 // MarsPhotoListMatch is the typed request payload for MarsPhoto.ListTyped.

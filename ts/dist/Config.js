@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -120,39 +113,45 @@ class Config {
             "fields": [
                 {
                     "name": "camera",
-                    "req": true,
-                    "type": "`$OBJECT`"
+                    "title": "Camera",
+                    "type": "`$OBJECT`",
+                    "req": true
                 },
                 {
-                    "format": "date",
                     "name": "earth_date",
+                    "title": "Earth Date",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "Earth date when the photo was taken",
-                    "type": "`$STRING`"
+                    "format": "date"
                 },
                 {
                     "name": "id",
+                    "title": "Id",
+                    "type": "`$INTEGER`",
                     "req": true,
-                    "short": "Unique identifier for the photo",
-                    "type": "`$INTEGER`"
+                    "short": "Unique identifier for the photo"
                 },
                 {
-                    "format": "uri",
                     "name": "img_src",
+                    "title": "Img Src",
+                    "type": "`$STRING`",
                     "req": true,
                     "short": "URL of the image",
-                    "type": "`$STRING`"
+                    "format": "uri"
                 },
                 {
                     "name": "rover",
-                    "req": true,
-                    "type": "`$OBJECT`"
+                    "title": "Rover",
+                    "type": "`$OBJECT`",
+                    "req": true
                 },
                 {
                     "name": "sol",
+                    "title": "Sol",
+                    "type": "`$INTEGER`",
                     "req": true,
-                    "short": "Martian sol when the photo was taken",
-                    "type": "`$INTEGER`"
+                    "short": "Martian sol when the photo was taken"
                 }
             ],
             "id": {
@@ -166,60 +165,9 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "rover_id",
-                                        "orig": "rover",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "example": "DEMO_KEY",
-                                        "kind": "query",
-                                        "name": "api_key",
-                                        "orig": "api_key",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "camera",
-                                        "orig": "camera",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "earth_date",
-                                        "orig": "earth_date",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "page",
-                                        "orig": "page",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "sol",
-                                        "orig": "sol",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/mars-photos/api/v1/rovers/{rover}/photos",
-                            "rename": {
-                                "param": {
-                                    "rover": "rover_id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "mars-photos"
@@ -240,6 +188,69 @@ class Config {
                                     "lit": "photos"
                                 }
                             ],
+                            "parts": [
+                                "mars-photos",
+                                "api",
+                                "v1",
+                                "rovers",
+                                "{rover_id}",
+                                "photos"
+                            ],
+                            "rename": {
+                                "param": {
+                                    "rover": "rover_id"
+                                }
+                            },
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body.photos`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "rover_id",
+                                        "orig": "rover",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "api_key",
+                                        "orig": "api_key",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "reqd": true,
+                                        "example": "DEMO_KEY"
+                                    },
+                                    {
+                                        "name": "camera",
+                                        "orig": "camera",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "earth_date",
+                                        "orig": "earth_date",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "page",
+                                        "orig": "page",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "sol",
+                                        "orig": "sol",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "api_key",
@@ -249,29 +260,13 @@ class Config {
                                     "rover_id",
                                     "sol"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body.photos`"
-                            },
-                            "parts": [
-                                "mars-photos",
-                                "api",
-                                "v1",
-                                "rovers",
-                                "{rover_id}",
-                                "photos"
-                            ]
+                            }
                         }
                     ]
                 }
             },
             "relations": {
-                "ancestors": [
-                    [
-                        "rover"
-                    ]
-                ]
+                "ancestors": []
             }
         },
         "planetary": {
@@ -283,49 +278,6 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "DEMO_KEY",
-                                        "kind": "query",
-                                        "name": "api_key",
-                                        "orig": "api_key",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "count",
-                                        "orig": "count",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "date",
-                                        "orig": "date",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "end_date",
-                                        "orig": "end_date",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "start_date",
-                                        "orig": "start_date",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": false,
-                                        "kind": "query",
-                                        "name": "thumb",
-                                        "orig": "thumb",
-                                        "type": "`$BOOLEAN`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/planetary/apod",
@@ -337,6 +289,58 @@ class Config {
                                     "lit": "apod"
                                 }
                             ],
+                            "parts": [
+                                "planetary",
+                                "apod"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "api_key",
+                                        "orig": "api_key",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "reqd": true,
+                                        "example": "DEMO_KEY"
+                                    },
+                                    {
+                                        "name": "count",
+                                        "orig": "count",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "date",
+                                        "orig": "date",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "end_date",
+                                        "orig": "end_date",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "start_date",
+                                        "orig": "start_date",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    },
+                                    {
+                                        "name": "thumb",
+                                        "orig": "thumb",
+                                        "type": "`$BOOLEAN`",
+                                        "kind": "query",
+                                        "example": false
+                                    }
+                                ]
+                            },
                             "select": {
                                 "$action": "apod",
                                 "exist": [
@@ -347,15 +351,7 @@ class Config {
                                     "start_date",
                                     "thumb"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "planetary",
-                                "apod"
-                            ]
+                            }
                         }
                     ]
                 }

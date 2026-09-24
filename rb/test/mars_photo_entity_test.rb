@@ -101,7 +101,7 @@ def mars_photo_basic_setup(extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["mars_photo01", "mars_photo02", "mars_photo03", "rover01", "rover02", "rover03"],
+    ["mars_photo01", "mars_photo02", "mars_photo03", "rover01"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",

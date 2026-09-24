@@ -112,7 +112,7 @@ function mars_photo_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["mars_photo01", "mars_photo02", "mars_photo03", "rover01", "rover02", "rover03"] as $k) {
+    foreach (["mars_photo01", "mars_photo02", "mars_photo03", "rover01"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

@@ -150,7 +150,7 @@ func mars_photoBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"mars_photo01", "mars_photo02", "mars_photo03", "rover01", "rover02", "rover03"},
+		[]any{"mars_photo01", "mars_photo02", "mars_photo03", "rover01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

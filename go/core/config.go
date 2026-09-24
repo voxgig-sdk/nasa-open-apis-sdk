@@ -97,39 +97,45 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "camera",
-						"req": true,
+						"title": "Camera",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 					map[string]any{
-						"format": "date",
 						"name": "earth_date",
+						"title": "Earth Date",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Earth date when the photo was taken",
-						"type": "`$STRING`",
+						"format": "date",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "Unique identifier for the photo",
-						"type": "`$INTEGER`",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "img_src",
+						"title": "Img Src",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "URL of the image",
-						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "rover",
-						"req": true,
+						"title": "Rover",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "sol",
+						"title": "Sol",
+						"type": "`$INTEGER`",
 						"req": true,
 						"short": "Martian sol when the photo was taken",
-						"type": "`$INTEGER`",
 					},
 				},
 				"id": map[string]any{
@@ -143,60 +149,9 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "rover_id",
-											"orig": "rover",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": "DEMO_KEY",
-											"kind": "query",
-											"name": "api_key",
-											"orig": "api_key",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "camera",
-											"orig": "camera",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "earth_date",
-											"orig": "earth_date",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "sol",
-											"orig": "sol",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/mars-photos/api/v1/rovers/{rover}/photos",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"rover": "rover_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "mars-photos",
@@ -217,6 +172,69 @@ func MakeConfig() map[string]any {
 										"lit": "photos",
 									},
 								},
+								"parts": []any{
+									"mars-photos",
+									"api",
+									"v1",
+									"rovers",
+									"{rover_id}",
+									"photos",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"rover": "rover_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.photos`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "rover_id",
+											"orig": "rover",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "api_key",
+											"orig": "api_key",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+											"example": "DEMO_KEY",
+										},
+										map[string]any{
+											"name": "camera",
+											"orig": "camera",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "earth_date",
+											"orig": "earth_date",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "sol",
+											"orig": "sol",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"api_key",
@@ -227,28 +245,12 @@ func MakeConfig() map[string]any {
 										"sol",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.photos`",
-								},
-								"parts": []any{
-									"mars-photos",
-									"api",
-									"v1",
-									"rovers",
-									"{rover_id}",
-									"photos",
-								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"rover",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"planetary": map[string]any{
@@ -260,49 +262,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "DEMO_KEY",
-											"kind": "query",
-											"name": "api_key",
-											"orig": "api_key",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "count",
-											"orig": "count",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "date",
-											"orig": "date",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "end_date",
-											"orig": "end_date",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "start_date",
-											"orig": "start_date",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": false,
-											"kind": "query",
-											"name": "thumb",
-											"orig": "thumb",
-											"type": "`$BOOLEAN`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/planetary/apod",
@@ -312,6 +271,58 @@ func MakeConfig() map[string]any {
 									},
 									map[string]any{
 										"lit": "apod",
+									},
+								},
+								"parts": []any{
+									"planetary",
+									"apod",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "api_key",
+											"orig": "api_key",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+											"example": "DEMO_KEY",
+										},
+										map[string]any{
+											"name": "count",
+											"orig": "count",
+											"type": "`$INTEGER`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "date",
+											"orig": "date",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "end_date",
+											"orig": "end_date",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "start_date",
+											"orig": "start_date",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "thumb",
+											"orig": "thumb",
+											"type": "`$BOOLEAN`",
+											"kind": "query",
+											"example": false,
+										},
 									},
 								},
 								"select": map[string]any{
@@ -324,14 +335,6 @@ func MakeConfig() map[string]any {
 										"start_date",
 										"thumb",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"planetary",
-									"apod",
 								},
 							},
 						},

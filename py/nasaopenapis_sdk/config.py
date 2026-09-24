@@ -122,39 +122,45 @@ def make_config():
         "fields": [
           {
             "name": "camera",
-            "req": True,
+            "title": "Camera",
             "type": "`$OBJECT`",
+            "req": True,
           },
           {
-            "format": "date",
             "name": "earth_date",
+            "title": "Earth Date",
+            "type": "`$STRING`",
             "req": True,
             "short": "Earth date when the photo was taken",
-            "type": "`$STRING`",
+            "format": "date",
           },
           {
             "name": "id",
+            "title": "Id",
+            "type": "`$INTEGER`",
             "req": True,
             "short": "Unique identifier for the photo",
-            "type": "`$INTEGER`",
           },
           {
-            "format": "uri",
             "name": "img_src",
+            "title": "Img Src",
+            "type": "`$STRING`",
             "req": True,
             "short": "URL of the image",
-            "type": "`$STRING`",
+            "format": "uri",
           },
           {
             "name": "rover",
-            "req": True,
+            "title": "Rover",
             "type": "`$OBJECT`",
+            "req": True,
           },
           {
             "name": "sol",
+            "title": "Sol",
+            "type": "`$INTEGER`",
             "req": True,
             "short": "Martian sol when the photo was taken",
-            "type": "`$INTEGER`",
           },
         ],
         "id": {
@@ -168,60 +174,9 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "rover_id",
-                      "orig": "rover",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                  "query": [
-                    {
-                      "example": "DEMO_KEY",
-                      "kind": "query",
-                      "name": "api_key",
-                      "orig": "api_key",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "camera",
-                      "orig": "camera",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "earth_date",
-                      "orig": "earth_date",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "example": 1,
-                      "kind": "query",
-                      "name": "page",
-                      "orig": "page",
-                      "type": "`$INTEGER`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "sol",
-                      "orig": "sol",
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/mars-photos/api/v1/rovers/{rover}/photos",
-                "rename": {
-                  "param": {
-                    "rover": "rover_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "mars-photos",
@@ -242,6 +197,69 @@ def make_config():
                     "lit": "photos",
                   },
                 ],
+                "parts": [
+                  "mars-photos",
+                  "api",
+                  "v1",
+                  "rovers",
+                  "{rover_id}",
+                  "photos",
+                ],
+                "rename": {
+                  "param": {
+                    "rover": "rover_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.photos`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "rover_id",
+                      "orig": "rover",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                  "query": [
+                    {
+                      "name": "api_key",
+                      "orig": "api_key",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "reqd": True,
+                      "example": "DEMO_KEY",
+                    },
+                    {
+                      "name": "camera",
+                      "orig": "camera",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "earth_date",
+                      "orig": "earth_date",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "page",
+                      "orig": "page",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 1,
+                    },
+                    {
+                      "name": "sol",
+                      "orig": "sol",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "api_key",
@@ -252,28 +270,12 @@ def make_config():
                     "sol",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.photos`",
-                },
-                "parts": [
-                  "mars-photos",
-                  "api",
-                  "v1",
-                  "rovers",
-                  "{rover_id}",
-                  "photos",
-                ],
               },
             ],
           },
         },
         "relations": {
-          "ancestors": [
-            [
-              "rover",
-            ],
-          ],
+          "ancestors": [],
         },
       },
       "planetary": {
@@ -285,49 +287,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "example": "DEMO_KEY",
-                      "kind": "query",
-                      "name": "api_key",
-                      "orig": "api_key",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "count",
-                      "orig": "count",
-                      "type": "`$INTEGER`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "date",
-                      "orig": "date",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "end_date",
-                      "orig": "end_date",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "start_date",
-                      "orig": "start_date",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "example": False,
-                      "kind": "query",
-                      "name": "thumb",
-                      "orig": "thumb",
-                      "type": "`$BOOLEAN`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/planetary/apod",
@@ -339,6 +298,58 @@ def make_config():
                     "lit": "apod",
                   },
                 ],
+                "parts": [
+                  "planetary",
+                  "apod",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "api_key",
+                      "orig": "api_key",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "reqd": True,
+                      "example": "DEMO_KEY",
+                    },
+                    {
+                      "name": "count",
+                      "orig": "count",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "date",
+                      "orig": "date",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "end_date",
+                      "orig": "end_date",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "start_date",
+                      "orig": "start_date",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "thumb",
+                      "orig": "thumb",
+                      "type": "`$BOOLEAN`",
+                      "kind": "query",
+                      "example": False,
+                    },
+                  ],
+                },
                 "select": {
                   "$action": "apod",
                   "exist": [
@@ -350,14 +361,6 @@ def make_config():
                     "thumb",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "planetary",
-                  "apod",
-                ],
               },
             ],
           },

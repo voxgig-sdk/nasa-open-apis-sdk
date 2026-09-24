@@ -1,0 +1,101 @@
+# Entity: planetary
+
+main: kit: entity: planetary: {
+
+  alias: field: {}
+
+  name: "planetary"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /planetary/apod"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "DEMO_KEY"
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "count"
+                or: "count"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "date"
+                or: "date"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "end_date"
+                or: "end_date"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "start_date"
+                or: "start_date"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: false
+                k: "query"
+                n: "thumb"
+                or: "thumb"
+                r: false
+                t: "`$BOOLEAN`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/planetary/apod"
+          q: {
+            "$action": "apod"
+            exist: [
+              "api_key"
+              "count"
+              "date"
+              "end_date"
+              "start_date"
+              "thumb"
+            ]
+          }
+          s: [
+            {
+              lit: "planetary"
+            }
+            {
+              lit: "apod"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

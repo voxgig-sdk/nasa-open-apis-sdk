@@ -19,7 +19,6 @@ import type {
   MarsPhotoListMatch,
 } from '../NasaOpenApisTypes'
 
-// TODO: needs Entity superclass
 class MarsPhotoEntity extends NasaOpenApisEntityBase<MarsPhoto> {
 
   constructor(client: NasaOpenApisSDK, entopts: any) {

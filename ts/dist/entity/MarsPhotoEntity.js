@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MarsPhotoEntity = void 0;
 const NasaOpenApisEntityBase_1 = require("../NasaOpenApisEntityBase");
-// TODO: needs Entity superclass
 class MarsPhotoEntity extends NasaOpenApisEntityBase_1.NasaOpenApisEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

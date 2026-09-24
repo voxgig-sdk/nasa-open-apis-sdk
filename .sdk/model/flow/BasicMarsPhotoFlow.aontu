@@ -1,0 +1,26 @@
+# BasicMarsPhotoFlow
+
+main: kit: flow: BasicMarsPhotoFlow:
+{
+  entity: "mars_photo",
+  kind: "basic",
+  name: "BasicMarsPhotoFlow",
+  step: [
+    {
+      m: {
+        rover_id: "rover01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "mars_photo_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicMarsPhotoFlow"
+}

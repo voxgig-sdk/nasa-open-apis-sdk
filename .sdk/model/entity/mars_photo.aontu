@@ -1,0 +1,166 @@
+# Entity: mars_photo
+
+main: kit: entity: mars_photo: {
+
+  alias: field: {}
+
+  fields: {
+    camera: {
+      h: "Camera"
+      n: "camera"
+      r: true
+      t: "`$OBJECT`"
+    }
+    earth_date: {
+      fo: "date"
+      h: "Earth Date"
+      n: "earth_date"
+      r: true
+      sh: "Earth date when the photo was taken"
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      sh: "Unique identifier for the photo"
+      t: "`$INTEGER`"
+    }
+    img_src: {
+      fo: "uri"
+      h: "Img Src"
+      n: "img_src"
+      r: true
+      sh: "URL of the image"
+      t: "`$STRING`"
+    }
+    rover: {
+      h: "Rover"
+      n: "rover"
+      r: true
+      t: "`$OBJECT`"
+    }
+    sol: {
+      h: "Sol"
+      n: "sol"
+      r: true
+      sh: "Martian sol when the photo was taken"
+      t: "`$INTEGER`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "mars_photo"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /mars-photos/api/v1/rovers/{rover}/photos"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "rover_id"
+                or: "rover"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "DEMO_KEY"
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "camera"
+                or: "camera"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "earth_date"
+                or: "earth_date"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 1
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "sol"
+                or: "sol"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/mars-photos/api/v1/rovers/{rover}/photos"
+          q: {
+            exist: [
+              "api_key"
+              "camera"
+              "earth_date"
+              "page"
+              "rover_id"
+              "sol"
+            ]
+          }
+          r: {
+            param: {
+              rover: "rover_id"
+            }
+          }
+          s: [
+            {
+              lit: "mars-photos"
+            }
+            {
+              lit: "api"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "rovers"
+            }
+            {
+              var: "rover_id"
+            }
+            {
+              lit: "photos"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.photos`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

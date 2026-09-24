@@ -45,7 +45,7 @@ local marsphotos, err = client:MarsPhoto():list()
 if err then error(err) end
 
 for _, item in ipairs(marsphotos) do
-  print(item["id"], item["earth_date"])
+  print(item["id"])
 end
 ```
 
