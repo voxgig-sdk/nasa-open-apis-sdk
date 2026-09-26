@@ -1,5 +1,5 @@
 {
-  "name": "voxgig-sdk/nasa-open-apis",
+  "name": "voxgig-sdk/nasa-open-apis-sdk",
   "description": "Unofficial generated PHP SDK for the NASA Open APIs public API. Not affiliated with or endorsed by the upstream API provider.",
   "type": "library",
   "keywords": ["voxgig", "sdk", "generated-sdk", "openapi", "api-client", "nasa-open-apis"],
