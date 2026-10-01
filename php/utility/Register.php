@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 NasaOpenApisUtility::setRegistrar(function (NasaOpenApisUtility $u): void {
     $u->clean = [NasaOpenApisClean::class, 'call'];
+    $u->clean_add = [NasaOpenApisClean::class, 'add'];
+    $u->clean_explain = [NasaOpenApisDone::class, 'clean_explain'];
     $u->done = [NasaOpenApisDone::class, 'call'];
     $u->make_error = [NasaOpenApisMakeError::class, 'call'];
     $u->feature_add = [NasaOpenApisFeatureAdd::class, 'call'];

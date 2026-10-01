@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 NasaOpenApisUtility.registrar = ->(u) {
   u.clean = NasaOpenApisUtilities::Clean
+  u.clean_add = NasaOpenApisUtilities::CleanAdd
+  u.clean_explain = NasaOpenApisUtilities::CleanExplain
   u.done = NasaOpenApisUtilities::Done
   u.make_error = NasaOpenApisUtilities::MakeError
   u.feature_add = NasaOpenApisUtilities::FeatureAdd

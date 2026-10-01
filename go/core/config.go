@@ -318,7 +318,7 @@ func MakeConfig() map[string]any {
 										},
 										map[string]any{
 											"name": "thumb",
-											"orig": "thumb",
+											"orig": "thumbs",
 											"type": "`$BOOLEAN`",
 											"kind": "query",
 											"example": false,

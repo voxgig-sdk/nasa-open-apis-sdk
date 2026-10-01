@@ -57,7 +57,7 @@ main: kit: entity: planetary: {
                 ex: false
                 k: "query"
                 n: "thumb"
-                or: "thumb"
+                or: "thumbs"
                 r: false
                 t: "`$BOOLEAN`"
               }

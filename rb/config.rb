@@ -326,7 +326,7 @@ module NasaOpenApisConfig
                       },
                       {
                         "name" => "thumb",
-                        "orig" => "thumb",
+                        "orig" => "thumbs",
                         "type" => "`$BOOLEAN`",
                         "kind" => "query",
                         "example" => false,

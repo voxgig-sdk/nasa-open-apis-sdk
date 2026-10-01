@@ -334,7 +334,7 @@ class Config {
                                     },
                                     {
                                         "name": "thumb",
-                                        "orig": "thumb",
+                                        "orig": "thumbs",
                                         "type": "`$BOOLEAN`",
                                         "kind": "query",
                                         "example": false
