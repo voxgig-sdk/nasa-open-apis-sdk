@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { NasaOpenApisSDK, BaseFeature, stdutil } from '../../..'
+import { NasaOpenApisSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,18 @@ describe('PlanetaryEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = NasaOpenApisSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Planetary().load({"api_key":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.NASA_OPEN_APIS_TEST_LIVE
@@ -51,7 +63,7 @@ describe('PlanetaryEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"planetary","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /planetary/apod","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"DEMO_KEY","k":"query","n":"api_key","or":"api_key","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"query","n":"count","or":"count","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"k":"query","n":"date","or":"date","r":false,"t":"`$STRING`","index$":2},{"a":true,"k":"query","n":"end_date","or":"end_date","r":false,"t":"`$STRING`","index$":3},{"a":true,"k":"query","n":"start_date","or":"start_date","r":false,"t":"`$STRING`","index$":4},{"a":true,"ex":false,"k":"query","n":"thumb","or":"thumbs","r":false,"t":"`$BOOLEAN`","index$":5}]},"k":"http","m":"GET","o":"/planetary/apod","q":{"$action":"apod","exist":["api_key","count","date","end_date","start_date","thumb"]},"r":{},"s":[{"lit":"planetary"},{"lit":"apod"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"planetary","name__orig":"planetary","Name":"Planetary","name_":"planetary","name-":"planetary","NAME":"PLANETARY","index$":1}, {"active":true,"entity":"planetary","key$":"BasicPlanetaryFlow","kind":"basic","name":"BasicPlanetaryFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"planetary_ref01","srcdatavar":"planetary_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-planetary_ref01"}}],"index$":0}]}, 'Planetary', {"GET /planetary/apod":{"protocol":"http","parameters":[{"name":"api_key","in":"query","description":"API key for authentication. Use DEMO_KEY for limited demo access.","required":true,"schema":{"type":"string","default":"DEMO_KEY"},"index$":0},{"name":"date","in":"query","description":"The date of the APOD image to retrieve (YYYY-MM-DD format). Defaults to today's date.","required":false,"schema":{"type":"string","format":"date"},"index$":1},{"name":"start_date","in":"query","description":"The start date for a range of dates (YYYY-MM-DD format). Used with end_date.","required":false,"schema":{"type":"string","format":"date"},"index$":2},{"name":"end_date","in":"query","description":"The end date for a range of dates (YYYY-MM-DD format). Used with start_date.","required":false,"schema":{"type":"string","format":"date"},"index$":3},{"name":"count","in":"query","description":"Number of randomly selected images to return. Cannot be used with date or start_date/end_date.","required":false,"schema":{"type":"integer","minimum":1,"maximum":100},"index$":4},{"name":"thumbs","in":"query","description":"Return the URL of video thumbnail if the media type is video.","required":false,"schema":{"type":"boolean","default":false},"index$":5}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"planetary","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /planetary/apod","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"DEMO_KEY","k":"query","n":"api_key","or":"api_key","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"query","n":"count","or":"count","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"k":"query","n":"date","or":"date","r":false,"t":"`$STRING`","index$":2},{"a":true,"k":"query","n":"end_date","or":"end_date","r":false,"t":"`$STRING`","index$":3},{"a":true,"k":"query","n":"start_date","or":"start_date","r":false,"t":"`$STRING`","index$":4},{"a":true,"ex":false,"k":"query","n":"thumb","or":"thumbs","r":false,"t":"`$BOOLEAN`","index$":5}]},"k":"http","m":"GET","o":"/planetary/apod","q":{"$action":"apod","exist":["api_key"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"planetary"},{"lit":"apod"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"planetary","name__orig":"planetary","Name":"Planetary","name_":"planetary","name-":"planetary","NAME":"PLANETARY","index$":1}, {"active":true,"entity":"planetary","key$":"BasicPlanetaryFlow","kind":"basic","name":"BasicPlanetaryFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"planetary_ref01","srcdatavar":"planetary_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-planetary_ref01"}}],"index$":0}]}, 'Planetary', {"GET /planetary/apod":{"protocol":"http","parameters":[{"name":"api_key","in":"query","description":"API key for authentication. Use DEMO_KEY for limited demo access.","required":true,"schema":{"type":"string","default":"DEMO_KEY"},"index$":0},{"name":"date","in":"query","description":"The date of the APOD image to retrieve (YYYY-MM-DD format). Defaults to today's date.","required":false,"schema":{"type":"string","format":"date"},"index$":1},{"name":"start_date","in":"query","description":"The start date for a range of dates (YYYY-MM-DD format). Used with end_date.","required":false,"schema":{"type":"string","format":"date"},"index$":2},{"name":"end_date","in":"query","description":"The end date for a range of dates (YYYY-MM-DD format). Used with start_date.","required":false,"schema":{"type":"string","format":"date"},"index$":3},{"name":"count","in":"query","description":"Number of randomly selected images to return. Cannot be used with date or start_date/end_date.","required":false,"schema":{"type":"integer","minimum":1,"maximum":100},"index$":4},{"name":"thumbs","in":"query","description":"Return the URL of video thumbnail if the media type is video.","required":false,"schema":{"type":"boolean","default":false},"index$":5}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -72,6 +84,12 @@ describe('PlanetaryEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

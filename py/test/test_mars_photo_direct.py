@@ -9,6 +9,18 @@ from nasaopenapis_sdk.core import helpers
 from test import runner
 
 
+# main.kit.test.live.strict is true (the default is true): a live
+# request that fails, or a live test missing an input it needs,
+# fails the test.
+# An account with no record for a test to read skips it either way.
+LIVE_STRICT = True
+
+
+def _live_ok(result):
+    status = helpers.to_int(result.get("status"))
+    return result.get("err") is None and bool(result.get("ok")) and 200 <= status < 300
+
+
 class TestMarsPhotoDirect:
 
     def test_should_direct_list_mars_photo(self):
@@ -18,21 +30,18 @@ class TestMarsPhotoDirect:
         ])
         _skip, _reason = runner.is_control_skipped("direct", "direct-list-mars_photo", "live" if setup["live"] else "unit")
         if _skip:
-            # pytest already imported at module scope
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
         if setup["live"]:
             for _live_key in ["rover01"]:
                 if setup["idmap"].get(_live_key) is None:
-                    # pytest already imported at module scope
-                    pytest.skip(f"live test needs {_live_key} via *_ENTID env var (synthetic IDs only)")
-                    return
+                    runner.live_miss(LIVE_STRICT, f"Live test blocked: needs {_live_key} via NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID")
 
         client = setup["client"]
 
         params = {}
         if setup["live"]:
-            params["rover_id"] = setup["idmap"]["rover01"]
+            params["rover_id"] = setup["idmap"].get("rover01")
         else:
             params["rover_id"] = "direct01"
 
@@ -42,19 +51,10 @@ class TestMarsPhotoDirect:
             "params": params,
         })
         if setup["live"]:
-            # Live mode is lenient: synthetic IDs frequently 4xx and the
-            # list-response shape varies wildly across public APIs. Skip
-            # rather than fail when the call doesn't return a usable list.
-            if result.get("err") is not None:
-                pytest.skip(f"list call failed (likely synthetic IDs against live API): {result.get('err')}")
-                return
-            if not result.get("ok"):
-                pytest.skip("list call not ok (likely synthetic IDs against live API)")
-                return
-            status = helpers.to_int(result["status"])
-            if status < 200 or status >= 300:
-                pytest.skip(f"expected 2xx status, got {status}")
-                return
+            if not _live_ok(result):
+                runner.live_miss(LIVE_STRICT, "Live list failed: " + runner.live_describe(result))
+            if runner.live_list(result.get("data")) is None:
+                runner.live_miss(LIVE_STRICT, "Live list returned no list: " + runner.live_describe(result))
         else:
             assert result["ok"] is True
             assert helpers.to_int(result["status"]) == 200
@@ -85,11 +85,12 @@ def _mars_photo_direct_setup(mockres):
             "apikey": env.get("NASA_OPEN_APIS_APIKEY"),
         })
         client = NasaOpenApisSDK(merged_opts)
+        idmap = env.get("NASA_OPEN_APIS_TEST_MARS_PHOTO_ENTID")
         return {
             "client": client,
             "calls": calls,
             "live": True,
-            "idmap": {},
+            "idmap": idmap if isinstance(idmap, dict) else {},
         }
 
     def mock_fetch(url, init):

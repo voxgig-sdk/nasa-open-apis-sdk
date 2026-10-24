@@ -20,7 +20,6 @@ export NASA_OPEN_APIS_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
 ./nasa-open-apis-cli list mars_photo
-./nasa-open-apis-cli list planetary
 
 # 5. Override the API base URL for a single call
 NASA_OPEN_APIS_BASE=https://api.example.com ./nasa-open-apis-cli list mars_photo

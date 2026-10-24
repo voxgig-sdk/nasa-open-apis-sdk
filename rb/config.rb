@@ -79,6 +79,7 @@ module NasaOpenApisConfig
           },
           "optspec" => {
             "clearTimer" => "`$FUNCTION`",
+            "now" => "`$FUNCTION`",
             "setTimer" => "`$FUNCTION`",
           },
           "strict" => false,
@@ -221,12 +222,14 @@ module NasaOpenApisConfig
                         "orig" => "camera",
                         "type" => "`$STRING`",
                         "kind" => "query",
+                        "field" => true,
                       },
                       {
                         "name" => "earth_date",
                         "orig" => "earth_date",
                         "type" => "`$STRING`",
                         "kind" => "query",
+                        "field" => true,
                       },
                       {
                         "name" => "page",
@@ -240,18 +243,19 @@ module NasaOpenApisConfig
                         "orig" => "sol",
                         "type" => "`$INTEGER`",
                         "kind" => "query",
+                        "field" => true,
                       },
                     ],
                   },
                   "select" => {
                     "exist" => [
                       "api_key",
-                      "camera",
-                      "earth_date",
-                      "page",
                       "rover_id",
-                      "sol",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -337,12 +341,11 @@ module NasaOpenApisConfig
                     "$action" => "apod",
                     "exist" => [
                       "api_key",
-                      "count",
-                      "date",
-                      "end_date",
-                      "start_date",
-                      "thumb",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],

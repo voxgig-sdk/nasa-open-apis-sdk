@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/nasa-open-apis-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -25,7 +25,7 @@ composer require voxgig-sdk/nasa-open-apis-sdk:@dev
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key as the `api_key` query parameter.
 
 ### 1. Create a client
 
@@ -43,7 +43,7 @@ $client = new NasaOpenApisSDK([
 ```php
 try {
     // list() returns entity instances; data_get() reads each record.
-    $marsphotos = $client->MarsPhoto()->list();
+    $marsphotos = $client->MarsPhoto()->list(["rover_id" => "example", "api_key" => "example"]);
     foreach ($marsphotos as $record) {
         $item = $record->data_get();
         echo $item["id"] . " " . $item["camera"] . "\n";
@@ -61,7 +61,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $marsphotos = $client->MarsPhoto()->list();
+    $planetary = $client->Planetary()->load(["api_key" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -133,10 +133,10 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = NasaOpenApisSDK::test();
 
-// list() returns entity instances (throws on error);
+// Entity ops return the ENTITY (throws on error);
 // call data_get() for the mock record.
-$marsphoto = $client->MarsPhoto()->list();
-print_r(array_map(fn($item) => $item->data_get(), $marsphoto));
+$planetary = $client->Planetary()->load(["api_key" => "example"]);
+print_r($planetary->data_get());
 ```
 
 ### Use a custom fetch function
@@ -226,8 +226,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
+| `load` | `($reqmatch, $ctrl): mixed` | Load a single entity by match criteria, and return it. |
+| `list` | `(?array $reqmatch = null, $ctrl): mixed` | List entities matching the criteria (call with no argument to list all), one per record. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -237,9 +237,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -308,8 +308,8 @@ Create an instance: `$mars_photo = $client->MarsPhoto();`
 #### Example: List
 
 ```php
-// list() returns an array of MarsPhoto records (throws on error).
-$mars_photos = $client->MarsPhoto()->list();
+// list() returns an array of MarsPhoto entities, one per record (throws on error).
+$mars_photos = $client->MarsPhoto()->list(["rover_id" => "example", "api_key" => "example"]);
 ```
 
 
@@ -488,15 +488,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$marsphoto = $client->MarsPhoto();
-$marsphoto->list();
+$planetary = $client->Planetary();
+$planetary->load(["api_key" => "example"]);
 
-// $marsphoto->data_get() now returns the marsphoto data from the last list
-// $marsphoto->match_get() returns the last match criteria
+// $planetary->data_get() now returns the planetary data from the last load
+// $planetary->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

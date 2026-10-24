@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -213,12 +214,14 @@ func MakeConfig() map[string]any {
 											"orig": "camera",
 											"type": "`$STRING`",
 											"kind": "query",
+											"field": true,
 										},
 										map[string]any{
 											"name": "earth_date",
 											"orig": "earth_date",
 											"type": "`$STRING`",
 											"kind": "query",
+											"field": true,
 										},
 										map[string]any{
 											"name": "page",
@@ -232,18 +235,19 @@ func MakeConfig() map[string]any {
 											"orig": "sol",
 											"type": "`$INTEGER`",
 											"kind": "query",
+											"field": true,
 										},
 									},
 								},
 								"select": map[string]any{
 									"exist": []any{
 										"api_key",
-										"camera",
-										"earth_date",
-										"page",
 										"rover_id",
-										"sol",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -329,12 +333,11 @@ func MakeConfig() map[string]any {
 									"$action": "apod",
 									"exist": []any{
 										"api_key",
-										"count",
-										"date",
-										"end_date",
-										"start_date",
-										"thumb",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},

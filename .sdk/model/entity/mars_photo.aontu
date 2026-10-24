@@ -120,17 +120,17 @@ main: kit: entity: mars_photo: {
           q: {
             exist: [
               "api_key"
-              "camera"
-              "earth_date"
-              "page"
               "rover_id"
-              "sol"
             ]
           }
           r: {
             param: {
               rover: "rover_id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

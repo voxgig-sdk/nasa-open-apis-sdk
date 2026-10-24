@@ -96,6 +96,7 @@ def make_config():
         },
         "optspec": {
           "clearTimer": "`$FUNCTION`",
+          "now": "`$FUNCTION`",
           "setTimer": "`$FUNCTION`",
         },
         "strict": False,
@@ -238,12 +239,14 @@ def make_config():
                       "orig": "camera",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                     {
                       "name": "earth_date",
                       "orig": "earth_date",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                     {
                       "name": "page",
@@ -257,18 +260,19 @@ def make_config():
                       "orig": "sol",
                       "type": "`$INTEGER`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
                 "select": {
                   "exist": [
                     "api_key",
-                    "camera",
-                    "earth_date",
-                    "page",
                     "rover_id",
-                    "sol",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -354,12 +358,11 @@ def make_config():
                   "$action": "apod",
                   "exist": [
                     "api_key",
-                    "count",
-                    "date",
-                    "end_date",
-                    "start_date",
-                    "thumb",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],

@@ -9,13 +9,24 @@ from nasaopenapis_sdk.core import helpers
 from test import runner
 
 
+# main.kit.test.live.strict is true (the default is true): a live
+# request that fails, or a live test missing an input it needs,
+# fails the test.
+# An account with no record for a test to read skips it either way.
+LIVE_STRICT = True
+
+
+def _live_ok(result):
+    status = helpers.to_int(result.get("status"))
+    return result.get("err") is None and bool(result.get("ok")) and 200 <= status < 300
+
+
 class TestPlanetaryDirect:
 
     def test_should_direct_load_planetary(self):
         setup = _planetary_direct_setup({"id": "direct01"})
         _skip, _reason = runner.is_control_skipped("direct", "direct-load-planetary", "live" if setup["live"] else "unit")
         if _skip:
-            # pytest already imported at module scope
             pytest.skip(_reason or "skipped via sdk-test-control.json")
             return
         client = setup["client"]
@@ -24,6 +35,9 @@ class TestPlanetaryDirect:
         query = {}
         if setup["live"]:
             query["api_key"] = "DEMO_KEY"
+            pass
+        else:
+            pass
 
         result = client.direct({
             "path": "planetary/apod",
@@ -32,19 +46,10 @@ class TestPlanetaryDirect:
             "query": query,
         })
         if setup["live"]:
-            # Live mode is lenient: synthetic IDs frequently 4xx. Skip
-            # rather than fail when the load endpoint isn't reachable
-            # with the IDs we can construct from setup.idmap.
-            if result.get("err") is not None:
-                pytest.skip(f"load call failed (likely synthetic IDs against live API): {result.get('err')}")
-                return
-            if not result.get("ok"):
-                pytest.skip("load call not ok (likely synthetic IDs against live API)")
-                return
-            status = helpers.to_int(result["status"])
-            if status < 200 or status >= 300:
-                pytest.skip(f"expected 2xx status, got {status}")
-                return
+            if not _live_ok(result):
+                runner.live_miss(LIVE_STRICT, "Live load failed: " + runner.live_describe(result))
+            if result.get("data") is None:
+                runner.live_miss(LIVE_STRICT, "Live load returned no data: " + runner.live_describe(result))
         else:
             assert result["ok"] is True
             assert helpers.to_int(result["status"]) == 200
@@ -76,11 +81,12 @@ def _planetary_direct_setup(mockres):
             "apikey": env.get("NASA_OPEN_APIS_APIKEY"),
         })
         client = NasaOpenApisSDK(merged_opts)
+        idmap = env.get("NASA_OPEN_APIS_TEST_PLANETARY_ENTID")
         return {
             "client": client,
             "calls": calls,
             "live": True,
-            "idmap": {},
+            "idmap": idmap if isinstance(idmap, dict) else {},
         }
 
     def mock_fetch(url, init):

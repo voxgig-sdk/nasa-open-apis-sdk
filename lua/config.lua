@@ -67,6 +67,7 @@ local function make_config()
         },
         ["optspec"] = {
           ["clearTimer"] = "`$FUNCTION`",
+          ["now"] = "`$FUNCTION`",
           ["setTimer"] = "`$FUNCTION`",
         },
         ["strict"] = false,
@@ -209,12 +210,14 @@ local function make_config()
                       ["orig"] = "camera",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
+                      ["field"] = true,
                     },
                     {
                       ["name"] = "earth_date",
                       ["orig"] = "earth_date",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
+                      ["field"] = true,
                     },
                     {
                       ["name"] = "page",
@@ -228,18 +231,19 @@ local function make_config()
                       ["orig"] = "sol",
                       ["type"] = "`$INTEGER`",
                       ["kind"] = "query",
+                      ["field"] = true,
                     },
                   },
                 },
                 ["select"] = {
                   ["exist"] = {
                     "api_key",
-                    "camera",
-                    "earth_date",
-                    "page",
                     "rover_id",
-                    "sol",
                   },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
                 },
               },
             },
@@ -325,12 +329,11 @@ local function make_config()
                   ["$action"] = "apod",
                   ["exist"] = {
                     "api_key",
-                    "count",
-                    "date",
-                    "end_date",
-                    "start_date",
-                    "thumb",
                   },
+                },
+                ["response"] = {
+                  ["kind"] = "json",
+                  ["media"] = "application/json",
                 },
               },
             },

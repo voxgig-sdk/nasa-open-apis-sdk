@@ -3,5 +3,18 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "API key for NASA Open APIs. Register at https://api.nasa.gov to get your key, or use `DEMO_KEY` for limited testing.",
+      "Earth date when the photo was taken",
+      "Martian sol when the photo was taken",
+      "NASA Open APIs Production Server",
+      "Successful response with APOD data",
+      "Successful response with Mars rover photos",
+      "The NASA Open APIs provide developers with easy access to a wide range of NASA data, including imagery and scientific information. These APIs are designed to enhance the usability of NASA&#39;s dataset for developers, educators, and researchers.",
+      "URL of the image",
+      "Unique identifier for the photo"
+    ]
+  }
 }

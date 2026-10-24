@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/nasa-open-apis-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/nasa-open-apis-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -29,7 +29,7 @@ gem "voxgig-sdk-nasa-open-apis-sdk", path: "./nasa-open-apis-sdk/rb"
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key as the `api_key` query parameter.
 
 ### 1. Create a client
 
@@ -45,10 +45,11 @@ client = NasaOpenApisSDK.new({
 
 ```ruby
 begin
-  # list returns an Array of MarsPhoto records — iterate directly.
-  marsphotos = client.MarsPhoto.list
+  # list returns an Array of MarsPhoto entities, one per record; data_get reads the record.
+  marsphotos = client.MarsPhoto.list({ "rover_id" => "example", "api_key" => "example" })
   marsphotos.each do |item|
-    puts "#{item["id"]} #{item["camera"]}"
+    record = item.data_get
+    puts "#{record["id"]} #{record["camera"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -62,9 +63,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  marsphotos = client.MarsPhoto.list()
+  planetary = client.Planetary.load({ "api_key" => "example" })
 rescue => err
-  warn "list failed: #{err}"
+  warn "load failed: #{err}"
 end
 ```
 
@@ -131,9 +132,9 @@ Create a mock client for unit testing — no server required:
 client = NasaOpenApisSDK.test
 
 # Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-marsphoto = client.MarsPhoto.list()
-puts marsphoto
+# data_get reads its mock record.
+planetary = client.Planetary.load({ "api_key" => "example" })
+puts planetary.data_get
 ```
 
 ### Use a custom fetch function
@@ -220,8 +221,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -231,9 +232,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `NasaOpenApisError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`NasaOpenApisError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -301,8 +303,9 @@ Create an instance: `mars_photo = client.MarsPhoto`
 #### Example: List
 
 ```ruby
-# list returns an Array of MarsPhoto records (raises on error).
-mars_photos = client.MarsPhoto.list
+# list returns an Array of MarsPhoto entities, one per record (raises on error).
+mars_photos = client.MarsPhoto.list({ "rover_id" => "example", "api_key" => "example" })
+mars_photos.each { |item| puts item.data_get }
 ```
 
 
@@ -481,15 +484,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-marsphoto = client.MarsPhoto
-marsphoto.list()
+planetary = client.Planetary
+planetary.load({ "api_key" => "example" })
 
-# marsphoto.data_get now returns the marsphoto data from the last list
-# marsphoto.match_get returns the last match criteria
+# planetary.data_get now returns the planetary data from the last load
+# planetary.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

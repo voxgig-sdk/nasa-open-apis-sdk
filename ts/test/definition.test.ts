@@ -25,16 +25,42 @@ const PLAN: any[] = [
       "api_key": "v1",
       "camera": "v1",
       "earth_date": "v1",
-      "page": "v1",
+      "page": 1,
       "sol": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "api_key",
       "sol",
       "earth_date",
       "camera",
       "page"
+    ],
+    "queryArgs": [
+      {
+        "name": "api_key",
+        "wire": "api_key"
+      },
+      {
+        "name": "camera",
+        "wire": "camera"
+      },
+      {
+        "name": "earth_date",
+        "wire": "earth_date"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "sol",
+        "wire": "sol"
+      }
     ],
     "auth": [
       [
@@ -48,36 +74,37 @@ const PLAN: any[] = [
     "sample": {
       "photos": [
         {
+          "id": 1,
+          "sol": 1,
           "camera": {
-            "full_name": "x",
             "id": 1,
             "name": "x",
-            "rover_id": 1
+            "rover_id": 1,
+            "full_name": "x"
           },
-          "earth_date": "2026-01-01",
-          "id": 1,
           "img_src": "x",
+          "earth_date": "2026-01-01",
           "rover": {
-            "cameras": [
-              {
-                "full_name": "x",
-                "name": "x"
-              }
-            ],
             "id": 1,
+            "name": "x",
             "landing_date": "2026-01-01",
             "launch_date": "2026-01-01",
-            "max_date": "2026-01-01",
-            "max_sol": 1,
-            "name": "x",
             "status": "active",
-            "total_photos": 1
-          },
-          "sol": 1
+            "max_sol": 1,
+            "max_date": "2026-01-01",
+            "total_photos": 1,
+            "cameras": [
+              {
+                "name": "x",
+                "full_name": "x"
+              }
+            ]
+          }
         }
       ]
     },
-    "idField": "id"
+    "idField": "id",
+    "ownQuery": "api_key"
   },
   {
     "entity": "planetary",
@@ -96,6 +123,10 @@ const PLAN: any[] = [
       "thumb": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "api_key",
       "date",
@@ -103,6 +134,32 @@ const PLAN: any[] = [
       "end_date",
       "count",
       "thumbs"
+    ],
+    "queryArgs": [
+      {
+        "name": "api_key",
+        "wire": "api_key"
+      },
+      {
+        "name": "count",
+        "wire": "count"
+      },
+      {
+        "name": "date",
+        "wire": "date"
+      },
+      {
+        "name": "end_date",
+        "wire": "end_date"
+      },
+      {
+        "name": "start_date",
+        "wire": "start_date"
+      },
+      {
+        "name": "thumb",
+        "wire": "thumbs"
+      }
     ],
     "auth": [
       [
@@ -124,7 +181,8 @@ const PLAN: any[] = [
       "url": "x",
       "thumbnail_url": "x"
     },
-    "idField": "id"
+    "idField": "id",
+    "ownQuery": "api_key"
   }
 ]
 

@@ -46,7 +46,7 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 
 The default credential is sent in the `api_key` query.
 
-API key for NASA Open APIs. Register at https://api.nasa.gov to get your key, or use DEMO_KEY for limited testing.
+API key for NASA Open APIs. Register at https://api.nasa.gov to get your key, or use `DEMO_KEY` for limited testing.
 
 Check authentication for the route you plan to call. A route that declares no authentication can be used without credentials; this does not change the requirements of other routes. Keep credentials in environment variables or a configured secret provider, and keep them out of source control and logs.
 

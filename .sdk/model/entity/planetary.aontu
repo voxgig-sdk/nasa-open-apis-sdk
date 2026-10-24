@@ -69,12 +69,11 @@ main: kit: entity: planetary: {
             "$action": "apod"
             exist: [
               "api_key"
-              "count"
-              "date"
-              "end_date"
-              "start_date"
-              "thumb"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

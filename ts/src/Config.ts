@@ -102,6 +102,7 @@ class Config {
       },
       "optspec": {
         "clearTimer": "`$FUNCTION`",
+        "now": "`$FUNCTION`",
         "setTimer": "`$FUNCTION`"
       },
       "strict": false,
@@ -256,13 +257,15 @@ class Config {
                     "name": "camera",
                     "orig": "camera",
                     "type": "`$STRING`",
-                    "kind": "query"
+                    "kind": "query",
+                    "field": true
                   },
                   {
                     "name": "earth_date",
                     "orig": "earth_date",
                     "type": "`$STRING`",
-                    "kind": "query"
+                    "kind": "query",
+                    "field": true
                   },
                   {
                     "name": "page",
@@ -275,19 +278,20 @@ class Config {
                     "name": "sol",
                     "orig": "sol",
                     "type": "`$INTEGER`",
-                    "kind": "query"
+                    "kind": "query",
+                    "field": true
                   }
                 ]
               },
               "select": {
                 "exist": [
                   "api_key",
-                  "camera",
-                  "earth_date",
-                  "page",
-                  "rover_id",
-                  "sol"
+                  "rover_id"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -372,13 +376,12 @@ class Config {
               "select": {
                 "$action": "apod",
                 "exist": [
-                  "api_key",
-                  "count",
-                  "date",
-                  "end_date",
-                  "start_date",
-                  "thumb"
+                  "api_key"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
